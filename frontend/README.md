@@ -4,7 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the frontend project directory, you can run:
+
+### `npm ci`
+it installs all dependencies for the project. To be able to npm ci you need to have node and npm installed.
+npm ci in the frontend project directory.
 
 ### `npm start`
 
