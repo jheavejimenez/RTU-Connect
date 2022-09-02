@@ -9,10 +9,10 @@ function RightSide() {
     return (
         <div className="RightSide">
             <div className="navIcons">
-                <img src="frontend/src/components/RightSide/RightSide" alt=""/>
+                <img src="" alt=""/>
                 {/*<UilSetting/>*/}
-                <img src="frontend/src/components/RightSide/RightSide" alt=""/>
-                <img src="frontend/src/components/RightSide/RightSide" alt=""/>
+                <img src="" alt=""/>
+                <img src="" alt=""/>
             </div>
 
             <TrendCard/>
