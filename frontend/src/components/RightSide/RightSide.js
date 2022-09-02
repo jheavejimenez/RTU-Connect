@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "./RightSide.css";
+import "./RightSide.css"
 import TrendCard from "../TrendCard/TrendCard";
 import ShareModal from "../ShareModal/ShareModal";
 
