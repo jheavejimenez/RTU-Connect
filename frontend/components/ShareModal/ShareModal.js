@@ -1,5 +1,5 @@
 import { Modal, useMantineTheme } from "@mantine/core";
-import PostShare from "../PostShare/PostShare";
+// import PostShare from "../PostShare/PostShare";
 
 function ShareModal({ modalOpened, setModalOpened }) {
     const theme = useMantineTheme();
@@ -17,7 +17,7 @@ function ShareModal({ modalOpened, setModalOpened }) {
             opened={modalOpened}
             onClose={() => setModalOpened(false)}
         >
-            <PostShare/>
+            {/*<PostShare/>*/}
         </Modal>
     );
 }
