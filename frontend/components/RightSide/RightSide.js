@@ -10,7 +10,7 @@ function RightSide() {
         <div className="RightSide">
             <div className="navIcons">
                 <img src="" alt=""/>
-                <UilSetting/>
+                {/*<UilSetting/>*/}
                 <img src="" alt=""/>
                 <img src="" alt=""/>
             </div>
