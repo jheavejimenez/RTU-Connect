@@ -1,6 +1,6 @@
 import React from 'react'
 import RightSide from '../components/RightSide/RightSide'
-// import './Home.css'
+import "../index.css"
 
 const Home = () => {
     return (
