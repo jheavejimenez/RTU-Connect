@@ -1,5 +1,5 @@
 import React from 'react'
-import './TrendCard.css'
+// import './TrendCard.css'
 
 function TrendCard() {
     return (

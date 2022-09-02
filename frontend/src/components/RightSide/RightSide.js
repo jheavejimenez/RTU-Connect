@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "./RightSide.css";
+// import "./RightSide.css";
 import TrendCard from "../TrendCard/TrendCard";
 import ShareModal from "../ShareModal/ShareModal";
 
@@ -9,10 +9,10 @@ function RightSide() {
     return (
         <div className="RightSide">
             <div className="navIcons">
-                <img src="" alt=""/>
+                <img src="frontend/src/components/RightSide/RightSide" alt=""/>
                 {/*<UilSetting/>*/}
-                <img src="" alt=""/>
-                <img src="" alt=""/>
+                <img src="frontend/src/components/RightSide/RightSide" alt=""/>
+                <img src="frontend/src/components/RightSide/RightSide" alt=""/>
             </div>
 
             <TrendCard/>
