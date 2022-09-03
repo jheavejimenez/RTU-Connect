@@ -3,7 +3,7 @@ import React from 'react'
 // import ProfileCard from '../../components/ProfileCard.jsx/ProfileCard'
 // import ProfileLeft from '../../components/ProfileLeft/ProfileLeft'
 import RightSide from '../components/RightSide/RightSide'
-import '../index.css'
+import './index.css'
 function Profile() {
 
     return (
