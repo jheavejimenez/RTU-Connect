@@ -1,10 +1,4 @@
 import React, { useState, useRef } from "react";
-// import { UilScenery } from "@iconscout/react-unicons";
-// import { UilPlayCircle } from "@iconscout/react-unicons";
-// import { UilLocationPoint } from "@iconscout/react-unicons";
-// import { UilSchedule } from "@iconscout/react-unicons";
-// import { UilTimes } from "@iconscout/react-unicons";
-
 
 function PostShare() {
   const [image, setImage] = useState(null);
@@ -20,13 +14,11 @@ function PostShare() {
   };
   return (
     <div className="PostShare">
-      <img src={ProfileImage} alt="" />
+      <img src="" alt="" />
       <div>
         <input type="text" placeholder="What's happening" />
         <div className="postOptions">
-          <div className="option" style={{ color: "var(--photo)" }}
-          onClick={()=>imageRef.current.click()}
-          >
+          <div className="option" style={{ color: "var(--photo)" }}>
             <UilScenery />
             Photo
           </div>

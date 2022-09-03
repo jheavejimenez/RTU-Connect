@@ -1,5 +1,4 @@
 import React from 'react'
-import './FollowersCard.css'
 
 function FollowersCard() {
   return (
