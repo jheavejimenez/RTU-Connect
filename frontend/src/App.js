@@ -1,10 +1,10 @@
 import Home from "./pages/Home"
 import "./index.css"
-import Button from "./components/Button/Button";
-
+import Login from "./pages/Login"
 function App() {
   return (
-    <Home/>
+    // <Home/>
+    <Login/>
   );
 }
 
