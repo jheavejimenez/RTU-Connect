@@ -1,12 +1,11 @@
-import Home from "./pages/Home"
 import "./index.css"
+import Login from "./pages/Login"
 
 function App() {
-  return (
-      <div>
-          <Home />
-      </div>
-  );
+    return (
+        // <Home/>
+        <Login/>
+    );
 }
 
 export default App;
