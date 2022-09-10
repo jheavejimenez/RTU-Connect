@@ -5,8 +5,6 @@ import Video from '../../icons/video-icon.png'
 import Logo from '../../icons/rtu-icon.png'
 import Profile from '../../icons/profile-icon.png'
 
-
-
 function NavBar() {
     return (
         <div className="NavBar">
