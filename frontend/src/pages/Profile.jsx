@@ -4,6 +4,7 @@ import React from 'react'
 // import ProfileLeft from '../../components/ProfileLeft/ProfileLeft'
 import RightSide from '../components/RightSide/RightSide'
 import './index.css'
+
 function Profile() {
 
     return (

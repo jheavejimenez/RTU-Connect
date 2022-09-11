@@ -1,4 +1,4 @@
-import { Modal, useMantineTheme } from "@mantine/core";
+import {Modal, useMantineTheme} from "@mantine/core";
 
 function ProfileModal({ modalOpened, setModalOpened }) {
   const theme = useMantineTheme();

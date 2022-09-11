@@ -1,4 +1,5 @@
-import { Modal, useMantineTheme } from "@mantine/core";
+import {Modal, useMantineTheme} from "@mantine/core";
+
 // import PostShare from "../PostShare/PostShare";
 
 function ShareModal({ modalOpened, setModalOpened }) {

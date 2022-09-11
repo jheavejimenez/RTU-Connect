@@ -1,14 +1,11 @@
 import React from "react";
 import Button from "../components/Button/Button";
-import {useNavigate} from "react-router-dom";
 
 function Login() {
-    const navigate= useNavigate();
-
     return (
         <div className={"container mx-auto"}>
             <div className={"flex justify-center px-6 my-12"}>
-                <div className={"w-full xl:w-3/4 lg:w-11/12 flex"}  >
+                <div className={"w-full xl:w-3/4 lg:w-11/12 flex"}>
                     <div
                         className={"w-full h-auto hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"}
                         style={{backgroundImage: `url(${require("../images/rtu.jpg")})`}}
@@ -18,7 +15,7 @@ function Login() {
                             <img className={"mx-auto"} src={require("../images/RTULogo.png")}/>
                         </div>
                         <div className={"m-6 px-20 text-center"}>
-                           <Button text="Login"/>
+                            <Button text="Login" path={"/Home"}/>
                         </div>
                         <hr className={"mb-6 border-t"}/>
                         <div className={"text-center m-4"}>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, {useRef, useState} from "react";
 
 function PostShare() {
   const [image, setImage] = useState(null);

@@ -1,7 +1,6 @@
 import React from 'react'
-import NavBar from '../components/NavBar/NavBar'
-import RightSide from '../components/RightSide/RightSide'
 import "../index.css"
+import NavBar from "../components/NavBar/NavBar";
 
 function Home() {
     return (
