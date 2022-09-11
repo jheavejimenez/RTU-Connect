@@ -1,7 +1,10 @@
 import React from "react";
 import Button from "../components/Button/Button";
+import {useNavigate} from "react-router-dom";
 
 function Login() {
+    const navigate= useNavigate();
+
     return (
         <div className={"container mx-auto"}>
             <div className={"flex justify-center px-6 my-12"}>
