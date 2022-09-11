@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 
 function InfoCard() {
@@ -44,6 +44,6 @@ function InfoCard() {
       <button className="button logout-button">Logout</button>
     </div>*/}
   ); 
-}; 
+}
 
 export default InfoCard;
