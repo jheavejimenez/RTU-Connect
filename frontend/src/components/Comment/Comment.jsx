@@ -1,5 +1,7 @@
 import React from 'react'
 import Button from '../Button/Button'
+import Profile from '../../icons/profile-icon.png'
+
 
 function Comment() {
     return (
@@ -8,7 +10,7 @@ function Comment() {
                 <div className="flex flex-col">
                     <div className="p-5 bg-white mt-5 rounded-t-2xl shadow-sm">
                         <div className="flex items-center space-x-2">
-                            <img className="rounded-full" width={40} height={40} alt=""src="./saheel.jpg"/>
+                            <img className="rounded-full" width={40} height={40} alt=""src={Profile}/>
                             <div>
                                 <p>Saheel</p>
                                 <p className="text-xs text-gray-400">9th Feb 2022</p>
