@@ -57,6 +57,6 @@ function PostShare() {
       </div>
     </div>
   );
-};
+}
 
 export default PostShare;

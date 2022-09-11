@@ -43,6 +43,6 @@ function ProfileCard () {
       {/* {ProfilePage ? "" : <span>My Profile</span>} */}
     </div>
   );
-};
+}
 
 export default ProfileCard;

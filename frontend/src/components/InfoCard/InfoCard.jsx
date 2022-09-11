@@ -44,6 +44,6 @@ function InfoCard() {
       <button className="button logout-button">Logout</button>
     </div>*/}
   ); 
-}; 
+}
 
 export default InfoCard;
