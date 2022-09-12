@@ -7,8 +7,8 @@ import Profile from '../../icons/profile-icon.png'
 
 function NavBar() {
     return (
-        <div className="NavBar">
-            <nav className="sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 shadow-md">
+        <div className={"NavBar"}>
+            <nav className={"sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 shadow-md"}>
                 <div className="flex justify-center flex-grow">
                     <a href="https://flowbite.com/" className="flex items-center">
                         <img src={Logo} width={40} height={40} style={{ layout: "fixed" }} />
@@ -29,14 +29,14 @@ function NavBar() {
                                 <img src={Video} width={22} height={22} />
                             </section>
 
-                
+
                         </div>
                     </div>
                     <div className="flex items-center sm:space-2 justify-end">
                         <img src={Profile} width={40} height={40}  style={{ layout: "fixed" }} />
                     </div>
-                   
-                    
+
+
                 </div>
             </nav>
         </div>

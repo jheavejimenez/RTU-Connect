@@ -3,21 +3,17 @@ import Button from "../components/Button/Button";
 
 function Login() {
     return (
-        <div className={"container mx-auto"}>
-            <div className={"flex justify-center px-6 my-12"}>
-                <div className={"w-full xl:w-3/4 lg:w-11/12 flex"}>
-                    <div
-                        className={"w-full h-auto hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"}
-                        style={{backgroundImage: `url(${require("../images/rtu.jpg")})`}}
-                    ></div>
-                    <div className={"w-full bg-white p-5 mb-20 rounded-lg lg:rounded-l-none"}>
-                        <div className={"px-8 pt-6 pb-8 mb-4"}>
+        <div className={"container flex items-center justify-center mx-auto h-screen"}>
+            <div className={"flex w-full justify-center px-6"}>
+                <div className={"shadow-md items-center w-full flex"} style={{height: "500px"}}>
+                    <div className={"w-1/2 bg-white p-5 rounded-lg lg:rounded-r-none"}>
+                        <div className={"px-8 pb-8 mb-8"}>
                             <img className={"mx-auto"} src={require("../images/RTULogo.png")}/>
                         </div>
-                        <div className={"m-6 px-20 text-center"}>
+                        <div className={"text-center"}>
                             <Button text="Login" path={"/Home"}/>
                         </div>
-                        <hr className={"mb-6 border-t"}/>
+                        <hr className={"my-6"}/>
                         <div className={"text-center m-4"}>
                             <a
                                 className={"inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"}
@@ -26,6 +22,10 @@ function Login() {
                             </a>
                         </div>
                     </div>
+                     <div
+                        className={"w-1/2 h-full bg-cover rounded-r-lg"}
+                        style={{backgroundImage: `url(${require("../images/rtu.jpg")})`}}
+                    ></div>
                 </div>
             </div>
         </div>
