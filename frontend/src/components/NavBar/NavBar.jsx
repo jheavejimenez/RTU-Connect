@@ -8,19 +8,21 @@ function NavBar() {
             <nav className={"sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 shadow-md"}>
                 <div className={"flex justify-between mx-10 items-center w-full"}>
                     <div className={"flex items-center"}>
-                        <a href="https://flowbite.com/" className={"mr-3"}>
+                        <a href={"/home"} className={"mr-3"}>
                             <img src={Logo} width={40} height={40} style={{layout: "fixed"}}/>
                         </a>
-                        <div className="flex ml-2 items-center rounded-full bg-gray-100 p-2">
-                            <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
+                        <div className={"flex ml-2 items-center rounded-full bg-gray-100 p-2"}>
+                            <button className={"outline-none focus:outline-none"}>
+                                <svg className={"w-5 text-gray-600 h-5 cursor-pointer"} fill="none"
+                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
                             <input
-                                className={"hidden md:inline-flex flex ml-2 items-center bg-transparent outline-none placeholder-gray-500 flex-shrink"}
-                                placeholder="Search Facebook"
+                                className={"w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent"}
+                                placeholder={"Search"}
+                                type={"search"}
                             />
                         </div>
                     </div>
@@ -53,7 +55,7 @@ function NavBar() {
                             </span>
                         </li>
                     </ul>
-                    <div className="flex items-center sm:space-2 justify-end">
+                    <div className={"flex items-center sm:space-2 justify-end"}>
                         <img src={Profile} width={40} height={40} style={{layout: "fixed"}}/>
                     </div>
 
