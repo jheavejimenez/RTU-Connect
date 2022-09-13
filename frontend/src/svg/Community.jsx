@@ -3,7 +3,7 @@ import React from "react";
 const SVGCommunity = (props) => (
     <svg
         viewBox="0 0 28 28"
-        fill="currentColor"
+        fill={"currentColor"}
         height={28}
         width={28}
         {...props}
