@@ -3,7 +3,6 @@ import React from "react";
 const SVGHome = (props) => (
     <svg
         viewBox="0 0 28 28"
-        className="b6ax4al1 m4pnbp5e somyomsx ahndzqod gnhxmgs4"
         fill="currentColor"
         height={28}
         width={28}
