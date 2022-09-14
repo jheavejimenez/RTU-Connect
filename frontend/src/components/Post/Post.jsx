@@ -1,62 +1,115 @@
 import React from 'react'
 import Profile from '../../icons/profile-icon.png'
+import SVGComment from '../../svg/Comment'
+import SVGShare from '../../svg/Share'
+import SVGLike from '../../svg/Like'
+
+
+
 function Post() {
   return (
-      <div className="mx-auto shadow-md bg-white text-gray-400 rounded-md mb-14 w-2/5  ">
-        
-            <div className="flex flex-col">
-                <div className="p-5 bg-white mt-5 rounded-t-2xl shadow-sm">
-                    <div className="flex flex-row-reverse space-x-4 space-x-reverse">
-                        <svg fill="currentColor" viewBox="0 0 20 20" width="1em" height="1em" ><g fill-rule="evenodd" transform="translate(-446 -350)"><path d="M458 360a2 2 0 1 1-4 0 2 2 0 0 1 4 0m6 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0m-12 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0"></path></g></svg>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <img
-                            className="rounded-full"
-                            width={40}
-                            height={40}
-                            alt=""
-                            src={Profile}
-                        />
-                        <div>
-                            <p>Saheel</p>
-                            <p className="text-xs text-gray-400">9th Feb 2022</p>
-                            
+    <>
+      <div class="mx-auto shadow-md bg-white font-bold rounded-md mb-14 w-2/5">
+            <div class="flex flex-row px-2 py-3 mx-3">
+                <div class="w-auto h-auto rounded-full">
+                    <img class="w-12 h-12 object-cover rounded-full shadow cursor-pointer" alt="User avatar" src={Profile}/>
+                </div>
+                <div class="flex flex-col mb-2 ml-4 mt-1">
+                    <div class="text-gray-600 text-sm font-semibold">John Doe</div>
+                    <div class="flex w-full mt-1">
+                        <div class="text-blue-700 font-base text-xs mr-1 cursor-pointer">
+                            SEO
+                        </div> 
+                        <div class="text-gray-400 font-thin text-xs">
+                            • 30 seconds ago
                         </div>
-                        
-                    </div>
-                    
-                    <p className="pt-4">Lets Meet Soon!</p>
-                    
-
-                </div>
-                <div className="relative h-56 w-30 md:96 bg-white">
-                    <img src="" style={{ objectFit: "cover" }} />
-                </div>
-                {/* Footer section of post */}
-                <div className="flex justify-between items-center rounded-b-2xl shadow-md bg-white text-gray-400 border-t">
-                    <div className="inputIcon rounded-none rounded-bl-2xl">
-                        <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M21.875 0.5H3.125C1.40137 0.5 0 1.90137 0 3.625V17.6875C0 19.4111 1.40137 20.8125 3.125 20.8125H7.8125V24.9141C7.8125 25.3926 8.35938 25.6709 8.74512 25.3877L14.8438 20.8125H21.875C23.5986 20.8125 25 19.4111 25 17.6875V3.625C25 1.90137 23.5986 0.5 21.875 0.5Z" fill="#C3C3C3"/>
-                        </svg>
-                    </div>
-                    <div className="inputIcon rounded-none">
-                        <svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M24.5943 8.20683L16.0003 0.785689C15.2481 0.13603 14.0625 0.663423 14.0625 1.6726V5.58144C6.21929 5.67124 0 7.24316 0 14.6761C0 17.6761 1.93267 20.6482 4.06899 22.202C4.73564 22.687 5.68574 22.0784 5.43994 21.2923C3.22588 14.2116 6.49009 12.3318 14.0625 12.2229V16.5156C14.0625 17.5264 15.249 18.0514 16.0003 17.4025L24.5943 9.98066C25.1349 9.51377 25.1356 8.67436 24.5943 8.20683Z" fill="#C3C3C3"/>
-                        </svg>
-                    </div>
-                    <div className="inputIcon rounded-none rounded-br-2xl">
-                        <svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22.5738 1.99576C19.8981 -0.284512 15.9186 0.125644 13.4625 2.65982L12.5006 3.65104L11.5387 2.65982C9.08751 0.125644 5.10314 -0.284512 2.42736 1.99576C-0.639049 4.61295 -0.800182 9.31021 1.94396 12.1471L11.3922 21.903C12.0026 22.5329 12.9938 22.5329 13.6041 21.903L23.0524 12.1471C25.8014 9.31021 25.6402 4.61295 22.5738 1.99576Z" fill="#C3C3C3"/>
-                        </svg>
-                    </div>
-                    <div className="inputIcon rounded-none rounded-br-2xl">
-                        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15.625 22.375V24.3281C15.625 24.9753 15.1003 25.5 14.4531 25.5H1.17188C0.524658 25.5 0 24.9753 0 24.3281V6.35938C0 5.71216 0.524658 5.1875 1.17188 5.1875H4.6875V19.6406C4.6875 21.1484 5.91411 22.375 7.42188 22.375H15.625ZM15.625 5.57812V0.5H7.42188C6.77466 0.5 6.25 1.02466 6.25 1.67188V19.6406C6.25 20.2878 6.77466 20.8125 7.42188 20.8125H20.7031C21.3503 20.8125 21.875 20.2878 21.875 19.6406V6.75H16.7969C16.1523 6.75 15.625 6.22266 15.625 5.57812ZM21.5318 4.06304L18.312 0.843213C18.0922 0.623458 17.7941 0.500002 17.4833 0.5L17.1875 0.5V5.1875H21.875V4.89165C21.875 4.58086 21.7515 4.2828 21.5318 4.06304Z" fill="#C3C3C3"/>
-                        </svg>
                     </div>
                 </div>
             </div>
+            <div class="border-b border-gray-100"></div> 
+            <div class="text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2">
+                <div class="grid grid-cols-6 col-span-2   gap-2  ">
+                    <div class=" overflow-hidden rounded-xl col-span-3 max-h-[14rem]">
+                        <img class="h-full w-full object-cover " src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=735&amp;q=80" alt=""/>
+                    </div>
+                    <div class=" overflow-hidden rounded-xl col-span-3 max-h-[14rem]">
+                        <img class="h-full w-full object-cover  " src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1399&amp;q=80" alt=""/>
+                    </div>
+                    <div class=" overflow-hidden rounded-xl col-span-2 max-h-[10rem]">
+                        <img class="h-full w-full object-cover " src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80" alt=""/>
+                    </div>
+                    <div class=" overflow-hidden rounded-xl col-span-2 max-h-[10rem]">
+                        <img class="h-full w-full object-cover " src="https://images.unsplash.com/photo-1503602642458-232111445657?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=687&amp;q=80" alt=""/>
+                    </div>
+                    <div class="relative overflow-hidden rounded-xl col-span-2 max-h-[10rem]">
+                        <div class="text-white text-xl absolute inset-0  bg-slate-900/80 flex justify-center items-center">
+                        + 23
+                        </div>
+                        <img class="h-full w-full object-cover " src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=765&amp;q=80" alt=""/>
+                    </div>
+                </div>
+            </div>
+            <div class="text-gray-500 text-sm mb-6 mx-3 px-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500</div>
+            <div class="flex justify-start mb-4 border-t border-gray-100">
+                <div class="flex w-full mt-1 pt-2 pl-5">
+                    <span class="transition ease-out duration-300 active:bg-gray-700  h-8 px-2 py-1 text-center rounded-full text-gray-100 cursor-pointer">
+                        <SVGComment/>
+                    </span>
+                    <img class="inline-block object-cover w-8 h-8 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt=""/>
+                    <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt=""/>
+                    <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80" alt=""/>
+                    <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2.25&amp;w=256&amp;h=256&amp;q=80" alt=""/>
+                </div>
+                <div class="flex justify-end w-full mt-1 pt-2 pr-5">
+                    <span class="transition ease-out duration-300 active:bg-gray-700  w-8 h-8 px-1 py-1 text-center rounded-full text-blue-400 cursor-pointer mr-2">
+                        <SVGShare/>
+                    </span>
+                    <span class="transition ease-out duration-300 active:bg-red-700  h-8 px-2 py-1 text-center rounded-full text-gray-100 cursor-pointer">
+                        <SVGLike/>
+                    </span>
+                </div>
+            </div>
+            <div class="flex w-full border-t border-gray-100">
+                <div class="mt-3 mx-5 flex flex-row text-xs">
+                    <div class="flex text-gray-700 font-normal rounded-md mb-2 mr-4 items-center">Comments:<div class="ml-1 text-gray-400 text-ms"> 30</div></div>
+                    <div class="flex text-gray-700 font-normal rounded-md mb-2 mr-4 items-center">Views: <div class="ml-1 text-gray-400 text-ms"> 60k</div></div>
+                </div>
+                <div class="mt-3 mx-5 w-full flex justify-end text-xs">
+                    <div class="flex text-gray-700  rounded-md mb-2 mr-4 items-center">Likes: <div class="ml-1 text-gray-400  text-ms"> 120k</div></div>
+                </div>
+            </div>
+            <div class="text-black p-4 antialiased flex">
+                <img class="rounded-full h-8 w-8 mr-2 mt-1 " src="https://picsum.photos/id/1027/200/200"/>
+                <div>
+                    <div class="bg-gray-100 rounded-lg px-4 pt-2 pb-2.5 font-normal">
+                        <div class="font-semibold text-sm leading-relaxed">Sara Lauren</div>
+                        <div class="text-xs leading-snug md:leading-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                    </div>
+                    <div class="text-xs  mt-0.5 text-gray-500">14 w</div>
+                    <div class="bg-white border border-white rounded-full float-right -mt-8 mr-0.5 flex shadow items-center ">
+                        <svg class="p-0.5 h-5 w-5 rounded-full z-20 bg-white" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16"><defs><linearGradient id="a1" x1="50%" x2="50%" y1="0%" y2="100%"><stop offset="0%" stop-color="#18AFFF"></stop><stop offset="100%" stop-color="#0062DF"></stop></linearGradient><filter id="c1" width="118.8%" height="118.8%" x="-9.4%" y="-9.4%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1"></feGaussianBlur><feOffset dy="-1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0.299356041 0 0 0 0 0.681187726 0 0 0 0.3495684 0"></feColorMatrix></filter><path id="b1" d="M8 0a8 8 0 00-8 8 8 8 0 1016 0 8 8 0 00-8-8z"></path></defs><g fill="none"><use fill="url(#a1)" xlinkHref="#b1"></use><use fill="black" filter="url(#c1)" xlinkHref="#b1"></use><path fill="white" d="M12.162 7.338c.176.123.338.245.338.674 0 .43-.229.604-.474.725a.73.73 0 01.089.546c-.077.344-.392.611-.672.69.121.194.159.385.015.62-.185.295-.346.407-1.058.407H7.5c-.988 0-1.5-.546-1.5-1V7.665c0-1.23 1.467-2.275 1.467-3.13L7.361 3.47c-.005-.065.008-.224.058-.27.08-.079.301-.2.635-.2.218 0 .363.041.534.123.581.277.732.978.732 1.542 0 .271-.414 1.083-.47 1.364 0 0 .867-.192 1.879-.199 1.061-.006 1.749.19 1.749.842 0 .261-.219.523-.316.666zM3.6 7h.8a.6.6 0 01.6.6v3.8a.6.6 0 01-.6.6h-.8a.6.6 0 01-.6-.6V7.6a.6.6 0 01.6-.6z"></path></g></svg>
+                        <svg class="p-0.5 h-5 w-5 rounded-full -ml-1.5 bg-white" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16"><defs><linearGradient id="a2" x1="50%" x2="50%" y1="0%" y2="100%"><stop offset="0%" stop-color="#FF6680"></stop><stop offset="100%" stop-color="#E61739"></stop></linearGradient><filter id="c2" width="118.8%" height="118.8%" x="-9.4%" y="-9.4%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1"></feGaussianBlur><feOffset dy="-1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0.710144928 0 0 0 0 0 0 0 0 0 0.117780134 0 0 0 0.349786932 0"></feColorMatrix></filter><path id="b2" d="M8 0a8 8 0 100 16A8 8 0 008 0z"></path></defs><g fill="none"><use fill="url(#a2)" xlinkHref="#b2"></use><use fill="black" filter="url(#c2)" xlinkHref="#b2"></use><path fill="white" d="M10.473 4C8.275 4 8 5.824 8 5.824S7.726 4 5.528 4c-2.114 0-2.73 2.222-2.472 3.41C3.736 10.55 8 12.75 8 12.75s4.265-2.2 4.945-5.34c.257-1.188-.36-3.41-2.472-3.41"></path></g></svg>
+                        <span class="text-sm ml-1 pr-1.5 text-gray-500">3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="relative flex items-center self-center w-full max-w-xl p-4 overflow-hidden text-gray-600 focus-within:text-gray-400">
+                <img class="w-10 h-10 object-cover rounded-full shadow mr-2 cursor-pointer" alt="User avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"/>
+                <span class="absolute inset-y-0 right-0 flex items-center pr-6">
+                    <button type="submit" class="p-1 focus:outline-none focus:shadow-none hover:text-blue-500">
+                    <svg class="w-6 h-6 transition ease-out duration-300 hover:text-blue-500 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+
+                    </button>
+                </span>
+                    <input type="search" class="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"  placeholder="Post a comment..." autocomplete="off"/>
+            </div>
         </div>
+            
+            
+           
+    </>
   )
 }
 
