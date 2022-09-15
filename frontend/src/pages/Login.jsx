@@ -22,7 +22,7 @@ function Login() {
                             </a>
                         </div>
                     </div>
-                     <div
+                    <div
                         className={"w-1/2 h-full bg-cover rounded-r-lg"}
                         style={{backgroundImage: `url(${require("../images/rtu.jpg")})`}}
                     ></div>
