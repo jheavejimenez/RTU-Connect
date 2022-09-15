@@ -21,7 +21,6 @@ function ComposePost() {
               </div>
             </div>
             <div class="bg-white px-4 py-3 sm:flex sm:justify-between sm:px-6">
-              {/* <button type="button" class="inline-flex w-full justify-center rounded-full border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Post</button> */}
               <Gallery />
               <ButtonNoClassName className = {"inline-flex justify-center rounded-full border border-transparent bg-blue-800 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"} text = {"Post"}/>
             </div>
