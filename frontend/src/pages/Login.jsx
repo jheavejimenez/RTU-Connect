@@ -11,7 +11,7 @@ function Login() {
                             <img className={"mx-auto"} src={require("../images/RTULogo.png")}/>
                         </div>
                         <div className={"text-center"}>
-                            <Button text="Login" path={"/Home"}/>
+                            <Button text="Login" path={"/home"}/>
                         </div>
                         <hr className={"my-6"}/>
                         <div className={"text-center m-4"}>
