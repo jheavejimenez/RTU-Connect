@@ -27,8 +27,8 @@ function Login() {
                         uxMode: 'popup',
                         loginConfig: {
                             google: {
-                                name: 'Custom Google Auth Login',
-                                verifier: 'web3auth-core-google',
+                                name: 'RTU Connect',
+                                verifier: "rtu-connect",
                                 typeOfLogin: 'google',
                                 clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID, //use app client id from google
                             },
