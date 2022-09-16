@@ -5,8 +5,6 @@ import SVGHome from "../../svg/Home";
 import SVGCommunity from "../../svg/Community";
 import Watch from "../../svg/Watch";
 import Search from "../../svg/Search";
-import dropdownNav from "../Dropdown/dropdownNav";
-
 
 
 function NavBar() {
@@ -15,12 +13,12 @@ function NavBar() {
             <nav className={"sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 shadow-md"}>
                 <div className={"flex justify-between mx-10 items-center w-full"}>
                     <div className={"flex items-center"}>
-                        <a href={"/home"} className={"mr-3"}>
+                        <a href={"/"} className={"mr-3"}>
                             <img src={Logo} width={40} height={40} style={{layout: "fixed"}}/>
                         </a>
                         <div className={"flex ml-2 items-center rounded-full bg-gray-100 p-2"}>
                             <button className={"outline-none focus:outline-none"}>
-                                <Search />
+                                <Search/>
                             </button>
                             <input
                                 className={"w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent"}
@@ -37,17 +35,17 @@ function NavBar() {
                         </li>
                         <li className={"mx-4"}>
                             <span>
-                                <SVGCommunity />
+                                <SVGCommunity/>
                             </span>
                         </li>
                         <li className={"mx-4"}>
                             <span>
-                                <Watch />
+                                <Watch/>
                             </span>
                         </li>
                     </ul>
                     <a href={"/profile"} className={"mr-3"}>
-                        <img src={Profile} width={40} height={40} style={{layout: "fixed"}}  />
+                        <img src={Profile} width={40} height={40} style={{layout: "fixed"}}/>
                     </a>
 
                     {/*<button path={"/login"}>*/}
