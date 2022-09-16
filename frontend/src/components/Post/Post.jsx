@@ -129,8 +129,8 @@ function Post() {
                                  xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16">
                                 <defs>
                                     <linearGradient id="a1" x1="50%" x2="50%" y1="0%" y2="100%">
-                                        <stop offset="0%" stop-color="#18AFFF"></stop>
-                                        <stop offset="100%" stop-color="#0062DF"></stop>
+                                        <stop offset="0%" stopColor="#18AFFF"></stop>
+                                        <stop offset="100%" stopColor="#0062DF"></stop>
                                     </linearGradient>
                                     <filter id="c1" width="118.8%" height="118.8%" x="-9.4%" y="-9.4%"
                                             filterUnits="objectBoundingBox">
@@ -156,8 +156,8 @@ function Post() {
                                  viewBox="0 0 16 16">
                                 <defs>
                                     <linearGradient id="a2" x1="50%" x2="50%" y1="0%" y2="100%">
-                                        <stop offset="0%" stop-color="#FF6680"></stop>
-                                        <stop offset="100%" stop-color="#E61739"></stop>
+                                        <stop offset="0%" stopColor="#FF6680"></stop>
+                                        <stop offset="100%" stopColor="#E61739"></stop>
                                     </linearGradient>
                                     <filter id="c2" width="118.8%" height="118.8%" x="-9.4%" y="-9.4%"
                                             filterUnits="objectBoundingBox">
@@ -190,7 +190,7 @@ function Post() {
                     <button type="submit" className="p-1 focus:outline-none focus:shadow-none hover:text-blue-500">
                     <svg className="w-6 h-6 transition ease-out duration-300 hover:text-blue-500 text-gray-400"
                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                               d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
 
@@ -198,7 +198,7 @@ function Post() {
                 </span>
                     <input type="search"
                            className="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
-                           placeholder="Post a comment..." autocomplete="off"/>
+                           placeholder="Post a comment..." autoComplete="off"/>
                 </div>
             </div>
 
