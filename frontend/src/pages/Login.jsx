@@ -2,13 +2,16 @@ import {useEffect, useState} from "react";
 import {Web3AuthCore} from '@web3auth/core'
 import {CHAIN_NAMESPACES, WALLET_ADAPTERS,} from '@web3auth/base'
 import {OpenloginAdapter} from '@web3auth/openlogin-adapter'
-import Button from "../components/Button/Button";
+import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const clientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
 function Login() {
     const [web3auth, setWeb3auth] = useState(null)
     const [provider, setProvider] = useState(null)
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const init = async () => {
@@ -56,6 +59,7 @@ function Login() {
     }, [])
 
     const handleLogin = async () => {
+        console.log("handleLogin");
         if (!web3auth) {
             console.log('web3auth not initialized yet')
             return
@@ -67,6 +71,11 @@ function Login() {
             },
         )
         setProvider(web3authProvider)
+        // check if provider is set and  location.state.from is set
+        if (provider && location.state?.from) {
+            navigate(location.state.from);
+        }
+
     }
 
     return (
@@ -78,7 +87,10 @@ function Login() {
                             <img className={"mx-auto"} src={require("../images/RTULogo.png")}/>
                         </div>
                         <div className={"text-center"}>
-                           <button className={"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"} onClick={handleLogin}>Login</button>
+                            <ButtonFunctionCall
+                                text={"Login"}
+                                func={handleLogin}
+                            />
                         </div>
                         <hr className={"my-6"}/>
                         <div className={"text-center m-4"}>
