@@ -25,6 +25,11 @@ function Login() {
                     adapterSettings: {
                         network: 'testnet',
                         uxMode: 'popup',
+                        whiteLabel: {
+                            name: "RTU Connect",
+                            logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
+                            defaultLanguage: "en",
+                        },
                         loginConfig: {
                             google: {
                                 name: 'RTU Connect',
