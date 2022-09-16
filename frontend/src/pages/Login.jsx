@@ -4,7 +4,7 @@ import {CHAIN_NAMESPACES, WALLET_ADAPTERS,} from '@web3auth/base'
 import {OpenloginAdapter} from '@web3auth/openlogin-adapter'
 import Button from "../components/Button/Button";
 
-const clientId = process.env.REACT_APP_CLIENT_ID;
+const clientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
 function Login() {
     const [web3auth, setWeb3auth] = useState(null)
