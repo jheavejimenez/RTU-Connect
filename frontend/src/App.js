@@ -2,7 +2,7 @@ import "./index.css"
 import Home from "./pages/Home";
 import {Route, Routes} from "react-router-dom";
 import Login from "./pages/Login";
-import Post from "./components/Post/Post";
+import Profile from "./pages/Profile";
 
 
 function App() {
@@ -11,8 +11,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<Login/>}/>
                 <Route path="/home" element={<Home/>}/>
+                <Route path="/profile" element={<Profile/>}/>
             </Routes>
-            <Post/>
         </div>
     );
 }
