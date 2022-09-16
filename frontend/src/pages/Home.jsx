@@ -6,11 +6,11 @@ import Post from "../components/Post/Post";
 
 function Home() {
     return (
-        <div className="Home">
+        <>
             <NavBar/>
             <ComposePost/>
             <Post/>
-        </div>
+        </>
     )
 }
 
