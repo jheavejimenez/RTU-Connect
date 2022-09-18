@@ -2,11 +2,15 @@ import React, { useContext } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import ProviderContext from "../context/ProviderContext";
 
+const useAuth = () => {
+    const { user } = useContext(ProviderContext);
+    return user && user.loggedIn;
+};
+
 function PrivateRoutes() {
-    const { auth } = useContext(ProviderContext);
     const location = useLocation();
-    console.log(auth);
-    return auth.auth ? (<Outlet />) : (<Navigate to={"/login"} replace state={{ from: location }} />);
+    const isAuth = useAuth();
+    return isAuth ? (<Outlet />) : (<Navigate to={"/login"} replace state={{ from: location }} />);
 }
 
 export default PrivateRoutes;
