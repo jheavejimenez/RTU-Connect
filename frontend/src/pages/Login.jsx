@@ -23,7 +23,14 @@ function Login() {
                     clientId,
                     chainConfig: {
                         chainNamespace: CHAIN_NAMESPACES.EIP155,
-                        chainId: "0x3",
+                        chainId: "0x13881", // hex of 80001, polygon testnet
+                        rpcTarget: "https://rpc.ankr.com/polygon_mumbai",
+                        // Avoid using public rpcTarget in production.
+                        // Use services like Infura, Quicknode etc
+                        displayName: "Polygon Mainnet",
+                        blockExplorer: "https://mumbai.polygonscan.com/",
+                        ticker: "MATIC",
+                        tickerName: "Matic",
                     },
                 });
 
@@ -74,11 +81,10 @@ function Login() {
             },
         );
         setProvider(web3authProvider);
-        setAuth();
         // check if provider is set and  location.state.from is set
         if (location.state?.from) {
             navigate(location.state.from);
-            console.log(`true${provider}`);
+            console.log(`true ${web3authProvider}`);
         }
     };
     const logout = async () => {
@@ -99,35 +105,37 @@ function Login() {
     };
 
     return (
-        <div className="container flex items-center justify-center mx-auto h-screen">
-            <div className="flex w-full justify-center px-6">
-                <div className="shadow-md items-center w-full flex" style={{ height: "500px" }}>
-                    <div className="w-1/2 bg-white p-5 rounded-lg lg:rounded-r-none">
-                        <div className="px-8 pb-8 mb-8">
+        <div className={"container flex items-center justify-center mx-auto h-screen"}>
+            <div className={"flex w-full justify-center px-6"}>
+                <div className={"shadow-md items-center w-full flex"} style={{ height: "500px" }}>
+                    <div className={"w-1/2 bg-white p-5 rounded-lg lg:rounded-r-none"}>
+                        <div className={"px-8 pb-8 mb-8"}>
                             <img
-                                className="mx-auto"
+                                className={"mx-auto"}
                                 src={require("../images/RTULogo.png")}
-                                alt="logo of RTU"
+                                alt={"logo of RTU"}
                             />
                         </div>
-                        <div className="text-center">
+                        <div className={"text-center"}>
                             <ButtonFunctionCall
-                                text="Login"
+                                text={"Login"}
                                 func={getUserInfo}
                             />
                         </div>
-                        <hr className="my-6" />
-                        <div className="text-center m-4">
+                        <hr className={"my-6"} />
+                        <div className={"text-center m-4"}>
                             <a
-                                className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                href="https://web3auth.io"
+                                className={"inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"}
+                                href={"https://web3auth.io"}
                             >
-                                Don&apos;t have an account? Register!
+                                {"Don"}
+                                &apos;
+                                {"t have an account? Register!"}
                             </a>
                         </div>
                     </div>
                     <div
-                        className="w-1/2 h-full bg-cover rounded-r-lg"
+                        className={"w-1/2 h-full bg-cover rounded-r-lg"}
                         style={{ backgroundImage: `url(${require("../images/rtu.jpg")})` }}
                     />
                 </div>
