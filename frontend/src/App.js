@@ -1,17 +1,15 @@
 import "./index.css";
 import { Route, Routes } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
+import { MoralisProvider } from "react-moralis";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import Profile from "./pages/Profile";
-import ProviderContext from "./context/ProviderContext";
 
 function App() {
-    const [user, setUser] = useState({ loggedIn: false });
     return (
-        // eslint-disable-next-line react/jsx-no-constructed-context-values
-        <ProviderContext.Provider value={{ user, setUser }}>
+        <MoralisProvider serverUrl={""} appId={""}>
             <div>
                 <Routes>
                     <Route element={<PrivateRoutes />}>
@@ -21,7 +19,7 @@ function App() {
                     <Route path={"/login"} element={<Login />} />
                 </Routes>
             </div>
-        </ProviderContext.Provider>
+        </MoralisProvider>
     );
 }
 
