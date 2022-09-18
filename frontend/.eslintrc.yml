@@ -19,11 +19,12 @@ rules: {
   react-function-component-definition: [ off, { namedComponents: "arrow-function" } ],
   react/jsx-no-useless-fragment: [ off ],
   react/jsx-props-no-spreading: [ off ],
-  no-param-reassign: ["warn"],
+  react/prop-types: [ off ],
+  no-param-reassign: [ "warn" ],
   quotes: [ "error", "double" ],
-  no-unused-vars: warn,
-  global-require: warn,
-  no-console: warn,
-  no-shadow: off,
+  no-unused-vars: [ warn ],
+  global-require: [ warn ],
+  no-console: [ warn ],
+  no-shadow: [ off ],
 
 }
