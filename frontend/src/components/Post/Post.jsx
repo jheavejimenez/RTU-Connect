@@ -148,7 +148,11 @@ function Post() {
                     </div>
                 </div>
                 <div className={"text-black p-4 antialiased flex"}>
-                    <img className={"rounded-full h-8 w-8 mr-2 mt-1 "} src={"https://picsum.photos/id/1027/200/200"} />
+                    <img
+                        className={"rounded-full h-8 w-8 mr-2 mt-1 "}
+                        src={"https://picsum.photos/id/1027/200/200"}
+                        alt={""}
+                    />
                     <div>
                         <div className={"bg-gray-100 rounded-lg px-4 pt-2 pb-2.5 font-normal"}>
                             <div className={"font-semibold text-sm leading-relaxed"}>{"Sara Lauren"}</div>
