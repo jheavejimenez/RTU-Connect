@@ -12,7 +12,7 @@ function App() {
             serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
             appId={process.env.REACT_APP_MORALIS_APP_ID}
         >
-            <div className={"bg-gray-100"}>
+            <div>
                 <Routes>
                     <Route path={"/"} element={<Home />} />
                     <Route path={"/profile"} element={<Profile />} />

@@ -18,7 +18,8 @@ function ComposePost() {
                             <textarea
                                 id={"message"}
                                 rows={"4"}
-                                className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white "}
+                                className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
+                                    + " focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white "}
                                 placeholder={"What's on your mind"}
                             />
                             <div className={"sm:flex sm:items-start"}>
