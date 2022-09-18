@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 
 export default class EthersRPC {
     constructor(provider) {
@@ -51,7 +51,7 @@ export default class EthersRPC {
             const ethersProvider = new ethers.providers.Web3Provider(this.provider);
             const signer = ethersProvider.getSigner();
 
-            const originalMessage = 'Hi, Welcome to the world of Web3';
+            const originalMessage = "Hi, Welcome to the world of Web3";
 
             // Sign the message
             return await signer.signMessage(originalMessage);
