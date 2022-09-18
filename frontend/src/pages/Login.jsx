@@ -82,7 +82,7 @@ function Login() {
         setProvider(web3authProvider);
         // check if provider is set and  location.state.from is set
         if (provider || location.state?.from) {
-            setAuth(true);
+            setAuth(true); // this code must be change  because it is not secure
             navigate(location.state.from);
         }
     };
@@ -123,6 +123,7 @@ function Login() {
                                     func={handleLogin}
                                 />
                             ) : (
+                                //  in the future this must be changed
                                 <>
                                     <ButtonFunctionCall text={"logout"} func={logout} />
                                     <ButtonFunctionCall text={"user"} func={getUserInfo} />
