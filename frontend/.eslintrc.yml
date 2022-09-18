@@ -15,5 +15,6 @@ rules: {
   react/jsx-indent: [ "error", 4 ],
   react/jsx-indent-props: [ "error", 4 ],
   react/jsx-filename-extension: [ 1, { extensions: [ ".js", ".jsx" ] } ],
-  no-param-reassign: 0
+  no-param-reassign: 0,
+  react/jsx-props-no-spreading: ["warn"],
 }

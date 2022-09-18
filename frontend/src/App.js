@@ -10,6 +10,7 @@ import ProviderContext from './context/ProviderContext';
 function App() {
     const [auth, setAuth] = useState({ auth: '' });
     return (
+        // eslint-disable-next-line react/jsx-no-constructed-context-values
         <ProviderContext.Provider value={{ auth, setAuth }}>
             <div>
                 <Routes>
