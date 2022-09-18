@@ -9,7 +9,9 @@ function Login() {
     const navigate = useNavigate();
     const location = useLocation();
     const {
-        authenticate, authError, isAuthenticating, Moralis, logout,
+        authenticate,
+        isAuthenticating,
+        Moralis,
     } = useMoralis();
 
     // useEffect(() => {
