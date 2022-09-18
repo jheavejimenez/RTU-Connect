@@ -3,9 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import React from "react";
 import { MoralisProvider } from "react-moralis";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import PrivateRoutes from "./utils/PrivateRoutes";
 import Profile from "./pages/Profile";
+import Login from "./pages/Login";
 
 function App() {
     return (
@@ -15,10 +14,8 @@ function App() {
         >
             <div>
                 <Routes>
-                    <Route element={<PrivateRoutes />}>
-                        <Route path={"/"} element={<Home />} />
-                        <Route path={"/profile"} element={<Profile />} />
-                    </Route>
+                    <Route path={"/"} element={<Home />} />
+                    <Route path={"/profile"} element={<Profile />} />
                     <Route path={"/login"} element={<Login />} />
                 </Routes>
             </div>

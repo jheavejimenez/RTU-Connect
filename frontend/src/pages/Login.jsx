@@ -7,11 +7,11 @@ const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
 function Login() {
     const navigate = useNavigate();
-    const location = useLocation();
     const {
         authenticate,
         isAuthenticating,
         Moralis,
+        isAuthenticated,
     } = useMoralis();
 
     // useEffect(() => {
@@ -114,9 +114,6 @@ function Login() {
             theme: "light",
             loginMethodsOrder: ["google"],
         });
-        if (location.state?.from) {
-            navigate(location.state.from);
-        }
     };
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
@@ -141,7 +138,7 @@ function Login() {
                                     func={handleLogin}
                                 />
                             )}
-
+                            {isAuthenticated && (navigate("/"))}
                         </div>
                         <hr className={"my-6"} />
                         <div className={"text-center m-4"}>
