@@ -9,7 +9,7 @@ function Login() {
     const navigate = useNavigate();
     const location = useLocation();
     const {
-        authenticate, authError, isAuthenticating, Moralis,
+        authenticate, authError, isAuthenticating, Moralis, logout,
     } = useMoralis();
 
     // useEffect(() => {
@@ -112,6 +112,9 @@ function Login() {
             theme: "light",
             loginMethodsOrder: ["google"],
         });
+        if (location.state?.from) {
+            navigate(location.state.from);
+        }
     };
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
@@ -127,14 +130,16 @@ function Login() {
                         </div>
                         <div className={"text-center flex items-center justify-center"}>
                             {isAuthenticating ? (
-                                <div className={"w-10 h-10 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"} />
+                                <div
+                                    className={"w-10 h-10 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"}
+                                />
                             ) : (
                                 <ButtonFunctionCall
                                     text={"Login"}
                                     func={handleLogin}
                                 />
                             )}
-                            
+
                         </div>
                         <hr className={"my-6"} />
                         <div className={"text-center m-4"}>
