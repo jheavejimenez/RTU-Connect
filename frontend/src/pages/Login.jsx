@@ -80,9 +80,11 @@ function Login() {
             },
         );
         setProvider(web3authProvider);
+
         // this code must be change  because it is not secure
         if (user.loggedIn) return;
         setUser({ loggedIn: true });
+
         // check if provider is set and  location.state.from is set
         if (location.state?.from) {
             navigate(location.state.from);
@@ -103,7 +105,6 @@ function Login() {
         }
         const user = await web3auth.getUserInfo();
         console.log(user);
-        console.log(`true ${JSON.stringify(provider)}`);
     };
 
     return (
