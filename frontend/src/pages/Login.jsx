@@ -24,13 +24,13 @@ function Login() {
                     chainConfig: {
                         chainNamespace: CHAIN_NAMESPACES.EIP155,
                         chainId: "0x13881", // hex of 80001, polygon testnet
-                        rpcTarget: "https://rpc.ankr.com/polygon_mumbai",
-                        // Avoid using public rpcTarget in production.
-                        // Use services like Infura, Quicknode etc
-                        displayName: "Polygon Mainnet",
-                        blockExplorer: "https://mumbai.polygonscan.com/",
-                        ticker: "MATIC",
-                        tickerName: "Matic",
+                        // rpcTarget: "https://rpc.ankr.com/polygon_mumbai",
+                        // // Avoid using public rpcTarget in production.
+                        // // Use services like Infura, Quicknode etc
+                        // displayName: "Polygon Mainnet",
+                        // blockExplorer: "https://mumbai.polygonscan.com/",
+                        // ticker: "MATIC",
+                        // tickerName: "Matic",
                     },
                 });
 
@@ -69,7 +69,6 @@ function Login() {
     }, []);
 
     const handleLogin = async () => {
-        console.log("handleLogin");
         if (!web3auth) {
             console.log("web3auth not initialized yet");
             return;
@@ -82,9 +81,9 @@ function Login() {
         );
         setProvider(web3authProvider);
         // check if provider is set and  location.state.from is set
-        if (location.state?.from) {
+        if (provider || location.state?.from) {
+            setAuth(true);
             navigate(location.state.from);
-            console.log(`true ${web3authProvider}`);
         }
     };
     const logout = async () => {
@@ -102,6 +101,7 @@ function Login() {
         }
         const user = await web3auth.getUserInfo();
         console.log(user);
+        console.log(`true ${JSON.stringify(provider)}`);
     };
 
     return (
@@ -117,10 +117,17 @@ function Login() {
                             />
                         </div>
                         <div className={"text-center"}>
-                            <ButtonFunctionCall
-                                text={"Login"}
-                                func={getUserInfo}
-                            />
+                            {!provider ? (
+                                <ButtonFunctionCall
+                                    text={"Login"}
+                                    func={handleLogin}
+                                />
+                            ) : (
+                                <>
+                                    <ButtonFunctionCall text={"logout"} func={logout} />
+                                    <ButtonFunctionCall text={"user"} func={getUserInfo} />
+                                </>
+                            )}
                         </div>
                         <hr className={"my-6"} />
                         <div className={"text-center m-4"}>
