@@ -81,7 +81,7 @@ function Login() {
         );
         setProvider(web3authProvider);
         // check if provider is set and  location.state.from is set
-        if (provider || location.state?.from) {
+        if (location.state?.from) {
             setAuth(true); // this code must be change  because it is not secure
             navigate(location.state.from);
         }

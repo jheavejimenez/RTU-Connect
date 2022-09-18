@@ -8,7 +8,7 @@ import Profile from "./pages/Profile";
 import ProviderContext from "./context/ProviderContext";
 
 function App() {
-    const [auth, setAuth] = useState({ auth: "" });
+    const [auth, setAuth] = useState(false);
     return (
         // eslint-disable-next-line react/jsx-no-constructed-context-values
         <ProviderContext.Provider value={{ auth, setAuth }}>

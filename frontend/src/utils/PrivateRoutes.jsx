@@ -5,7 +5,8 @@ import ProviderContext from "../context/ProviderContext";
 function PrivateRoutes() {
     const { auth } = useContext(ProviderContext);
     const location = useLocation();
-    return auth ? (<Outlet />) : (<Navigate to={"/login"} replace state={{ from: location }} />);
+    console.log(auth);
+    return auth.auth ? (<Outlet />) : (<Navigate to={"/login"} replace state={{ from: location }} />);
 }
 
 export default PrivateRoutes;
