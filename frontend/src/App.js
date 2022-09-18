@@ -1,7 +1,7 @@
 import "./index.css";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import React from "react";
-import { MoralisProvider } from "react-moralis";
+import { MoralisProvider, useMoralis } from "react-moralis";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
@@ -12,7 +12,7 @@ function App() {
             serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
             appId={process.env.REACT_APP_MORALIS_APP_ID}
         >
-            <div>
+            <div className={"bg-gray-100"}>
                 <Routes>
                     <Route path={"/"} element={<Home />} />
                     <Route path={"/profile"} element={<Profile />} />
