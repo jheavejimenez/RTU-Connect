@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useMoralis } from "react-moralis";
 import NavBar from "../components/NavBar/NavBar";
 import Button from "../components/Button/Button";
 
 function Profile() {
+    const { logout, Moralis, user } = useMoralis();
+    const [balance, setBalance] = useState(0);
+    const fetchBalance = async () => {
+        try {
+            const options = { chain: Moralis.Chains.ETH_ROPSTEN };
+            const balance = await Moralis.Web3API.account.getNativeBalance(options);
+            console.log(user);
+            setBalance(balance.balance / 10 ** 18);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    useEffect(() => {
+        fetchBalance();
+    }, []);
     return (
         <>
             <NavBar />
