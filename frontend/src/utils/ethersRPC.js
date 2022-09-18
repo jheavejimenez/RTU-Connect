@@ -1,4 +1,4 @@
-import {ethers} from "ethers";
+import { ethers } from 'ethers';
 
 export default class EthersRPC {
     constructor(provider) {
@@ -12,7 +12,6 @@ export default class EthersRPC {
             // Get user's Ethereum public address
             const networkDetails = await (ethersProvider.getNetwork());
             return networkDetails.chainId;
-
         } catch (error) {
             return error;
         }
@@ -40,7 +39,7 @@ export default class EthersRPC {
 
             // Get user's balance in ether
             return ethers.utils.formatEther(
-                await ethersProvider.getBalance(address) // Balance is in wei
+                await ethersProvider.getBalance(address), // Balance is in wei
             );
         } catch (error) {
             return error;
@@ -52,7 +51,7 @@ export default class EthersRPC {
             const ethersProvider = new ethers.providers.Web3Provider(this.provider);
             const signer = ethersProvider.getSigner();
 
-            const originalMessage = "Hi, Welcome to the world of Web3";
+            const originalMessage = 'Hi, Welcome to the world of Web3';
 
             // Sign the message
             return await signer.signMessage(originalMessage);
@@ -60,5 +59,4 @@ export default class EthersRPC {
             return error;
         }
     }
-
 }

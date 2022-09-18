@@ -73,7 +73,7 @@ function Login() {
             },
         )
         setProvider(web3authProvider)
-        setAuth(web3authProvider);
+        setAuth();
         // check if provider is set and  location.state.from is set
         if (location.state?.from) {
             navigate(location.state.from);

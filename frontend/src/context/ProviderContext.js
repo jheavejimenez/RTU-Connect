@@ -1,6 +1,9 @@
-import {createContext} from "react";
+import { createContext } from 'react';
 
-export const ProviderContext = createContext({
-    auth: "",
-    setAuth: (auth) => {},
+const ProviderContext = createContext({
+    auth: '',
+    setAuth: () => {
+    },
 });
+
+export default ProviderContext;
