@@ -8,10 +8,10 @@ import Profile from "./pages/Profile";
 import ProviderContext from "./context/ProviderContext";
 
 function App() {
-    const [auth, setAuth] = useState(false);
+    const [user, setUser] = useState({ loggedIn: false });
     return (
         // eslint-disable-next-line react/jsx-no-constructed-context-values
-        <ProviderContext.Provider value={{ auth, setAuth }}>
+        <ProviderContext.Provider value={{ user, setUser }}>
             <div>
                 <Routes>
                     <Route element={<PrivateRoutes />}>

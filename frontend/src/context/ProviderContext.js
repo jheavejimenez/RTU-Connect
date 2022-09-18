@@ -1,8 +1,5 @@
 import { createContext } from "react";
 
-const ProviderContext = createContext({
-    auth: false,
-    setAuth: () => {},
-});
+const ProviderContext = createContext();
 
 export default ProviderContext;

@@ -12,7 +12,7 @@ const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 function Login() {
     const [web3auth, setWeb3auth] = useState(null);
     const [provider, setProvider] = useState(null);
-    const { setAuth } = useContext(ProviderContext);
+    const { user, setUser } = useContext(ProviderContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -80,9 +80,11 @@ function Login() {
             },
         );
         setProvider(web3authProvider);
+        // this code must be change  because it is not secure
+        if (user.loggedIn) return;
+        setUser({ loggedIn: true });
         // check if provider is set and  location.state.from is set
         if (location.state?.from) {
-            setAuth(true); // this code must be change  because it is not secure
             navigate(location.state.from);
         }
     };
