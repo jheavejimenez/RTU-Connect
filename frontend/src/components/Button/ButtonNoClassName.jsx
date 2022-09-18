@@ -1,7 +1,7 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function ButtonNoClassName({text, className, path}) {
+function ButtonNoClassName({ text, className, path }) {
     const navigate = useNavigate();
     return (
         <>

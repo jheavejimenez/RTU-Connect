@@ -20,6 +20,7 @@ rules: {
   react/jsx-no-useless-fragment: [ off ],
   react/jsx-props-no-spreading: [ off ],
   react/prop-types: [ off ],
+  react/button-has-type: [ off ],
   no-param-reassign: [ "warn" ],
   quotes: [ "error", "double" ],
   no-unused-vars: [ warn ],
