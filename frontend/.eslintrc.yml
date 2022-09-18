@@ -17,4 +17,8 @@ rules: {
   react/jsx-filename-extension: [ 1, { extensions: [ ".js", ".jsx" ] } ],
   no-param-reassign: ["warn"],
   react/jsx-props-no-spreading: ["warn"],
+  no-shadow: off,
+  no-unused-vars: warn,
+  global-require: warn,
+  no-console: warn,
 }
