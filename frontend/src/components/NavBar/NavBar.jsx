@@ -1,11 +1,10 @@
-import React from 'react'
-import Logo from '../../icons/rtu-icon.png'
-import Profile from '../../icons/profile-icon.png'
+import React from "react";
+import Logo from "../../icons/rtu-icon.png";
+import Profile from "../../icons/profile-icon.png";
 import SVGHome from "../../svg/Home";
 import SVGCommunity from "../../svg/Community";
 import Watch from "../../svg/Watch";
 import Search from "../../svg/Search";
-
 
 function NavBar() {
     return (
@@ -14,11 +13,11 @@ function NavBar() {
                 <div className={"flex justify-between mx-10 items-center w-full"}>
                     <div className={"flex items-center"}>
                         <a href={"/"} className={"mr-3"}>
-                            <img src={Logo} width={40} height={40} style={{layout: "fixed"}}/>
+                            <img src={Logo} width={40} height={40} style={{ layout: "fixed" }} />
                         </a>
                         <div className={"flex ml-2 items-center rounded-full bg-gray-100 p-2"}>
                             <button className={"outline-none focus:outline-none"}>
-                                <Search/>
+                                <Search />
                             </button>
                             <input
                                 className={"w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent"}
@@ -30,37 +29,28 @@ function NavBar() {
                     <ul className={"flex justify-center items-center"}>
                         <li className={"mx-4"}>
                             <span>
-                                <SVGHome/>
+                                <SVGHome />
                             </span>
                         </li>
                         <li className={"mx-4"}>
                             <span>
-                                <SVGCommunity/>
+                                <SVGCommunity />
                             </span>
                         </li>
                         <li className={"mx-4"}>
                             <span>
-                                <Watch/>
+                                <Watch />
                             </span>
                         </li>
                     </ul>
                     <a href={"/profile"} className={"mr-3"}>
-                        <img src={Profile} width={40} height={40} style={{layout: "fixed"}}/>
+                        <img src={Profile} width={40} height={40} style={{ layout: "fixed" }} alt={""} />
                     </a>
-
-                    {/*<button path={"/login"}>*/}
-                    {/*    <img src={Profile} width={40} height={40} style={{layout: "fixed"}}  />*/}
-                    {/*</button>*/}
-                    {/*<div className="absolute right-3 border-t w-32 bg-blue-800 text-left text-white rounded-lg shadow-md">*/}
-                    {/*    <a href="#" className="block p-2 hover:bg-blue-700 hover:rounded-lg">My Profile</a>*/}
-                    {/*    <a href="#" className="block p-2 hover:bg-blue-700 hover:rounded-lg">Settings</a>*/}
-                    {/*    <a href="#" className="block p-2 hover:bg-blue-700 hover:rounded-lg">Log Out</a>*/}
-                    {/*</div>*/}
 
                 </div>
             </nav>
         </div>
-    )
+    );
 }
 
 export default NavBar;
