@@ -6,6 +6,7 @@ import Post from "../components/Post/Post";
 function Profile() {
     const { Moralis, user } = useMoralis();
     const [balance, setBalance] = useState(0);
+    const [isCopied, setIsCopied] = useState(false);
     const currentAccount = user.get("ethAddress");
 
     const fetchBalance = async () => {
@@ -17,9 +18,19 @@ function Profile() {
             console.error(error);
         }
     };
+
+    const copyAddress = () => {
+        navigator.clipboard.writeText(currentAccount);
+        setIsCopied(true);
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 1000);
+    };
+
     useEffect(() => {
         fetchBalance();
     }, []);
+
     return (
         <>
             <main className={"grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-12 w-2xl container px-2 mx-auto"}>
@@ -37,6 +48,35 @@ function Profile() {
                                 {currentAccount.slice(0, 6)}
                                 {"..."}
                                 {currentAccount.slice(-4)}
+                                <button className={"ml-2"} onClick={copyAddress}>
+                                    {isCopied ? (
+                                        <svg
+                                            xmlns={"http://www.w3.org/2000/svg"}
+                                            className={"h-5 w-5 text-green-500"}
+                                            viewBox={"0 0 20 20"}
+                                            fill={"currentColor"}
+                                        >
+                                            <path
+                                                fillRule={"evenodd"}
+                                                d={"M4 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H4zm10 2a1 1 0 011 1v4a1 1 0 01-1 1H9a1 1 0 01-1-1V6a1 1 0 011-1h5zm-1 2v4h-4V6h4z"}
+                                                clipRule={"evenodd"}
+                                            />
+                                        </svg>
+                                    ) : (
+                                        <svg
+                                            xmlns={"http://www.w3.org/2000/svg"}
+                                            className={"h-5 w-5 text-gray-400"}
+                                            viewBox={"0 0 20 20"}
+                                            fill={"currentColor"}
+                                        >
+                                            <path
+                                                fillRule={"evenodd"}
+                                                d={"M4 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H4zm10 2a1 1 0 011 1v4a1 1 0 01-1 1H9a1 1 0 01-1-1V6a1 1 0 011-1h5zm-1 2v4h-4V6h4z"}
+                                                clipRule={"evenodd"}
+                                            />
+                                        </svg>
+                                    )}
+                                </button>
                             </div>
                         </div>
                         <div className={"flex justify-center items-center gap-2 my-3"}>
