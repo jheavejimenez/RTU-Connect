@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import ComposePost from "../components/ComposePost/ComposePost";
 import Post from "../components/Post/Post";
+import SVGCopyCLick from "../svg/Copy/CopyClick";
+import SVGCopyNotClick from "../svg/Copy/CopyNotClick";
 
 function Profile() {
     const { Moralis, user } = useMoralis();
-    const [userAddress, setUserAddress] = useState(null);
+    const [userAddress, setUserAddress] = useState("");
     const [balance, setBalance] = useState(0);
     const [isCopied, setIsCopied] = useState(false);
 
@@ -25,7 +27,8 @@ function Profile() {
     };
 
     const copyAddress = () => {
-        navigator.clipboard.writeText(userAddress);
+        const a = navigator.clipboard.writeText(userAddress);
+        console.log(a);
         setIsCopied(true);
         setTimeout(() => {
             setIsCopied(false);
@@ -56,34 +59,12 @@ function Profile() {
                             <p className={"font-semibold"}>{"John Doe"}</p>
                             <div className={"text-sm leading-normal text-gray-400 flex justify-center items-center"}>
                                 {"Wallet Address: "}
-                                {userAddress !== null ? (`${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`) : "Loading..."}
+                                {userAddress !== "" ? (`${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`) : "Loading..."}
                                 <button className={"ml-2"} onClick={copyAddress}>
                                     {isCopied ? (
-                                        <svg
-                                            xmlns={"http://www.w3.org/2000/svg"}
-                                            className={"h-5 w-5 text-green-500"}
-                                            viewBox={"0 0 20 20"}
-                                            fill={"currentColor"}
-                                        >
-                                            <path
-                                                fillRule={"evenodd"}
-                                                d={"M4 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H4zm10 2a1 1 0 011 1v4a1 1 0 01-1 1H9a1 1 0 01-1-1V6a1 1 0 011-1h5zm-1 2v4h-4V6h4z"}
-                                                clipRule={"evenodd"}
-                                            />
-                                        </svg>
+                                        <SVGCopyCLick />
                                     ) : (
-                                        <svg
-                                            xmlns={"http://www.w3.org/2000/svg"}
-                                            className={"h-5 w-5 text-gray-400"}
-                                            viewBox={"0 0 20 20"}
-                                            fill={"currentColor"}
-                                        >
-                                            <path
-                                                fillRule={"evenodd"}
-                                                d={"M4 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H4zm10 2a1 1 0 011 1v4a1 1 0 01-1 1H9a1 1 0 01-1-1V6a1 1 0 011-1h5zm-1 2v4h-4V6h4z"}
-                                                clipRule={"evenodd"}
-                                            />
-                                        </svg>
+                                        <SVGCopyNotClick />
                                     )}
                                 </button>
                             </div>
