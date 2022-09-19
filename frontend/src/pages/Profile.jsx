@@ -5,9 +5,14 @@ import Post from "../components/Post/Post";
 
 function Profile() {
     const { Moralis, user } = useMoralis();
+    const [userAddress, setUserAddress] = useState(null);
     const [balance, setBalance] = useState(0);
     const [isCopied, setIsCopied] = useState(false);
-    const currentAccount = user.get("ethAddress");
+
+    const getUserAddress = async () => {
+        const userAddress = await user.get("ethAddress");
+        setUserAddress(userAddress);
+    };
 
     const fetchBalance = async () => {
         try {
@@ -20,7 +25,7 @@ function Profile() {
     };
 
     const copyAddress = () => {
-        navigator.clipboard.writeText(currentAccount);
+        navigator.clipboard.writeText(userAddress);
         setIsCopied(true);
         setTimeout(() => {
             setIsCopied(false);
@@ -29,6 +34,12 @@ function Profile() {
 
     useEffect(() => {
         fetchBalance();
+        getUserAddress();
+        const interval = setInterval(() => {
+            fetchBalance();
+            getUserAddress();
+        }, 10000);
+        return () => clearInterval(interval);
     }, []);
 
     return (
@@ -45,9 +56,7 @@ function Profile() {
                             <p className={"font-semibold"}>{"John Doe"}</p>
                             <div className={"text-sm leading-normal text-gray-400 flex justify-center items-center"}>
                                 {"Wallet Address: "}
-                                {currentAccount.slice(0, 6)}
-                                {"..."}
-                                {currentAccount.slice(-4)}
+                                {userAddress !== null ? (`${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`) : "Loading..."}
                                 <button className={"ml-2"} onClick={copyAddress}>
                                     {isCopied ? (
                                         <svg

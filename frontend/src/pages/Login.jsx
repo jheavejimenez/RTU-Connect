@@ -11,7 +11,6 @@ function Login() {
         authenticate,
         isAuthenticating,
         Moralis,
-        isAuthenticated,
     } = useMoralis();
 
     // useEffect(() => {
