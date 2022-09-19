@@ -1,25 +1,22 @@
 import "./index.css";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import React from "react";
-import { MoralisProvider, useMoralis } from "react-moralis";
+import { useMoralis } from "react-moralis";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
     return (
-        <MoralisProvider
-            serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
-            appId={process.env.REACT_APP_MORALIS_APP_ID}
-        >
-            <div>
-                <Routes>
-                    <Route path={"/"} element={<Home />} />
-                    <Route path={"/profile"} element={<Profile />} />
-                    <Route path={"/login"} element={<Login />} />
-                </Routes>
-            </div>
-        </MoralisProvider>
+        <>
+            {useMoralis().isAuthenticated && <NavBar />}
+            <Routes>
+                <Route path={"/"} element={<Home />} />
+                <Route path={"/profile"} element={<Profile />} />
+                <Route path={"/login"} element={<Login />} />
+            </Routes>
+        </>
     );
 }
 

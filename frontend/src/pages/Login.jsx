@@ -106,20 +106,25 @@ function Login() {
     // };
 
     const handleLogin = async () => {
-        await authenticate({
-            provider: "web3Auth",
-            clientId: webAuthClientId,
-            chainId: Moralis.Chains.POLYGON_MUMBAI,
-            appLogo: "https://images.web3auth.io/web3auth-logo-w.svg",
-            theme: "light",
-            loginMethodsOrder: ["google"],
-        });
+        try {
+            await authenticate({
+                provider: "web3Auth",
+                clientId: webAuthClientId,
+                chainId: Moralis.Chains.POLYGON_MUMBAI,
+                appLogo: "https://images.web3auth.io/web3auth-logo-w.svg",
+                theme: "light",
+                loginMethodsOrder: ["google"],
+            });
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+        }
     };
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
             <div className={"flex w-full justify-center px-6"}>
-                <div className={"shadow-md items-center w-full flex"} style={{ height: "500px" }}>
-                    <div className={"w-1/2 bg-white p-5 rounded-lg lg:rounded-r-none"}>
+                <div className={"shadow-md bg-white items-center w-full flex"} style={{ height: "500px" }}>
+                    <div className={"w-1/2  p-5 rounded-lg lg:rounded-r-none"}>
                         <div className={"px-8 pb-8 mb-8"}>
                             <img
                                 className={"mx-auto"}
@@ -138,7 +143,6 @@ function Login() {
                                     func={handleLogin}
                                 />
                             )}
-                            {isAuthenticated && (navigate("/"))}
                         </div>
                         <hr className={"my-6"} />
                         <div className={"text-center m-4"}>
