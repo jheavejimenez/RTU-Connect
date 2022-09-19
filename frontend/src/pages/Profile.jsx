@@ -11,7 +11,7 @@ function Profile() {
 
     const fetchBalance = async () => {
         try {
-            const options = { chain: Moralis.Chains.ETH_ROPSTEN };
+            const options = { chain: Moralis.Chains.POLYGON_MUMBAI };
             const balance = await Moralis.Web3API.account.getNativeBalance(options);
             setBalance(balance.balance / 10 ** 18);
         } catch (error) {
