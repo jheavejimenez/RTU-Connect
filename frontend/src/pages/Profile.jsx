@@ -34,11 +34,6 @@ function Profile() {
     useEffect(() => {
         fetchBalance();
         getUserAddress();
-        const interval = setInterval(() => {
-            fetchBalance();
-            getUserAddress();
-        }, 10000);
-        return () => clearInterval(interval);
     }, []);
 
     return (
