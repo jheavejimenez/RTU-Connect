@@ -10,7 +10,6 @@ import NavBar from "./components/NavBar/NavBar";
 function App() {
     return (
         <>
-            {useMoralis().isAuthenticated && <NavBar />}
             <Routes>
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/profile"} element={<Profile />} />

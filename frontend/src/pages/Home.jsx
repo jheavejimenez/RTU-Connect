@@ -7,6 +7,7 @@ import Post from "../components/Post/Post";
 function Home() {
     return (
         <>
+            <NavBar />
             <ComposePost />
             <Post />
         </>

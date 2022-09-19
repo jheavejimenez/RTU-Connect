@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Navbar } from "@mantine/core";
 import ComposePost from "../components/ComposePost/ComposePost";
 import Post from "../components/Post/Post";
 import SVGCopyCLick from "../svg/Copy/CopyClick";
@@ -38,6 +39,7 @@ function Profile() {
 
     return (
         <>
+            <Navbar />
             <main className={"grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-12 w-2xl container px-2 mx-auto"}>
                 <aside className={""}>
                     <div className={"bg-white shadow rounded-lg p-10"}>
