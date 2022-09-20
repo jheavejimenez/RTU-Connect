@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 
-export default function Example() {
+function Avatar() {
     const navigate = useNavigate();
     const { logout } = useMoralis();
 
@@ -95,3 +95,5 @@ export default function Example() {
 
     );
 }
+
+export default Avatar;
