@@ -5,6 +5,7 @@ import SVGHome from "../../svg/Home";
 import SVGCommunity from "../../svg/Community";
 import Watch from "../../svg/Watch";
 import Search from "../../svg/Search";
+import Example from "../Dropdown/dropdownNav";
 
 function NavBar() {
     return (
@@ -43,10 +44,11 @@ function NavBar() {
                             </span>
                         </li>
                     </ul>
-                    <a href={"/profile"} className={"mr-3"}>
-                        <img src={Profile} width={40} height={40} style={{ layout: "fixed" }} alt={""} />
-                    </a>
-
+                    {/* <a href={"/profile"} className={"mr-3"}> */}
+                    {/* eslint-disable-next-line max-len */}
+                    {/*   <img src={Profile} width={40} height={40} style={{ layout: "fixed" }} alt={""} /> */}
+                    {/* </a> */}
+                    <Example />
                 </div>
             </nav>
         </div>
