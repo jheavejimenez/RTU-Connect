@@ -1,19 +1,21 @@
-import "./index.css"
+import "./index.css";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import React from "react";
+import { useMoralis } from "react-moralis";
 import Home from "./pages/Home";
-import {Route, Routes} from "react-router-dom";
+import Profile from "./pages/Profile";
 import Login from "./pages/Login";
-import Post from "./components/Post/Post";
-
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
     return (
-        <div>
+        <>
             <Routes>
-                <Route path="/" element={<Login/>}/>
-                <Route path="/home" element={<Home/>}/>
+                <Route path={"/"} element={<Home />} />
+                <Route path={"/profile"} element={<Profile />} />
+                <Route path={"/login"} element={<Login />} />
             </Routes>
-            <Post/>
-        </div>
+        </>
     );
 }
 
