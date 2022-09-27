@@ -1,23 +1,22 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import { useLazyQuery } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import { GET_PROFILES } from "../GraphQL/queries";
 import lensHub from "../utils/lensHub.json";
-import { address } from "../utils/constants";
+import { ADDRESS } from "../utils/constants";
 
 const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
 function Login({
-    wallet, authToken, setProfile, setLensHub,
+    wallet, setWallet, authToken, setProfile, setLensHub,
 }) {
-    const navigate = useNavigate();
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
     const {
         authenticate,
         isAuthenticating,
         Moralis,
+        user,
     } = useMoralis();
 
     const ethers = Moralis.web3Library;
@@ -119,10 +118,7 @@ function Login({
         getProfiles({
             variables: {
                 request: {
-                    // profileIds?: string[];
                     ownedBy: wallet.address,
-                    // handles?: string[];
-                    // whoMirroredPublicationId?: string;
                 },
             },
         });
@@ -148,10 +144,12 @@ function Login({
 
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
+            const address = await user.get("ethAddress");
 
-            const contract = new ethers.Contract(address.lensHub, lensHub, signer);
-            console.log(contract);
+            const contract = new ethers.Contract(ADDRESS.lensHub, lensHub, signer);
             setLensHub(contract);
+            setWallet({ ...wallet, signer, address });
+            console.log(address);
             // navigate("/");
         } catch (error) {
             console.error(error);
