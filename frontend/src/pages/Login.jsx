@@ -1,19 +1,16 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import { useLazyQuery } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import { GET_PROFILES } from "../GraphQL/queries";
+import lensHub from "../utils/lensHub.json";
+import { address } from "../utils/constants";
 
 const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
 function Login({
-    wallet,
-    setWallet,
-    authToken,
-    currProfile,
-    setProfile,
-    setLensHub,
+    wallet, authToken, setProfile, setLensHub,
 }) {
     const navigate = useNavigate();
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
@@ -22,6 +19,8 @@ function Login({
         isAuthenticating,
         Moralis,
     } = useMoralis();
+
+    const ethers = Moralis.web3Library;
 
     // useEffect(() => {
     //     const init = async () => {
@@ -129,6 +128,13 @@ function Login({
         });
     }, [authToken]);
 
+    useEffect(() => {
+        if (!profiles.data) return;
+        console.log(profiles.data.profiles.items);
+
+        setProfile(profiles.data.profiles.items[0]);
+    }, [profiles.data]);
+
     const handleLogin = async () => {
         try {
             await authenticate({
@@ -139,7 +145,14 @@ function Login({
                 theme: "light",
                 loginMethodsOrder: ["google"],
             });
-            navigate("/");
+
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+
+            const contract = new ethers.Contract(address.lensHub, lensHub, signer);
+            console.log(contract);
+            setLensHub(contract);
+            // navigate("/");
         } catch (error) {
             console.error(error);
         }
