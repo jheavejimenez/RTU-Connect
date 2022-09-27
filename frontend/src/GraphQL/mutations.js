@@ -23,3 +23,18 @@ export const MODULE_APPROVAL_DATA = gql`
         }
     }
 `;
+
+export const GET_CHALLENGE = gql`
+  query($request: ChallengeRequest!) {
+    challenge(request: $request) { text }
+  }
+`;
+
+export const AUTHENTICATION = gql`
+  mutation($request: SignedAuthChallenge!) { 
+    authenticate(request: $request) {
+      accessToken
+      refreshToken
+    }
+  }
+`;
