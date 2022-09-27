@@ -1,30 +1,7 @@
-import React, { useState, useEffect, createRef } from "react";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import React, { createRef, useEffect } from "react";
+import { useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
-
-const CREATE_PROFILE = gql`
-    mutation ($request: CreateProfileRequest!) {
-        createProfile(request: $request) {
-            ... on RelayerResult {
-                txHash
-            }
-            ... on RelayError {
-                reason
-            }
-            __typename
-        }
-    }
-`;
-
-const MODULE_APPROVAL_DATA = gql`
-    query ($request: GenerateModuleCurrencyApprovalDataRequest!) {
-        generateModuleCurrencyApprovalData(request: $request) {
-            to
-            from
-            data
-        }
-    }
-`;
+import { CREATE_PROFILE } from "../GraphQL/mutations";
 
 function CreateHandle() {
     const [createProfile, createProfileData] = useMutation(CREATE_PROFILE);
@@ -50,7 +27,6 @@ function CreateHandle() {
 
     useEffect(() => {
         if (!createProfileData.data) return;
-
         console.log(createProfileData.data);
     }, [createProfileData.data]);
 
@@ -62,7 +38,7 @@ function CreateHandle() {
             e.target.value = "";
         }
     };
-    
+
     return (
         <div className={"relative flex flex-col justify-center min-h-screen overflow-hidden "}>
             <div
@@ -100,4 +76,5 @@ function CreateHandle() {
         </div>
     );
 }
+
 export default CreateHandle;

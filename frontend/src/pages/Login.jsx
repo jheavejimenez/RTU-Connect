@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
+import { useLazyQuery } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 
 const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
-function Login() {
+function Login({
+    wallet,
+    setWallet,
+    authToken,
+    currProfile,
+    setProfile,
+    setLensHub,
+}) {
     const navigate = useNavigate();
+    const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
     const {
         authenticate,
         isAuthenticating,
@@ -103,6 +112,21 @@ function Login() {
     //     const user = await web3auth.getUserInfo();
     //     console.log(user);
     // };
+
+    useEffect(() => {
+        if (!authToken) return;
+
+        getProfiles({
+            variables: {
+                request: {
+                    // profileIds?: string[];
+                    ownedBy: wallet.address,
+                    // handles?: string[];
+                    // whoMirroredPublicationId?: string;
+                },
+            },
+        });
+    }, [authToken]);
 
     const handleLogin = async () => {
         try {
