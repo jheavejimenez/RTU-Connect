@@ -4,7 +4,7 @@ import React from "react";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
-import CreateProfile from "./pages/CreateProfile";
+import CreateHandle from "./pages/CreateProfile";
 
 function App() {
     return (
@@ -13,7 +13,7 @@ function App() {
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/profile"} element={<Profile />} />
                 <Route path={"/login"} element={<Login />} />
-                <Route path={"/new/profile"} element={<CreateProfile />} />
+                <Route path={"/create-handle"} element={<CreateHandle />} />
             </Routes>
         </>
     );
