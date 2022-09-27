@@ -8,7 +8,7 @@ import { ADDRESS } from "../utils/constants";
 
 const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
-function Login({
+function Wallet({
     wallet, setWallet, authToken, setProfile, setLensHub,
 }) {
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
@@ -131,7 +131,7 @@ function Login({
         setProfile(profiles.data.profiles.items[0]);
     }, [profiles.data]);
 
-    const handleLogin = async () => {
+    const handleConnectWallet = async () => {
         try {
             await authenticate({
                 provider: "web3Auth",
@@ -149,7 +149,6 @@ function Login({
             const contract = new ethers.Contract(ADDRESS.lensHub, lensHub, signer);
             setLensHub(contract);
             setWallet({ ...wallet, signer, address });
-            console.log(address);
             // navigate("/");
         } catch (error) {
             console.error(error);
@@ -174,8 +173,8 @@ function Login({
                                 />
                             ) : (
                                 <ButtonFunctionCall
-                                    text={"Login"}
-                                    func={handleLogin}
+                                    text={"Connect your wallet"}
+                                    func={handleConnectWallet}
                                 />
                             )}
                         </div>
@@ -187,7 +186,7 @@ function Login({
                             >
                                 {"Don"}
                                 &apos;
-                                {"t have an account? Register!"}
+                                {"t have an Handle? Create an handle now!"}
                             </a>
                         </div>
                     </div>
@@ -201,4 +200,4 @@ function Login({
     );
 }
 
-export default Login;
+export default Wallet;
