@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import { useLazyQuery } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
+import { GET_PROFILES } from "../GraphQL/queries";
 
 const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
