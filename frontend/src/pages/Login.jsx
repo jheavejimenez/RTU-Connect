@@ -8,7 +8,7 @@ import { ADDRESS } from "../utils/constants";
 
 const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
-function Wallet({
+function Login({
     wallet, setWallet, authToken, setProfile, setLensHub,
 }) {
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
@@ -20,97 +20,6 @@ function Wallet({
     } = useMoralis();
 
     const ethers = Moralis.web3Library;
-
-    // useEffect(() => {
-    //     const init = async () => {
-    //         try {
-    //             const web3auth = new Web3AuthCore({
-    //                 clientId,
-    //                 chainConfig: {
-    //                     chainNamespace: CHAIN_NAMESPACES.EIP155,
-    //                     chainId: "0x13881", // hex of 80001, polygon testnet
-    //                     // rpcTarget: "https://rpc.ankr.com/polygon_mumbai",
-    //                     // // Avoid using public rpcTarget in production.
-    //                     // // Use services like Infura, Quicknode etc
-    //                     // displayName: "Polygon Mainnet",
-    //                     // blockExplorer: "https://mumbai.polygonscan.com/",
-    //                     // ticker: "MATIC",
-    //                     // tickerName: "Matic",
-    //                 },
-    //             });
-    //
-    //             const openloginAdapter = new OpenloginAdapter({
-    //                 adapterSettings: {
-    //                     network: "testnet",
-    //                     uxMode: "popup",
-    //                     whiteLabel: {
-    //                         name: "RTU Connect",
-    //                         logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
-    //                         defaultLanguage: "en",
-    //                     },
-    //                     loginConfig: {
-    //                         google: {
-    //                             name: "RTU Connect",
-    //                             verifier: "rtu-connect",
-    //                             typeOfLogin: "google",
-    //                             clientId: googleClientId, // use app client id from Google
-    //                         },
-    //                     },
-    //                 },
-    //             });
-    //             web3auth.configureAdapter(openloginAdapter);
-    //             setWeb3auth(web3auth);
-    //
-    //             await web3auth.init();
-    //             if (web3auth.provider) {
-    //                 setProvider(web3auth.provider);
-    //             }
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     };
-    //
-    //     init();
-    // }, []);
-    //
-    // const handleLogin = async () => {
-    //     if (!web3auth) {
-    //         console.log("web3auth not initialized yet");
-    //         return;
-    //     }
-    //     const web3authProvider = await web3auth.connectTo(
-    //         WALLET_ADAPTERS.OPENLOGIN,
-    //         {
-    //             loginProvider: "google",
-    //         },
-    //     );
-    //     setProvider(web3authProvider);
-    //
-    //     // this code must be change  because it is not secure
-    //     if (user.loggedIn) return;
-    //     setUser({ loggedIn: true });
-    //
-    //     // check if provider is set and  location.state.from is set
-    //     if (location.state?.from) {
-    //         navigate(location.state.from);
-    //     }
-    // };
-    // const logout = async () => {
-    //     if (!web3auth) {
-    //         console.log("web3auth not initialized yet");
-    //         return;
-    //     }
-    //     await web3auth.logout();
-    //     setProvider(null);
-    // };
-    // const getUserInfo = async () => {
-    //     if (!web3auth) {
-    //         console.log("web3auth not initialized yet");
-    //         return;
-    //     }
-    //     const user = await web3auth.getUserInfo();
-    //     console.log(user);
-    // };
 
     useEffect(() => {
         if (!authToken) return;
@@ -200,4 +109,4 @@ function Wallet({
     );
 }
 
-export default Wallet;
+export default Login;

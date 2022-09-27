@@ -56,7 +56,7 @@ function Profile() {
                             />
                             <p className={"font-semibold"}>{"John Doe"}</p>
                             <div className={"text-sm leading-normal text-gray-400 flex justify-center items-center"}>
-                                {"Wallet Address: "}
+                                {"Login Address: "}
                                 {userAddress !== null ? (`${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`) : "Loading..."}
                                 <CopyToClipboard onCopy={onCopy} text={userAddress}>
                                     <button className={"ml-2"}>
@@ -77,7 +77,7 @@ function Profile() {
                                     {"MATIC"}
                                 </p>
                                 <span className={"text-gray-400"}>
-                                    {"Wallet Balance"}
+                                    {"Login Balance"}
                                 </span>
                             </div>
                             <div className={"font-semibold text-center mx-4"}>
