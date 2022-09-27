@@ -28,4 +28,5 @@ rules: {
   global-require: [ warn ],
   no-console: [ warn ],
   no-shadow: [ off ],
+  no-tabs: [ off ],
 }
