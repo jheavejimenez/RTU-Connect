@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMoralis } from "react-moralis";
-import { useLazyQuery } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
-import { GET_PROFILES } from "../GraphQL/queries";
 import lensHub from "../utils/lensHub.json";
 import { ADDRESS } from "../utils/constants";
 
 const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
-function Login({
-    wallet, setWallet, authToken, setProfile, setLensHub,
-}) {
-    const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
+function Login({ wallet, setWallet }) {
     const {
         authenticate,
         isAuthenticating,
@@ -20,25 +15,6 @@ function Login({
     } = useMoralis();
 
     const ethers = Moralis.web3Library;
-
-    useEffect(() => {
-        if (!authToken) return;
-
-        getProfiles({
-            variables: {
-                request: {
-                    ownedBy: wallet.address,
-                },
-            },
-        });
-    }, [authToken]);
-
-    useEffect(() => {
-        if (!profiles.data) return;
-        console.log(profiles.data.profiles.items);
-
-        setProfile(profiles.data.profiles.items[0]);
-    }, [profiles.data]);
 
     const handleConnectWallet = async () => {
         try {
