@@ -1,99 +1,75 @@
-import React, { useEffect } from "react";
-import { useMoralis } from "react-moralis";
-import { gql, useLazyQuery, useMutation } from "@apollo/client";
+import React, { useEffect, useState } from "react";
+import { sequence } from "0xsequence";
+import Web3Modal from "@0xsequence/web3modal";
+import WalletConnect from "@walletconnect/web3-provider";
+import { ethers } from "ethers";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
-import lensHub from "../utils/lensHub.json";
-import { ADDRESS } from "../utils/constants";
-import { AUTHENTICATION, GET_CHALLENGE } from "../GraphQL/mutations";
 
-const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
+// Configure  wallet
+let providerOptions = {
+    walletconnect: {
+        package: WalletConnect,
+        options: {
+            infuraId: "xxx-your-infura-id-her",
+        },
+    },
+};
 
-function Login({
-    wallet, setWallet, setLensHub, auth, 
-}) {
-    const {
-        authenticate,
-        isAuthenticating,
-        Moralis,
-    } = useMoralis();
+if (!window?.ethereum?.isSequence) {
+    providerOptions = {
+        ...providerOptions,
+        sequence: {
+            package: sequence,
+            options: {
+                appName: "RTU Connect",
+                defaultNetwork: "polygon",
+            },
+        },
+    };
+}
 
-    const ethers = Moralis.web3Library;
-    const [authToken, setAuthToken] = auth;
-    const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
-    const [mutateAuth, authData] = useMutation(AUTHENTICATION);
-    let walletAddress;
+const web3Modal = new Web3Modal({
+    providerOptions,
+    cacheProvider: true,
+});
 
-    const handleConnectWallet = async () => {
-        try {
-            await authenticate({
-                provider: "web3Auth",
-                clientId: webAuthClientId,
-                chainId: Moralis.Chains.POLYGON_MUMBAI,
-                appLogo: "https://images.web3auth.io/web3auth-logo-w.svg",
-                theme: "light",
-                loginMethodsOrder: ["google"],
-            }).then(async (user) => { walletAddress = user.attributes.ethAddress; });
+function Login() {
+    const [provider, setProvider] = useState(null);
+    const connectWallet = async () => {
+        const wallet = await web3Modal.connect();
 
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
+        const provider = new ethers.providers.Web3Provider(wallet);
 
-            const contract = new ethers.Contract(ADDRESS.lensHub, lensHub, signer);
-            setLensHub(contract);
-            setWallet({ ...wallet, signer, walletAddress });
-
-            if (authToken) {
-                console.log("login: already logged in");
-                return;
-            }
-
-            console.log("login: address", walletAddress);
-            await getChallenge({
-                variables: {
-                    request: {
-                        address: walletAddress,
-                    },
-                },
-            });
-            console.log("signer", signer);
-            // navigate("/");
-        } catch (error) {
-            console.error(error);
+        if (wallet.sequence) {
+            (provider).sequence = wallet.sequence;
         }
+
+        setProvider(provider);
     };
 
     useEffect(() => {
-        if (!challengeData.data) return;
+        if (web3Modal.cachedProvider) {
+            connectWallet();
+        }
+    }, []);
 
-        const handleSign = async () => {
-            const signature = await wallet.signer.signMessage(challengeData.data.challenge.text);
-            console.log("login: signature", signature);
-            await mutateAuth({
-                variables: {
-                    request: {
-                        address: walletAddress,
-                        signature,
-                    },
-                },
-            });
-        };
+    const connectWeb3Modal = async () => {
+        if (web3Modal.cachedProvider) {
+            web3Modal.clearCachedProvider();
+        }
+        connectWallet();
+    };
 
-        handleSign();
-    }, [challengeData.data]);
+    const disconnectWeb3Modal = async () => {
+        web3Modal.clearCachedProvider();
 
-    // useEffect(() => {
-    //     if (!authData.data) return;
-    //
-    //     // window.authToken = authData.data.authenticate.accessToken
-    //     window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
-    //
-    //     setAuthToken(true);
-    // }, [authData.data]);
-    //
-    // useEffect(() => {
-    //     if (window.sessionStorage.getItem("lensToken")) {
-    //         setAuthToken(true);
-    //     }
-    // }, []);
+        if (provider && (provider).sequence) {
+            const wallet = (provider).sequence;
+            wallet.disconnect();
+        }
+
+        setProvider(null);
+    };
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
@@ -108,16 +84,10 @@ function Login({
                             />
                         </div>
                         <div className={"text-center flex items-center justify-center"}>
-                            {isAuthenticating ? (
-                                <div
-                                    className={"w-10 h-10 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"}
-                                />
-                            ) : (
-                                <ButtonFunctionCall
-                                    text={"Connect your wallet"}
-                                    func={handleConnectWallet}
-                                />
-                            )}
+                            <ButtonFunctionCall
+                                text={"Connect your wallet"}
+                                func={connectWeb3Modal}
+                            />
                         </div>
                         <hr className={"my-6"} />
                         <div className={"text-center m-4"}>
