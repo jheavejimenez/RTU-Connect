@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useMoralis } from "react-moralis";
 
-function PrivateRoutes() {
+function PrivateRoutes({ authToken }) {
     const location = useLocation();
-    const { isAuthenticated } = useMoralis();
-    console.log("isAuthenticated", isAuthenticated);
-    return isAuthenticated ? (<Outlet />) : (<Navigate to={"/login"} replace state={{ from: location }} />);
+    return authToken ? (
+        <Outlet />
+    ) : (
+        <Navigate to={"/login"} replace state={{ from: location }} />
+    );
 }
 
 export default PrivateRoutes;
