@@ -22,12 +22,12 @@ function App() {
                         <Login
                             wallet={wallet}
                             setWallet={setWallet}
-                            authToken={authToken}
+                            auth={[authToken, setAuthToken]}
                             setLensHub={setLensHub}
                         />
                     )}
                 />
-                <Route path={"/create-handle"} element={<CreateHandle />} />
+                <Route path={"/create-handle"} element={<CreateHandle wallet={wallet} />} />
             </Routes>
         </>
     );

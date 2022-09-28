@@ -14,6 +14,7 @@
     "@web3auth/core": "^2.1.2",
     "@web3auth/openlogin-adapter": "^2.1.2",
     "@web3auth/web3auth": "^2.1.2",
+    "0xsequence": "^0.41.2",
     "ethers": "^5.7.1",
     "graphql": "^16.6.0",
     "react": "^18.2.0",

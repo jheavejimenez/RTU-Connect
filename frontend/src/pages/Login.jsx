@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useMoralis } from "react-moralis";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import lensHub from "../utils/lensHub.json";
 import { ADDRESS } from "../utils/constants";
+import { AUTHENTICATION, GET_CHALLENGE } from "../GraphQL/mutations";
 
 const webAuthClientId = process.env.REACT_APP_WEB3_AUTH_CLIENT_ID;
 
-function Login({ wallet, setWallet }) {
+function Login({
+    wallet, setWallet, setLensHub, auth, 
+}) {
     const {
         authenticate,
         isAuthenticating,
         Moralis,
-        user,
     } = useMoralis();
 
     const ethers = Moralis.web3Library;
+    const [authToken, setAuthToken] = auth;
+    const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
+    const [mutateAuth, authData] = useMutation(AUTHENTICATION);
+    let walletAddress;
 
     const handleConnectWallet = async () => {
         try {
@@ -25,20 +32,69 @@ function Login({ wallet, setWallet }) {
                 appLogo: "https://images.web3auth.io/web3auth-logo-w.svg",
                 theme: "light",
                 loginMethodsOrder: ["google"],
-            });
+            }).then(async (user) => { walletAddress = user.attributes.ethAddress; });
 
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
-            const address = await user.get("ethAddress");
 
             const contract = new ethers.Contract(ADDRESS.lensHub, lensHub, signer);
             setLensHub(contract);
-            setWallet({ ...wallet, signer, address });
+            setWallet({ ...wallet, signer, walletAddress });
+
+            if (authToken) {
+                console.log("login: already logged in");
+                return;
+            }
+
+            console.log("login: address", walletAddress);
+            await getChallenge({
+                variables: {
+                    request: {
+                        address: walletAddress,
+                    },
+                },
+            });
+            console.log("signer", signer);
             // navigate("/");
         } catch (error) {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        if (!challengeData.data) return;
+
+        const handleSign = async () => {
+            const signature = await wallet.signer.signMessage(challengeData.data.challenge.text);
+            console.log("login: signature", signature);
+            await mutateAuth({
+                variables: {
+                    request: {
+                        address: walletAddress,
+                        signature,
+                    },
+                },
+            });
+        };
+
+        handleSign();
+    }, [challengeData.data]);
+
+    // useEffect(() => {
+    //     if (!authData.data) return;
+    //
+    //     // window.authToken = authData.data.authenticate.accessToken
+    //     window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
+    //
+    //     setAuthToken(true);
+    // }, [authData.data]);
+    //
+    // useEffect(() => {
+    //     if (window.sessionStorage.getItem("lensToken")) {
+    //         setAuthToken(true);
+    //     }
+    // }, []);
+
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
             <div className={"flex w-full justify-center px-6"}>
