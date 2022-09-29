@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useLocalStorage("user", null);
-    const [wallet, setWallet] = useLocalStorage("wallet", null);
+    const [wallet, setWallet] = useLocalStorage("wallet", "");
     const [profile, setProfile] = useLocalStorage("profile", {});
     const [lensHub, setLensHub] = useLocalStorage("lensHub", null);
 
@@ -33,6 +33,10 @@ export function AuthProvider({ children }) {
     // call this function to sign out logged-in user
     const logout = () => {
         setUser(null);
+        setWallet("");
+        setProfile({});
+        setLensHub(null);
+
         navigate("/login", { replace: true });
     };
 
