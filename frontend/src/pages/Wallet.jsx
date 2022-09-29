@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { sequence } from "0xsequence";
 import Web3Modal from "@0xsequence/web3modal";
 import WalletConnect from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
-import { AUTHENTICATION, GET_CHALLENGE } from "../graphQL/mutations";
-import lensHub from "../utils/lensHub.json";
+import lensHubABI from "../utils/lensHubABI.json";
 import { ADDRESS } from "../utils/constants";
 import { GET_PROFILES } from "../graphQL/queries";
+import { useAuth } from "../hooks/useAuth";
 
 // Configure  wallet
 let providerOptions = {
@@ -38,8 +38,9 @@ const web3Modal = new Web3Modal({
     cacheProvider: true,
 });
 
-function Wallet({ setLensHub }) {
+function Wallet() {
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
+    const { lensHub } = useAuth();
 
     const connectWallet = async () => {
         const wallet = await web3Modal.connect();
@@ -53,14 +54,14 @@ function Wallet({ setLensHub }) {
         const signer = provider.getSigner();
         const address = await signer.getAddress();
 
-        const contract = new ethers.Contract(ADDRESS.lensHub, lensHub, signer);
+        const contract = new ethers.Contract(ADDRESS.lensHub, lensHubABI, signer);
 
-        setLensHub(contract);
+        lensHub(contract);
         provider.getBalance(address).then((balance) => {
             // convert a currency unit from wei to ether
             const balanceInEth = ethers.utils.formatEther(balance);
             setWallet({
-                ...wallet, signer, address, balanceInEth, 
+                ...wallet, signer, address, balanceInEth,
             });
         });
 
