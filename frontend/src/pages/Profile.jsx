@@ -31,7 +31,7 @@ function Profile({ wallet }) {
                             />
                             <p className={"font-semibold"}>{"John Doe"}</p>
                             <div className={"text-sm leading-normal text-gray-400 flex justify-center items-center"}>
-                                {"Login Address: "}
+                                {"Wallet Address: "}
                                 {wallet.address !== undefined ? (`${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`) : "Loading..."}
                                 <CopyToClipboard onCopy={onCopy} text={wallet.address}>
                                     <button className={"ml-2"}>
@@ -52,7 +52,7 @@ function Profile({ wallet }) {
                                     {"MATIC"}
                                 </p>
                                 <span className={"text-gray-400"}>
-                                    {"Login Balance"}
+                                    {"Wallet Balance"}
                                 </span>
                             </div>
                             <div className={"font-semibold text-center mx-4"}>

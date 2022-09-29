@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import React, { useState } from "react";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import Login from "./pages/Login";
+import Wallet from "./pages/Wallet";
 import CreateHandle from "./pages/CreateProfile";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
                 <Route
                     path={"/login"}
                     element={(
-                        <Login
+                        <Wallet
                             wallet={wallet}
                             setWallet={setWallet}
                             auth={[authToken, setAuthToken]}

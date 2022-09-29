@@ -1,14 +1,14 @@
 import React from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "./custom-hooks/useAuth";
 
-function PrivateRoutes() {
-    const authToken = true;
-    const location = useLocation();
-    return authToken ? (
-        <Outlet />
-    ) : (
-        <Navigate to={"/login"} replace state={{ from: location }} />
-    );
+function ProtectedRoute({ children }) {
+    const { user } = useAuth();
+    if (!user) {
+        // user is not authenticated
+        return <Navigate to={"/login"} />;
+    }
+    return children;
 }
 
-export default PrivateRoutes;
+export default ProtectedRoute;
