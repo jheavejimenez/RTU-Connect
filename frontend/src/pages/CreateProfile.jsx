@@ -1,7 +1,7 @@
 import React, { createRef, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
-import { CREATE_PROFILE } from "../GraphQL/mutations";
+import { CREATE_PROFILE } from "../graphQL/mutations";
 
 function CreateHandle(wallet) {
     const [createProfile, createProfileData] = useMutation(CREATE_PROFILE);

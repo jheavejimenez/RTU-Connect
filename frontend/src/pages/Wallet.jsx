@@ -5,7 +5,7 @@ import WalletConnect from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
-import { AUTHENTICATION, GET_CHALLENGE } from "../GraphQL/mutations";
+import { AUTHENTICATION, GET_CHALLENGE } from "../graphQL/mutations";
 import lensHub from "../utils/lensHub.json";
 import { ADDRESS } from "../utils/constants";
 
