@@ -63,6 +63,7 @@ function Wallet() {
         const contract = new ethers.Contract(ADDRESS.lensHub, lensHubABI, signer);
 
         lensHubData(contract);
+        console.log("contract", contract);
         provider.getBalance(address).then((balance) => {
             // convert a currency unit from wei to ether
             const balanceInEth = ethers.utils.formatEther(balance);
@@ -121,9 +122,8 @@ function Wallet() {
     useEffect(() => {
         if (!authData.data) return;
 
-        login({
-            "lensToken": authData.data.authenticate.accessToken,
-        });
+        login(authData.data.authenticate.accessToken);
+        window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
     }, [authData.data]);
     
     // const connectWeb3Modal = async () => {
