@@ -35,9 +35,8 @@ function Profile() {
                                 {profile.handle.replace(".test", ".rtu")}
                             </p>
                             <div className={"text-sm leading-normal text-gray-400 flex justify-center items-center"}>
-                                {"Wallet Address: "}
-                                {wallet.address !== undefined ? (`${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`) : (
-                                    `${profile.ownedBy.slice(0, 6)}...${profile.ownedBy.slice(-4)}`
+                                {wallet.address !== undefined ? (`Wallet Address: ${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`) : (
+                                    <span className={"text-sm animate-pulse text-blue-900"}>{"...loading"}</span>
                                 )}
                                 <CopyToClipboard onCopy={onCopy} text={wallet.address}>
                                     <button className={"ml-2"}>
