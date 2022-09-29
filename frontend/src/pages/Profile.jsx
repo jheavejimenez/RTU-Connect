@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useMoralis } from "react-moralis";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import SVGCopyCLick from "../svg/Copy/CopyClick";
 import SVGCopyNotClick from "../svg/Copy/CopyNotClick";
@@ -9,10 +8,12 @@ import ButtonNoClassName from "../components/Button/ButtonNoClassName";
 import SVGComment from "../svg/Comment";
 import SVGShare from "../svg/Share";
 import SVGLike from "../svg/Like";
+import { useAuth } from "../hooks/useAuth";
 
-function Profile({ wallet }) {
+function Profile() {
     const [isCopied, setIsCopied] = useState(false);
-    console.log(wallet);
+    const { wallet } = useAuth();
+
     const onCopy = React.useCallback(() => {
         setIsCopied(true);
     }, []);
@@ -32,7 +33,7 @@ function Profile({ wallet }) {
                             <p className={"font-semibold"}>{"John Doe"}</p>
                             <div className={"text-sm leading-normal text-gray-400 flex justify-center items-center"}>
                                 {"Wallet Address: "}
-                                {wallet.address !== undefined ? (`${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`) : "Loading..."}
+                                {wallet.address !== null ? (`${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`) : "Loading..."}
                                 <CopyToClipboard onCopy={onCopy} text={wallet.address}>
                                     <button className={"ml-2"}>
                                         {isCopied ? (

@@ -123,7 +123,6 @@ function Wallet() {
 
         login({
             "lensToken": authData.data.authenticate.accessToken,
-            "isAuthenticated": true,
         });
     }, [authData.data]);
     
