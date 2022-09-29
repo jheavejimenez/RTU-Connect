@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Wallet from "./pages/Wallet";
 import CreateHandle from "./pages/CreateProfile";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
     const [wallet, setWallet] = useState({});
@@ -24,9 +25,30 @@ function App() {
                         />
                     )}
                 />
-                <Route path={"/"} element={<Home />} />
-                <Route path={"/profile"} element={<Profile wallet={wallet} />} />
-                <Route path={"/create-handle"} element={<CreateHandle wallet={wallet} />} />
+                <Route
+                    path={"/"}
+                    element={(
+                        <ProtectedRoute>  
+                            <Home />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path={"/profile"}
+                    element={(
+                        <ProtectedRoute> 
+                            <Profile wallet={wallet} />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path={"/create-handle"}
+                    element={(
+                        <ProtectedRoute> 
+                            <CreateHandle wallet={wallet} />
+                        </ProtectedRoute>
+                    )}
+                />
             </Routes>
         </>
     );

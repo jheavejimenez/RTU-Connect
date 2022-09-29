@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { MoralisProvider } from "react-moralis";
 import App from "./App";
 import ApolloProvider from "./context/ProviderContext";
+import { AuthProvider } from "./hooks/useAuth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,9 +14,11 @@ root.render(
             appId={process.env.REACT_APP_MORALIS_APP_ID}
         >
             <BrowserRouter>
-                <ApolloProvider>
-                    <App />
-                </ApolloProvider>
+                <AuthProvider>
+                    <ApolloProvider>
+                        <App />
+                    </ApolloProvider>
+                </AuthProvider>
             </BrowserRouter>
         </MoralisProvider>
     </React.StrictMode>,
