@@ -1,7 +1,8 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-function PrivateRoutes({ authToken }) {
+function PrivateRoutes() {
+    const authToken = true;
     const location = useLocation();
     return authToken ? (
         <Outlet />

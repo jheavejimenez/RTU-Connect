@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-// import ComposePost from "../components/ComposePost/ComposePost";
-// import Post from "../components/Post/Post";
 import SVGCopyCLick from "../svg/Copy/CopyClick";
 import SVGCopyNotClick from "../svg/Copy/CopyNotClick";
 import NavBar from "../components/NavBar/NavBar";
@@ -12,34 +10,11 @@ import SVGComment from "../svg/Comment";
 import SVGShare from "../svg/Share";
 import SVGLike from "../svg/Like";
 
-function Profile() {
-    const { Moralis, user } = useMoralis();
-    const [userAddress, setUserAddress] = useState(null);
-    const [balance, setBalance] = useState(0);
+function Profile({ wallet }) {
     const [isCopied, setIsCopied] = useState(false);
-
-    const getUserAddress = async () => {
-        const userAddress = await user.get("ethAddress");
-        setUserAddress(userAddress);
-    };
-
-    const fetchBalance = async () => {
-        try {
-            const options = { chain: Moralis.Chains.POLYGON_MUMBAI };
-            const balance = await Moralis.Web3API.account.getNativeBalance(options);
-            setBalance(balance.balance / 10 ** 18);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
+    console.log(wallet);
     const onCopy = React.useCallback(() => {
         setIsCopied(true);
-    }, []);
-
-    useEffect(() => {
-        fetchBalance();
-        getUserAddress();
     }, []);
 
     return (
@@ -57,8 +32,8 @@ function Profile() {
                             <p className={"font-semibold"}>{"John Doe"}</p>
                             <div className={"text-sm leading-normal text-gray-400 flex justify-center items-center"}>
                                 {"Login Address: "}
-                                {userAddress !== null ? (`${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`) : "Loading..."}
-                                <CopyToClipboard onCopy={onCopy} text={userAddress}>
+                                {wallet.address !== undefined ? (`${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`) : "Loading..."}
+                                <CopyToClipboard onCopy={onCopy} text={wallet.address}>
                                     <button className={"ml-2"}>
                                         {isCopied ? (
                                             <SVGCopyCLick />
@@ -72,7 +47,7 @@ function Profile() {
                         <div className={"flex justify-center items-center gap-2 my-3"}>
                             <div className={"font-semibold text-center mx-4"}>
                                 <p className={"text-black"}>
-                                    {balance}
+                                    {"0"}
                                     {" "}
                                     {"MATIC"}
                                 </p>
