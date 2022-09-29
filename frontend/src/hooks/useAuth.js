@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
         navigate("/profile");
     };
 
-    // call this function to sign out logged in user
+    // call this function to sign out logged-in user
     const logout = () => {
         setUser(null);
         navigate("/", { replace: true });
