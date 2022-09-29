@@ -8,6 +8,7 @@ import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import { AUTHENTICATION, GET_CHALLENGE } from "../graphQL/mutations";
 import lensHub from "../utils/lensHub.json";
 import { ADDRESS } from "../utils/constants";
+import { GET_PROFILES } from "../graphQL/queries";
 
 // Configure  wallet
 let providerOptions = {
@@ -37,10 +38,8 @@ const web3Modal = new Web3Modal({
     cacheProvider: true,
 });
 
-function Wallet({
-    wallet, setWallet, authToken, currProfile, setProfile, setLensHub, 
-}) {
-    const [provider, setProvider] = useState(null);
+function Wallet({ setLensHub }) {
+    const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
 
     const connectWallet = async () => {
         const wallet = await web3Modal.connect();
@@ -55,33 +54,34 @@ function Wallet({
         const address = await signer.getAddress();
 
         const contract = new ethers.Contract(ADDRESS.lensHub, lensHub, signer);
-        setLensHub(contract);
-        setWallet({ ...wallet, signer, address });
-        setProvider(provider);
-    };
 
-    useEffect(() => {
-        if (web3Modal.cachedProvider) {
-            connectWallet();
-        }
-    }, []);
+        setLensHub(contract);
+        provider.getBalance(address).then((balance) => {
+            // convert a currency unit from wei to ether
+            const balanceInEth = ethers.utils.formatEther(balance);
+            setWallet({
+                ...wallet, signer, address, balanceInEth, 
+            });
+        });
+
+        await getProfiles({
+            variables: {
+                request: {
+                    ownedBy: address,
+                },
+            },
+        });
+
+        if (!profiles.data) return;
+        console.log(profiles.data.profiles.items);
+        setProfile(profiles.data.profiles.items[0]);
+    };
 
     const connectWeb3Modal = async () => {
         if (web3Modal.cachedProvider) {
             web3Modal.clearCachedProvider();
         }
         connectWallet();
-    };
-
-    const disconnectWeb3Modal = async () => {
-        web3Modal.clearCachedProvider();
-
-        if (provider && (provider).sequence) {
-            const wallet = (provider).sequence;
-            wallet.disconnect();
-        }
-
-        setProvider(null);
     };
 
     return (
@@ -101,6 +101,7 @@ function Wallet({
                                 text={"Connect your wallet"}
                                 func={connectWeb3Modal}
                             />
+
                         </div>
                         <hr className={"my-6"} />
                         <div className={"text-center m-4"}>

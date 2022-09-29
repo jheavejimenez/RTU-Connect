@@ -6,12 +6,17 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useLocalStorage("user", null);
+    const [wallet, setWallet] = useLocalStorage("wallet", null);
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
     const login = async (data) => {
         setUser(data);
         navigate("/");
+    };
+
+    const walletData = async (data) => {
+        setWallet(data);
     };
 
     // call this function to sign out logged-in user
@@ -23,10 +28,12 @@ export function AuthProvider({ children }) {
     const value = useMemo(
         () => ({
             user,
+            wallet,
+            walletData,
             login,
             logout,
         }),
-        [user],
+        [user, wallet],
     );
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

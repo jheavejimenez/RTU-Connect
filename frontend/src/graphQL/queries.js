@@ -603,9 +603,6 @@ query($request: ProfileQueryRequest!) {
       id
       name
       bio
-      location
-      website
-      twitterUrl
       picture {
         ... on NftImage {
           contractAddress
@@ -638,7 +635,7 @@ query($request: ProfileQueryRequest!) {
         __typename
       }
       ownedBy
-      depatcher {
+      dispatcher {
         address
         canUseRelay
       }
