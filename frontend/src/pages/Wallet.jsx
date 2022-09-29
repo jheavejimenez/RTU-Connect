@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { sequence } from "0xsequence";
 import Web3Modal from "@0xsequence/web3modal";
 import WalletConnect from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import lensHubABI from "../utils/lensHubABI.json";
 import { ADDRESS } from "../utils/constants";
 import { GET_PROFILES } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
+import { AUTHENTICATION, GET_CHALLENGE } from "../graphQL/mutations";
 
 // Configure  wallet
 let providerOptions = {
@@ -40,7 +41,12 @@ const web3Modal = new Web3Modal({
 
 function Wallet() {
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
-    const { lensHub } = useAuth();
+    const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
+    const [mutateAuth, authData] = useMutation(AUTHENTICATION);
+
+    const {
+        lensHubData, walletData, profileData, profile, login, wallet,
+    } = useAuth();
 
     const connectWallet = async () => {
         const wallet = await web3Modal.connect();
@@ -56,11 +62,11 @@ function Wallet() {
 
         const contract = new ethers.Contract(ADDRESS.lensHub, lensHubABI, signer);
 
-        lensHub(contract);
+        lensHubData(contract);
         provider.getBalance(address).then((balance) => {
             // convert a currency unit from wei to ether
             const balanceInEth = ethers.utils.formatEther(balance);
-            setWallet({
+            walletData({
                 ...wallet, signer, address, balanceInEth,
             });
         });
@@ -72,18 +78,61 @@ function Wallet() {
                 },
             },
         });
+    };
 
+    const handleGetChallenge = async () => {
+        await getChallenge({
+            variables: {
+                request: {
+                    address: wallet.address,
+                },
+            },
+        });
+    };
+
+    useEffect(() => {
         if (!profiles.data) return;
         console.log(profiles.data.profiles.items);
-        setProfile(profiles.data.profiles.items[0]);
-    };
 
-    const connectWeb3Modal = async () => {
-        if (web3Modal.cachedProvider) {
-            web3Modal.clearCachedProvider();
-        }
-        connectWallet();
-    };
+        console.log("hey", Object.entries(profile).length !== 0);
+        const data = profiles.data.profiles.items[0];
+        profileData(data !== undefined ? data : {});
+    }, [profiles.data]);
+
+    useEffect(() => {
+        if (!challengeData.data) return;
+
+        const handleSign = async () => {
+            // eslint-disable-next-line max-len
+            const signature = await wallet.signer.signMessage(challengeData.data.challenge.text);
+            await mutateAuth({
+                variables: {
+                    request: {
+                        address: wallet.address,
+                        signature,
+                    },
+                },
+            });
+        };
+
+        handleSign();
+    }, [challengeData.data]);
+
+    useEffect(() => {
+        if (!authData.data) return;
+
+        login({
+            "lensToken": authData.data.authenticate.accessToken,
+            "isAuthenticated": true,
+        });
+    }, [authData.data]);
+    
+    // const connectWeb3Modal = async () => {
+    //     if (web3Modal.cachedProvider) {
+    //         web3Modal.clearCachedProvider();
+    //     }
+    //     connectWallet();
+    // };
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
@@ -98,11 +147,21 @@ function Wallet() {
                             />
                         </div>
                         <div className={"text-center flex items-center justify-center"}>
-                            <ButtonFunctionCall
-                                text={"Connect your wallet"}
-                                func={connectWeb3Modal}
-                            />
+                            {/* eslint-disable-next-line no-nested-ternary */}
+                            {Object?.entries(profile).length === 0
+                                ? (
+                                    <ButtonFunctionCall
+                                        func={connectWallet}
+                                        text={"Connect Wallet"}
+                                    />
+                                )
+                                : (
+                                    <ButtonFunctionCall
+                                        func={handleGetChallenge}
+                                        text={"Sign In"}
+                                    />
 
+                                )}
                         </div>
                         <hr className={"my-6"} />
                         <div className={"text-center m-4"}>

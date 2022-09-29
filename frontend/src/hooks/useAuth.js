@@ -7,7 +7,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
     const [user, setUser] = useLocalStorage("user", null);
     const [wallet, setWallet] = useLocalStorage("wallet", null);
-    const [profile, setProfile] = useLocalStorage("profile", null);
+    const [profile, setProfile] = useLocalStorage("profile", {});
     const [lensHub, setLensHub] = useLocalStorage("lensHub", null);
 
     const navigate = useNavigate();

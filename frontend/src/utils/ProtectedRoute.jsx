@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 
 function ProtectedRoute({ children }) {
     const { user } = useAuth();
-    if (!user) {
+    if (!user.isAuthenticated) {
         // user is not authenticated
         return <Navigate to={"/login"} />;
     }
