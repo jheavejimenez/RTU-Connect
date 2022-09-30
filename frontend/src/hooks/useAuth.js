@@ -5,7 +5,7 @@ import useLocalStorage from "./useLocalStorage";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useLocalStorage("lensToken", null);
+    const [user, setUser] = useLocalStorage("lensToken", "");
     const [profile, setProfile] = useLocalStorage("profile", {});
 
     const navigate = useNavigate();

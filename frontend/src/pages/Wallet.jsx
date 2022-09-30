@@ -123,6 +123,7 @@ function Wallet({
         if (!authData.data) return;
 
         login(authData.data.authenticate.accessToken);
+        window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
     }, [authData.data]);
     
     // const connectWeb3Modal = async () => {
