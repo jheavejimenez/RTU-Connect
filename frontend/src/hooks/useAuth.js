@@ -5,10 +5,8 @@ import useLocalStorage from "./useLocalStorage";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useLocalStorage("user", null);
-    const [wallet, setWallet] = useLocalStorage("wallet", "");
+    const [user, setUser] = useLocalStorage("lensToken", null);
     const [profile, setProfile] = useLocalStorage("profile", {});
-    const [lensHub, setLensHub] = useLocalStorage("lensHub", null);
 
     const navigate = useNavigate();
 
@@ -18,41 +16,26 @@ export function AuthProvider({ children }) {
         navigate("/");
     };
 
-    const walletData = async (data) => {
-        setWallet(data);
-    };
-
     const profileData = async (data) => {
         setProfile(data);
-    };
-
-    const lensHubData = async (data) => {
-        setLensHub(data);
     };
 
     // call this function to sign out logged-in user
     const logout = () => {
         setUser(null);
-        setWallet("");
         setProfile({});
-        setLensHub(null);
-
         navigate("/login", { replace: true });
     };
 
     const value = useMemo(
         () => ({
             user,
-            wallet,
             profile,
-            lensHub,
-            walletData,
             profileData,
-            lensHubData,
             login,
             logout,
         }),
-        [user, wallet, profile, lensHub],
+        [user, profile],
     );
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
