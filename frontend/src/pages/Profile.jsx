@@ -10,9 +10,9 @@ import SVGShare from "../svg/Share";
 import SVGLike from "../svg/Like";
 import { useAuth } from "../hooks/useAuth";
 
-function Profile() {
+function Profile({ wallet }) {
     const [isCopied, setIsCopied] = useState(false);
-    const { wallet, profile } = useAuth();
+    const { profile } = useAuth();
 
     const onCopy = React.useCallback(() => {
         setIsCopied(true);

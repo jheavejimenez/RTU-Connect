@@ -8,17 +8,20 @@ import CreateHandle from "./pages/CreateProfile";
 import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
-    // const [wallet, setWallet] = useState({});
-    // const [authToken, setAuthToken] = useState(false);
-    // const [profile, setProfile] = useState({});
+    const [wallet, setWallet] = useState({});
     const [lensHub, setLensHub] = useState();
+
     return (
         <>
             <Routes>
                 <Route
                     path={"/login"}
                     element={(
-                        <Wallet />
+                        <Wallet
+                            wallet={wallet}
+                            setWallet={setWallet}
+                            setLensHub={setLensHub}
+                        />
                     )}
                 />
                 <Route
@@ -33,7 +36,7 @@ function App() {
                     path={"/profile"}
                     element={(
                         <ProtectedRoute> 
-                            <Profile />
+                            <Profile wallet={wallet} />
                         </ProtectedRoute>
                     )}
                 />

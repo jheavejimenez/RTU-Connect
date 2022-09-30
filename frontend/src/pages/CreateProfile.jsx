@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import { CREATE_PROFILE } from "../graphQL/mutations";
 
-function CreateHandle(wallet) {
+function CreateHandle() {
     const [createProfile, createProfileData] = useMutation(CREATE_PROFILE);
     const handleRef = createRef();
 

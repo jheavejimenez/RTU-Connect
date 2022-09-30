@@ -39,14 +39,14 @@ const web3Modal = new Web3Modal({
     cacheProvider: true,
 });
 
-function Wallet() {
+function Wallet({
+    wallet, setWallet, setLensHub,
+}) {
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
     const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
     const [mutateAuth, authData] = useMutation(AUTHENTICATION);
 
-    const {
-        lensHubData, walletData, profileData, profile, login, wallet,
-    } = useAuth();
+    const { profileData, profile, login } = useAuth();
 
     const connectWallet = async () => {
         const wallet = await web3Modal.connect();
@@ -62,12 +62,12 @@ function Wallet() {
 
         const contract = new ethers.Contract(ADDRESS.lensHub, lensHubABI, signer);
 
-        lensHubData(contract);
+        setLensHub(contract);
         console.log("contract", contract);
         provider.getBalance(address).then((balance) => {
             // convert a currency unit from wei to ether
             const balanceInEth = ethers.utils.formatEther(balance);
-            walletData({
+            setWallet({
                 ...wallet, signer, address, balanceInEth,
             });
         });
