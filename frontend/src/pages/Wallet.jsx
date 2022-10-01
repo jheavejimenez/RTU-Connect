@@ -95,9 +95,8 @@ function Wallet({
         if (!profiles.data) return;
         console.log(profiles.data.profiles.items);
 
-        console.log("hey", Object.entries(profile).length !== 0);
         const data = profiles.data.profiles.items[0];
-        profileData(data !== undefined ? data : {});
+        profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
     }, [profiles.data]);
 
     useEffect(() => {
