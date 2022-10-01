@@ -65,9 +65,6 @@ fragment ProfileFields on Profile {
   profileId: id,
   name
   bio
-  location
-  website
-  twitterUrl
   handle
   picture {
     ... on NftImage {
@@ -96,7 +93,7 @@ fragment ProfileFields on Profile {
     }
   }
   ownedBy
-  depatcher {
+  dispatcher {
     address
   }
   stats {
@@ -152,7 +149,7 @@ fragment Erc20Fields on Erc20 {
 }
 fragment CollectModuleFields on CollectModule {
   __typename
-  ... on EmptyCollectModuleSettings {
+  ... on FeeCollectModuleSettings {
     type
   }
   ... on FeeCollectModuleSettings {
@@ -315,9 +312,6 @@ export const GET_TIMELINE = gql`
     id
     name
     bio
-    location
-    website
-    twitterUrl
     handle
     picture {
       ... on NftImage {
@@ -358,7 +352,7 @@ export const GET_TIMELINE = gql`
       }
     }
     ownedBy
-    depatcher {
+    dispatcher {
       address
     }
     stats {
@@ -420,7 +414,7 @@ export const GET_TIMELINE = gql`
   }
   fragment CollectModuleFields on CollectModule {
     __typename
-    ... on EmptyCollectModuleSettings {
+    ... on FeeCollectModuleSettings {
       type
     }
     ... on FeeCollectModuleSettings {
@@ -737,9 +731,6 @@ export const GET_PUBLICATIONS = gql`
     id
     name
     bio
-    location
-    website
-    twitterUrl
     handle
     picture {
       ... on NftImage {
@@ -768,7 +759,7 @@ export const GET_PUBLICATIONS = gql`
       }
     }
     ownedBy
-    depatcher {
+    dispatcher {
       address
     }
     stats {
@@ -824,7 +815,7 @@ export const GET_PUBLICATIONS = gql`
   }
   fragment CollectModuleFields on CollectModule {
     __typename
-    ... on EmptyCollectModuleSettings {
+    ... on FeeCollectModuleSettings {
       type
     }
     ... on FeeCollectModuleSettings {
@@ -996,9 +987,6 @@ export const GET_FOLLOWING = gql`
               id
               name
               bio
-              location
-              website
-              twitterUrl
               handle
               picture {
                 ... on NftImage {
@@ -1057,7 +1045,7 @@ export const GET_FOLLOWING = gql`
                 }
               }
               ownedBy
-              depatcher {
+              dispatcher {
                 address
                 canUseRelay
               }
