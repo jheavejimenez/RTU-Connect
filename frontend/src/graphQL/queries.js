@@ -1096,3 +1096,16 @@ export const GET_FOLLOWING = gql`
 		}
   }
 `;
+
+export const HAS_COLLECTED = gql`
+  query($request: HasCollectedRequest!) {
+    hasCollected(request: $request) {
+      walletAddress
+      results {
+        collected
+        publicationId
+        collectedTimes
+      }
+    }
+  }
+`;
