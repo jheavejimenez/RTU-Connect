@@ -28,7 +28,7 @@ if (!window?.ethereum?.isSequence) {
             package: sequence,
             options: {
                 appName: "RTU Connect",
-                defaultNetwork: "polygon",
+                defaultNetwork: "mumbai",
             },
         },
     };
