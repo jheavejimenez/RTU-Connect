@@ -93,7 +93,7 @@ function Wallet({
 
     useEffect(() => {
         if (!profiles.data) return;
-        console.log(profiles.data.profiles.items);
+        console.log("profiles", profiles.data.profiles.items);
 
         const data = profiles.data.profiles.items[0];
         profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
@@ -146,7 +146,7 @@ function Wallet({
                         </div>
                         <div className={"text-center flex items-center justify-center"}>
                             {/* eslint-disable-next-line no-nested-ternary */}
-                            {Object?.entries(profile).length === 0
+                            {wallet.address === undefined
                                 ? (
                                     <ButtonFunctionCall
                                         func={connectWallet}

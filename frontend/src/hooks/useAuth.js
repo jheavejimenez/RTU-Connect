@@ -7,19 +7,29 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
     const [user, setUser] = useLocalStorage("lensToken", "");
     const [profile, setProfile] = useLocalStorage("profile", {});
+    const [wallets, setWallet] = useLocalStorage("wallet", {});
 
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
     const login = async (data) => {
         setUser(data);
-        navigate("/");
+        // before navigating to home, we check if the user has a profile
+        // if not, we redirect to the create profile page
+        if (!profile.handle) {
+            navigate("/create-handle");
+        } else {
+            navigate("/");
+        }
     };
 
     const profileData = async (data) => {
         setProfile(data);
     };
 
+    const walletsData = async (data) => {
+        setWallet(data);
+    };
     // call this function to sign out logged-in user
     const logout = () => {
         setUser(null);
@@ -31,7 +41,9 @@ export function AuthProvider({ children }) {
         () => ({
             user,
             profile,
+            // wallets,
             profileData,
+            // walletsData,
             login,
             logout,
         }),

@@ -1,11 +1,13 @@
 import React, { createRef, useEffect } from "react";
 import { useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import { CREATE_PROFILE } from "../graphQL/mutations";
 
 function CreateHandle() {
     const [createProfile, createProfileData] = useMutation(CREATE_PROFILE);
     const handleRef = createRef();
+    const navigate = useNavigate();
 
     const handleCreate = async (e) => {
         e.preventDefault();
@@ -17,7 +19,6 @@ function CreateHandle() {
         const profileRequest = {
             handle,
         };
-
         await createProfile({
             variables: {
                 request: profileRequest,
@@ -27,7 +28,11 @@ function CreateHandle() {
 
     useEffect(() => {
         if (!createProfileData.data) return;
-        console.log(createProfileData.data);
+        console.log(createProfileData.data.createProfile.reason);
+
+        if (createProfileData.data.createProfile.reason !== "HANDLE_TAKEN") {
+            navigate("/login");
+        }
     }, [createProfileData.data]);
 
     const inputHandleValue = (e) => {
