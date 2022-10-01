@@ -1,9 +1,10 @@
 import React from "react";
 import { ArrowsRightLeftIcon, ChatBubbleBottomCenterIcon, HeartIcon } from "@heroicons/react/24/outline";
 import Profile from "../../icons/profile-icon.png";
-import SVGLike from "../../svg/Like";
 
-function Post() {
+function Post({
+    post, wallet, lensHub, profileId,
+}) {
     return (
         <>
             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-14 w-2/5"}>
@@ -16,7 +17,7 @@ function Post() {
                         />
                     </div>
                     <div className={"flex flex-col mb-2 ml-4 mt-1"}>
-                        <div className={"text-gray-600 text-sm font-semibold"}>{"John Doe"}</div>
+                        <div className={"text-gray-600 text-sm font-semibold"}>{post.profile.handle.replace(".test", ".rtu")}</div>
                         <div className={"flex w-full mt-1"}>
                             <div className={"text-blue-700 font-base text-xs mr-1 cursor-pointer"}>
                                 {"SEO"}
@@ -91,7 +92,9 @@ function Post() {
                         <span
                             className={"transition ease-out duration-300 active:bg-gray-200  w-8 h-8 px-1 py-1 text-center rounded-full text-blue-400 cursor-pointer mr-2"}
                         >
-                            <ArrowsRightLeftIcon className={"h-6 w-6 text-gray-400 hover:text-blue-800 cursor-pointer"} />
+                            <ArrowsRightLeftIcon
+                                className={"h-6 w-6 text-gray-400 hover:text-blue-800 cursor-pointer"}
+                            />
                         </span>
                         <span
                             className={"transition ease-out duration-300 active:bg-gray-200  h-8 px-2 py-1 text-center rounded-full text-gray-100 cursor-pointer"}

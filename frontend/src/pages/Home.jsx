@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "../index.css";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import NavBar from "../components/NavBar/NavBar";
-import ComposePost from "../components/ComposePost/ComposePost";
 import Post from "../components/Post/Post";
 import { GET_TIMELINE, HAS_COLLECTED, SEARCH } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
@@ -34,7 +33,7 @@ function Home({ wallet, lensHub }) {
 
         data.timeline.items.forEach((post) => {
             if (pubIds[post.id]) return;
-            
+
             pubIds[post.id] = true;
             pubs.push(post);
         });
@@ -94,7 +93,7 @@ function Home({ wallet, lensHub }) {
 
         setPublications(searchData.data.search.items);
     }, [searchData.data]);
-    
+
     return (
         <>
             <NavBar />
@@ -110,7 +109,7 @@ function Home({ wallet, lensHub }) {
                         <Post
                             key={post.id}
                             post={post}
-                            wallet={wallet} 
+                            wallet={wallet}
                             lensHub={lensHub}
                             profileId={profile.id}
                         />
