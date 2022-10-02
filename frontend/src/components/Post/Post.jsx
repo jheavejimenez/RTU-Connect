@@ -18,10 +18,14 @@ function Post({
                         />
                     </div>
                     <div className={"flex flex-col mb-2 ml-4 mt-1"}>
-                        <div className={"text-gray-600 text-sm font-semibold"}>{post.profile.handle.replace(".test", ".rtu")}</div>
+                        <div className={"text-gray-600 text-sm font-semibold"}>{post.profile.handle.replace(".test", "")}</div>
                         <div className={"flex w-full mt-1"}>
-                            <div className={"text-blue-700 font-base text-xs mr-1 cursor-pointer"}>
-                                {post.profile.profileId}
+                            <div className={"font-base text-xs mr-1 cursor-pointer"
+                                + " text-transparent bg-clip-text bg-gradient-to-r "
+                                + "from-blue-700 to-red-400"}
+                            >
+                                {"@ "}
+                                {post.profile.handle.replace(".test", ".rtu")}
                             </div>
                             <div className={"text-gray-400 font-thin text-xs"}>
                                 {"• 30 seconds ago"}
