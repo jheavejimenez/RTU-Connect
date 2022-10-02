@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../icons/rtu-icon.png";
+import logoRTU from "../../icons/rtu-icon.png";
 import SVGHome from "../../svg/Home";
 import SVGCommunity from "../../svg/Community";
 import Watch from "../../svg/Watch";
@@ -13,7 +13,7 @@ function NavBar() {
                 <div className={"flex justify-between mx-10 items-center w-full"}>
                     <div className={"flex items-center"}>
                         <a href={"/"} className={"mr-3"}>
-                            <img src={Logo} width={40} height={40} style={{ layout: "fixed" }} alt={"logo"} />
+                            <img src={logoRTU} width={40} height={40} style={{ layout: "fixed" }} alt={"logo"} />
                         </a>
                         <div className={"flex ml-2 items-center rounded-full bg-gray-100 p-2"}>
                             <button className={"outline-none focus:outline-none"}>

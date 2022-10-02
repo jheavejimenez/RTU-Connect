@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowsRightLeftIcon, ChatBubbleBottomCenterIcon, HeartIcon } from "@heroicons/react/24/outline";
+import logoProfile from "../../icons/profile-icon.png";
 
 function Post({
     post, wallet, lensHub, profileId,
@@ -94,7 +95,8 @@ function Post({
                     <img
                         className={"w-10 h-10 object-cover rounded-full shadow mr-2 cursor-pointer"}
                         alt={"User avatar"}
-                        src={profileId.picture}
+                        // check if profileId.picture exists if not use logoProfile
+                        src={profileId.picture ? profileId.picture : logoProfile}
                     />
                     <input
                         type={"search"}
