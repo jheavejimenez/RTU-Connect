@@ -1,10 +1,10 @@
 import React from "react";
+import { ArrowsRightLeftIcon, ChatBubbleBottomCenterIcon, HeartIcon } from "@heroicons/react/24/outline";
 import Profile from "../../icons/profile-icon.png";
-import SVGComment from "../../svg/Comment";
-import SVGShare from "../../svg/Share";
-import SVGLike from "../../svg/Like";
 
-function Post() {
+function Post({
+    post, wallet, lensHub, profileId,
+}) {
     return (
         <>
             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-14 w-2/5"}>
@@ -17,7 +17,7 @@ function Post() {
                         />
                     </div>
                     <div className={"flex flex-col mb-2 ml-4 mt-1"}>
-                        <div className={"text-gray-600 text-sm font-semibold"}>{"John Doe"}</div>
+                        <div className={"text-gray-600 text-sm font-semibold"}>{post.profile.handle.replace(".test", ".rtu")}</div>
                         <div className={"flex w-full mt-1"}>
                             <div className={"text-blue-700 font-base text-xs mr-1 cursor-pointer"}>
                                 {"SEO"}
@@ -81,41 +81,25 @@ function Post() {
                 <div className={"flex justify-start  mb-4 border-t border-gray-100"}>
                     <div className={"flex w-full mt-1 pt-2 pl-5"}>
                         <span
-                            className={"transition ease-out duration-300 active:bg-gray-700  h-8 px-2 py-1 text-center rounded-full text-gray-100 cursor-pointer"}
+                            className={"transition ease-out duration-300 active:bg-gray-200  w-8 h-8 px-1 py-1 text-center rounded-full text-blue-400 cursor-pointer mr-2"}
                         >
-                            <SVGComment />
+                            <ChatBubbleBottomCenterIcon
+                                className={"h-6 w-6 text-gray-400 hover:text-blue-800 cursor-pointer"}
+                            />
                         </span>
-                        <img
-                            className={"inline-block object-cover w-8 h-8 text-white border-2 border-white rounded-full shadow-sm cursor-pointer"}
-                            src={"https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"}
-                            alt={""}
-                        />
-                        <img
-                            className={"inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer"}
-                            src={"https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"}
-                            alt={""}
-                        />
-                        <img
-                            className={"inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer"}
-                            src={"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80"}
-                            alt={""}
-                        />
-                        <img
-                            className={"inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer"}
-                            src={"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2.25&amp;w=256&amp;h=256&amp;q=80"}
-                            alt={""}
-                        />
                     </div>
                     <div className={"flex justify-end w-full mt-1 pt-2 pr-5"}>
                         <span
-                            className={"transition ease-out duration-300 active:bg-gray-700  w-8 h-8 px-1 py-1 text-center rounded-full text-blue-400 cursor-pointer mr-2"}
+                            className={"transition ease-out duration-300 active:bg-gray-200  w-8 h-8 px-1 py-1 text-center rounded-full text-blue-400 cursor-pointer mr-2"}
                         >
-                            <SVGShare />
+                            <ArrowsRightLeftIcon
+                                className={"h-6 w-6 text-gray-400 hover:text-blue-800 cursor-pointer"}
+                            />
                         </span>
                         <span
-                            className={"transition ease-out duration-300 active:bg-red-700  h-8 px-2 py-1 text-center rounded-full text-gray-100 cursor-pointer"}
+                            className={"transition ease-out duration-300 active:bg-gray-200  h-8 px-2 py-1 text-center rounded-full text-gray-100 cursor-pointer"}
                         >
-                            <SVGLike />
+                            <HeartIcon className={"h-6 w-6 text-red-600 hover:text-red-700 cursor-pointer"} />
                         </span>
                     </div>
                 </div>
@@ -278,7 +262,10 @@ function Post() {
                         src={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"}
                     />
                     <span className={"absolute inset-y-0 right-0 flex items-center pr-6"}>
-                        <button type={"submit"} className={"p-1 focus:outline-none focus:shadow-none hover:text-blue-500"}>
+                        <button
+                            type={"submit"}
+                            className={"p-1 focus:outline-none focus:shadow-none hover:text-blue-500"}
+                        >
                             <svg
                                 className={"w-6 h-6 transition ease-out duration-300 hover:text-blue-500 text-gray-400"}
                                 xmlns={"http://www.w3.org/2000/svg"}

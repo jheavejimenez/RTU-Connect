@@ -1,17 +1,51 @@
 import "./index.css";
 import { Route, Routes } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import Login from "./pages/Login";
+import Wallet from "./pages/Wallet";
+import CreateHandle from "./pages/CreateProfile";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
+    const [wallet, setWallet] = useState({});
+    const [lensHub, setLensHub] = useState();
+
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<Home />} />
-                <Route path={"/profile"} element={<Profile />} />
-                <Route path={"/login"} element={<Login />} />
+                <Route
+                    path={"/login"}
+                    element={(
+                        <Wallet
+                            wallet={wallet}
+                            setWallet={setWallet}
+                            setLensHub={setLensHub}
+                        />
+                    )}
+                />
+                <Route
+                    path={"/"}
+                    element={(
+                        <ProtectedRoute>  
+                            <Home wallet={wallet} lensHub={lensHub} />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path={"/profile"}
+                    element={(
+                        <ProtectedRoute> 
+                            <Profile wallet={wallet} />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path={"/create-handle"}
+                    element={(
+                        <CreateHandle />
+                    )}
+                />
             </Routes>
         </>
     );

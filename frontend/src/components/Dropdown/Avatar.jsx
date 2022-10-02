@@ -7,16 +7,11 @@ import {
     UserIcon,
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-import { useMoralis } from "react-moralis";
+import { useAuth } from "../../hooks/useAuth";
 
 function Avatar() {
     const navigate = useNavigate();
-    const { logout } = useMoralis();
-
-    const handleLogout = async () => {
-        await logout();
-        navigate("/login");
-    };
+    const { logout } = useAuth();
 
     return (
 
@@ -50,7 +45,10 @@ function Avatar() {
                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                     onClick={() => navigate("/profile")}
                                 >
-                                    <UserIcon className={"mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-900"} aria-hidden={"true"} />
+                                    <UserIcon
+                                        className={"mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-900"}
+                                        aria-hidden={"true"}
+                                    />
                                     {"Profile"}
                                 </button>
                             )}
@@ -62,7 +60,10 @@ function Avatar() {
                                         active ? "bg-gray-100" : "text-gray-900"
                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
-                                    <Cog6ToothIcon className={"mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-900"} aria-hidden={"true"} />
+                                    <Cog6ToothIcon
+                                        className={"mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-900"}
+                                        aria-hidden={"true"}
+                                    />
                                     {"Settings"}
                                 </button>
                             )}
@@ -75,9 +76,13 @@ function Avatar() {
                                     className={`${
                                         active ? "bg-gray-100" : "text-gray-900"
                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                    onClick={() => handleLogout()}
+                                    key={"logout"}
+                                    onClick={logout}
                                 >
-                                    <ArrowRightOnRectangleIcon className={"mr-3 h-5 w-5 text-red-400 group-hover:text-red-700"} aria-hidden={"true"} />
+                                    <ArrowRightOnRectangleIcon
+                                        className={"mr-3 h-5 w-5 text-red-400 group-hover:text-red-700"}
+                                        aria-hidden={"true"}
+                                    />
                                     {"Logout"}
                                 </button>
                             )}
@@ -85,7 +90,10 @@ function Avatar() {
                     </div>
                     <div className={"px-1 py-1"}>
                         <Menu.Item as={"h3"} className={"group flex w-full items-center rounded-md px-2 py-2 text-sm"}>
-                            <ExclamationTriangleIcon className={"mr-3 h-5 w-5 text-yellow-600 group-hover:text-yellow-700"} aria-hidden={"true"} />
+                            <ExclamationTriangleIcon
+                                className={"mr-3 h-5 w-5 text-yellow-600 group-hover:text-yellow-700"}
+                                aria-hidden={"true"}
+                            />
                             {"v-1.0.0-beta"}
                         </Menu.Item>
                     </div>

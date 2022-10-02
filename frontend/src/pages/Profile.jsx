@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMoralis } from "react-moralis";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-// import ComposePost from "../components/ComposePost/ComposePost";
-// import Post from "../components/Post/Post";
 import SVGCopyCLick from "../svg/Copy/CopyClick";
 import SVGCopyNotClick from "../svg/Copy/CopyNotClick";
 import NavBar from "../components/NavBar/NavBar";
@@ -11,35 +8,14 @@ import ButtonNoClassName from "../components/Button/ButtonNoClassName";
 import SVGComment from "../svg/Comment";
 import SVGShare from "../svg/Share";
 import SVGLike from "../svg/Like";
+import { useAuth } from "../hooks/useAuth";
 
-function Profile() {
-    const { Moralis, user } = useMoralis();
-    const [userAddress, setUserAddress] = useState(null);
-    const [balance, setBalance] = useState(0);
+function Profile({ wallet }) {
     const [isCopied, setIsCopied] = useState(false);
-
-    const getUserAddress = async () => {
-        const userAddress = await user.get("ethAddress");
-        setUserAddress(userAddress);
-    };
-
-    const fetchBalance = async () => {
-        try {
-            const options = { chain: Moralis.Chains.POLYGON_MUMBAI };
-            const balance = await Moralis.Web3API.account.getNativeBalance(options);
-            setBalance(balance.balance / 10 ** 18);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    const { profile } = useAuth();
 
     const onCopy = React.useCallback(() => {
         setIsCopied(true);
-    }, []);
-
-    useEffect(() => {
-        fetchBalance();
-        getUserAddress();
     }, []);
 
     return (
@@ -54,11 +30,15 @@ function Profile() {
                                 src={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=2000&amp;q=80"}
                                 alt={""}
                             />
-                            <p className={"font-semibold"}>{"John Doe"}</p>
+                            <p className={"font-semibold"}>
+                                {"@"}
+                                {profile.handle.replace(".test", ".rtu")}
+                            </p>
                             <div className={"text-sm leading-normal text-gray-400 flex justify-center items-center"}>
-                                {"Wallet Address: "}
-                                {userAddress !== null ? (`${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`) : "Loading..."}
-                                <CopyToClipboard onCopy={onCopy} text={userAddress}>
+                                {wallet.address !== undefined ? (`Wallet Address: ${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`) : (
+                                    <span className={"text-sm animate-pulse text-blue-900"}>{"...loading"}</span>
+                                )}
+                                <CopyToClipboard onCopy={onCopy} text={wallet.address}>
                                     <button className={"ml-2"}>
                                         {isCopied ? (
                                             <SVGCopyCLick />
@@ -72,20 +52,20 @@ function Profile() {
                         <div className={"flex justify-center items-center gap-2 my-3"}>
                             <div className={"font-semibold text-center mx-4"}>
                                 <p className={"text-black"}>
-                                    {balance}
-                                    {" "}
-                                    {"MATIC"}
+                                    {wallet.balanceInEth !== undefined
+                                        ? `${wallet.balanceInEth.slice(0, 5)} Matic`
+                                        : <span className={"text-sm animate-pulse text-blue-900"}>{"...loading"}</span>}
                                 </p>
                                 <span className={"text-gray-400"}>
                                     {"Wallet Balance"}
                                 </span>
                             </div>
                             <div className={"font-semibold text-center mx-4"}>
-                                <p className={"text-black"}>{"102"}</p>
+                                <p className={"text-black"}>{profile.stats.totalFollowers}</p>
                                 <span className={"text-gray-400"}>{"Followers"}</span>
                             </div>
                             <div className={"font-semibold text-center mx-4"}>
-                                <p className={"text-black"}>{"102"}</p>
+                                <p className={"text-black"}>{profile.stats.totalFollowing}</p>
                                 <span className={"text-gray-400"}>{"Folowing"}</span>
                             </div>
                         </div>
@@ -134,7 +114,6 @@ function Profile() {
                                 <img
                                     className={"w-12 h-12 object-cover rounded-full shadow cursor-pointer"}
                                     alt={"User avatar"}
-                                    src={Profile}
                                 />
                             </div>
                             <div className={"flex flex-col mb-2 ml-4 mt-1"}>

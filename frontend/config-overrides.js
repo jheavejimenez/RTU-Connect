@@ -18,6 +18,15 @@ module.exports = function override(config) {
             Buffer: ["buffer", "Buffer"],
         }),
     ]);
+    config.module.rules = [
+        ...config.module.rules,
+        {
+            test: /\.m?js/,
+            resolve: {
+                fullySpecified: false,
+            },
+        },
+    ];
     config.ignoreWarnings = [/Failed to parse source map/];
     return config;
 };
