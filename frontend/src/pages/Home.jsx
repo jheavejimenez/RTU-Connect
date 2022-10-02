@@ -99,9 +99,9 @@ function Home({ wallet, lensHub }) {
             <NavBar />
             <>
                 {notFound && (
-                    <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-14 w-2/5"}>
-                        <div className={"text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2"}>
-                            {"You don't follow anyone. Here are some posts #WAGMI"}
+                    <div className={"mx-auto shadow-md bg-yellow-100 font-bold rounded-md mb-14 w-2/5"}>
+                        <div className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg"}>
+                            {"You don't follow anyone. Here are some posts"}
                         </div>
                     </div>
                 )}
