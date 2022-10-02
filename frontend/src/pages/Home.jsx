@@ -99,10 +99,11 @@ function Home({ wallet, lensHub }) {
             <NavBar />
             <>
                 {notFound && (
-                    <>
-                        <h3>{"You don&apos;t follow anyone. Here are some posts #WAGMI"}</h3>
-                        <br />
-                    </>
+                    <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-14 w-2/5"}>
+                        <div className={"text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2"}>
+                            {"You don't follow anyone. Here are some posts #WAGMI"}
+                        </div>
+                    </div>
                 )}
                 {
                     publications.map((post) => (
@@ -111,7 +112,7 @@ function Home({ wallet, lensHub }) {
                             post={post}
                             wallet={wallet}
                             lensHub={lensHub}
-                            profileId={profile.id}
+                            profileId={profile}
                         />
                     ))
                 }
