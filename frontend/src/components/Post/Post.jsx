@@ -7,7 +7,7 @@ function Post({
     console.log("post", profileId.picture);
     return (
         <>
-            <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-14 w-2/5"}>
+            <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-2/5"}>
                 <div className={"flex flex-row px-2 py-3 mx-3"}>
                     <div className={"w-auto h-auto rounded-full"}>
                         <img
@@ -96,31 +96,10 @@ function Post({
                         alt={"User avatar"}
                         src={profileId.picture}
                     />
-                    <span className={"absolute inset-y-0 right-0 flex items-center pr-6"}>
-                        <button
-                            type={"submit"}
-                            className={"p-1 focus:outline-none focus:shadow-none hover:text-blue-500"}
-                        >
-                            <svg
-                                className={"w-6 h-6 transition ease-out duration-300 hover:text-blue-500 text-gray-400"}
-                                xmlns={"http://www.w3.org/2000/svg"}
-                                fill={"none"}
-                                viewBox={"0 0 24 24"}
-                                stroke={"currentColor"}
-                            >
-                                <path
-                                    strokeLinecap={"round"}
-                                    strokeLinejoin={"round"}
-                                    strokeWidth={"2"}
-                                    d={"M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"}
-                                />
-                            </svg>
-
-                        </button>
-                    </span>
                     <input
                         type={"search"}
-                        className={"w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"}
+                        className={"w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border "
+                            + "border-transparent appearance-none rounded-md placeholder-gray-400"}
                         placeholder={"Post a comment..."}
                         autoComplete={"off"}
                     />
