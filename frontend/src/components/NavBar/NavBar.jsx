@@ -35,7 +35,7 @@ function NavBar() {
                         </li>
                         <li className={"mx-4"}>
                             <span>
-                                <SVGCommunity />
+                                <Link to={"/explore"}><SVGCommunity /></Link>
                             </span>
                         </li>
                         <li className={"mx-4"}>
