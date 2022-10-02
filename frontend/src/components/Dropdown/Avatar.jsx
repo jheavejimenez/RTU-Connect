@@ -22,8 +22,12 @@ function Avatar() {
                     as={"img"}
                     className={"inline-block h-10 w-10 rounded-full ring-2 ring-blue-800"}
                     alt={"avatar"}
-                    // check if profileId.picture exists if not use logoProfile
-                    src={profile?.picture ? profile?.picture : logoProfile}
+                    onError={
+                        (e) => {
+                            e.target.onerror = null; e.target.src = logoProfile;
+                        }
+                    }
+                    src={profile?.picture}
                 />
             </div>
             <Transition

@@ -14,6 +14,11 @@ function Post({
                         <img
                             className={"w-12 h-12 object-cover rounded-full shadow cursor-pointer"}
                             alt={"User avatar"}
+                            onError={
+                                (e) => {
+                                    e.target.onerror = null; e.target.src = logoProfile;
+                                }
+                            }
                             src={post.profile.picture.original.url}
                         />
                     </div>
@@ -99,8 +104,12 @@ function Post({
                     <img
                         className={"w-10 h-10 object-cover rounded-full shadow mr-2 cursor-pointer"}
                         alt={"User avatar"}
-                        // check if profileId.picture exists if not use logoProfile
-                        src={profileId.picture ? profileId.picture : logoProfile}
+                        onError={
+                            (e) => {
+                                e.target.onerror = null; e.target.src = logoProfile;
+                            }
+                        }
+                        src={profileId.picture}
                     />
                     <input
                         type={"search"}
