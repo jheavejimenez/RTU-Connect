@@ -28,8 +28,9 @@ function Profile({ wallet }) {
                         <div className={"flex flex-col gap-1 text-center items-center"}>
                             <img
                                 className={"h-32 w-32 bg-white p-2 rounded-full shadow mb-4"}
-                                src={logoProfile}
-                                alt={""}
+                                alt={"user avatar"}
+                                // check if profileId.picture exists if not use logoProfile
+                                src={profile?.picture ? profile?.picture : logoProfile}
                             />
                             <p className={"font-semibold"}>
                                 {"@"}
