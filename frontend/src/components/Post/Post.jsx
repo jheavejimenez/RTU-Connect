@@ -60,11 +60,11 @@ function Post({
                 </div>
                 <div className={"flex w-full object-contain border-t border-gray-100"}>
                     <div className={"mt-3 mx-5 flex flex-row text-xs"}>
-                        <div className={"flex text-gray-700 font-normal rounded-md mb-2 mr-4 items-center"}>
+                        <div className={"flex text-gray-700 rounded-md mb-2 mr-4 items-center"}>
                             {"Comments:"}
                             <div className={"ml-1 text-gray-400 text-ms"}>{post.stats.totalAmountOfComments}</div>
                         </div>
-                        <div className={"flex text-gray-700 font-normal rounded-md mb-2 mr-4 items-center"}>
+                        <div className={"flex text-gray-700 rounded-md mb-2 mr-4 items-center"}>
                             {"Shares:"}
                             <div
                                 className={"ml-1 text-gray-400 text-ms"}
