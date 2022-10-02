@@ -6,7 +6,6 @@ import logoProfile from "../../icons/profile-icon.png";
 function Post({
     post, wallet, lensHub, profileId,
 }) {
-    console.log("post", profileId.picture);
     return (
         <>
             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-2/5"}>
@@ -36,7 +35,7 @@ function Post({
                 </div>
                 <div className={"border-b border-gray-100"} />
                 <div className={"text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2"} />
-                <div className={"text-gray-500 text-sm mb-6 mx-3 px-2"}>
+                <div className={"text-gray-900 text-sm mb-6 mx-3 px-2"}>
                     {post.metadata.description}
                 </div>
                 <div className={"flex justify-start  mb-4 border-t border-gray-100"}>
