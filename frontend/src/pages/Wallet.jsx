@@ -46,9 +46,14 @@ function Wallet({
     const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
     const [mutateAuth, authData] = useMutation(AUTHENTICATION);
 
-    const { profileData, profile, login } = useAuth();
+    const { profileData, login } = useAuth();
 
+    // optimize this after capstone defense 1
     const connectWallet = async () => {
+        // for clearing cache
+        if (web3Modal.cachedProvider) {
+            web3Modal.clearCachedProvider();
+        }
         const wallet = await web3Modal.connect();
 
         const provider = new ethers.providers.Web3Provider(wallet);
