@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { sequence } from "0xsequence";
 import Web3Modal from "@0xsequence/web3modal";
-import WalletConnect from "@walletconnect/web3-provider";
 import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
@@ -13,11 +12,12 @@ import { AUTHENTICATION, GET_CHALLENGE } from "../graphQL/mutations";
 
 // Configure  wallet
 let providerOptions = {
-    walletconnect: {
-        package: WalletConnect,
-        options: {
-            infuraId: "xxx-your-infura-id-her",
+    injected: {
+        display: {
+            name: "Metamask",
+            description: "Connect to your MetaMask wallet",
         },
+        package: null,
     },
 };
 
@@ -46,9 +46,14 @@ function Wallet({
     const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
     const [mutateAuth, authData] = useMutation(AUTHENTICATION);
 
-    const { profileData, profile, login } = useAuth();
+    const { profileData, login } = useAuth();
 
+    // optimize this after capstone defense 1
     const connectWallet = async () => {
+        // for clearing cache
+        if (web3Modal.cachedProvider) {
+            web3Modal.clearCachedProvider();
+        }
         const wallet = await web3Modal.connect();
 
         const provider = new ethers.providers.Web3Provider(wallet);

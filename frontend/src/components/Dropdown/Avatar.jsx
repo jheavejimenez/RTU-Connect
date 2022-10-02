@@ -8,10 +8,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import logoProfile from "../../icons/profile-icon.png";
 
 function Avatar() {
     const navigate = useNavigate();
-    const { logout } = useAuth();
+    const { logout, profile } = useAuth();
 
     return (
 
@@ -20,8 +21,9 @@ function Avatar() {
                 <Menu.Button
                     as={"img"}
                     className={"inline-block h-10 w-10 rounded-full ring-2 ring-blue-800"}
-                    src={"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}
                     alt={"avatar"}
+                    // check if profileId.picture exists if not use logoProfile
+                    src={profile?.picture ? profile?.picture : logoProfile}
                 />
             </div>
             <Transition

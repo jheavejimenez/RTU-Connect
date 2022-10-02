@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import Wallet from "./pages/Wallet";
 import CreateHandle from "./pages/CreateProfile";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import Explore from "./pages/Explore";
 
 function App() {
     const [wallet, setWallet] = useState({});
@@ -29,6 +30,14 @@ function App() {
                     element={(
                         <ProtectedRoute>  
                             <Home wallet={wallet} lensHub={lensHub} />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path={"/explore"}
+                    element={(
+                        <ProtectedRoute>
+                            <Explore wallet={wallet} lensHub={lensHub} />
                         </ProtectedRoute>
                     )}
                 />

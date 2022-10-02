@@ -9,6 +9,7 @@ import SVGComment from "../svg/Comment";
 import SVGShare from "../svg/Share";
 import SVGLike from "../svg/Like";
 import { useAuth } from "../hooks/useAuth";
+import logoProfile from "../icons/profile-icon.png";
 
 function Profile({ wallet }) {
     const [isCopied, setIsCopied] = useState(false);
@@ -27,8 +28,9 @@ function Profile({ wallet }) {
                         <div className={"flex flex-col gap-1 text-center items-center"}>
                             <img
                                 className={"h-32 w-32 bg-white p-2 rounded-full shadow mb-4"}
-                                src={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=2000&amp;q=80"}
-                                alt={""}
+                                alt={"user avatar"}
+                                // check if profileId.picture exists if not use logoProfile
+                                src={profile?.picture ? profile?.picture : logoProfile}
                             />
                             <p className={"font-semibold"}>
                                 {"@"}

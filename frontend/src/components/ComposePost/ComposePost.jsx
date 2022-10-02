@@ -13,13 +13,13 @@ function ComposePost() {
         >
             <div className={"relative inset-0 overflow-auto"}>
                 <div className={"flex min-h-full items-end justify-center text-center md:items-center md"}>
-                    <div className={"mx-auto shadow-md bg-white font-bold my-4 rounded-md mb-5 w-2/5 "}>
+                    <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-full"}>
                         <div className={"bg-white px-4 pt-5 pb-3 sm:p-6 sm:pb-3"}>
                             <textarea
                                 id={"message"}
-                                rows={"4"}
+                                rows={"2"}
                                 className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
-                                    + " focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white "}
+                                                + " focus:ring-blue-500 focus:border-blue-500"}
                                 placeholder={"What's on your mind"}
                             />
                             <div className={"sm:flex sm:items-start"}>
