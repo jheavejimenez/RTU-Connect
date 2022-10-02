@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logoRTU from "../../icons/rtu-icon.png";
 import SVGHome from "../../svg/Home";
 import SVGCommunity from "../../svg/Community";
@@ -29,7 +30,7 @@ function NavBar() {
                     <ul className={"flex justify-center items-center"}>
                         <li className={"mx-4"}>
                             <span>
-                                <SVGHome />
+                                <Link to={"/"}><SVGHome /></Link>
                             </span>
                         </li>
                         <li className={"mx-4"}>
