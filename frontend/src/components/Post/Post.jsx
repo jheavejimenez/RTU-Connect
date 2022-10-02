@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowsRightLeftIcon, ChatBubbleBottomCenterIcon, HeartIcon } from "@heroicons/react/24/outline";
+import moment from "moment";
 import logoProfile from "../../icons/profile-icon.png";
 
 function Post({
@@ -28,7 +29,7 @@ function Post({
                                 {post.profile.handle.replace(".test", ".rtu")}
                             </div>
                             <div className={"text-gray-400 font-thin text-xs"}>
-                                {"• 30 seconds ago"}
+                                {`• ${moment(post.createdAt).fromNow()}`}
                             </div>
                         </div>
                     </div>
