@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@dicebear/avatars": "^4.10.5",
+    "@dicebear/avatars-bottts-sprites": "^4.10.5"
+  }
+}
