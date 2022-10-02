@@ -8,7 +8,7 @@ function Post({
 }) {
     return (
         <>
-            <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-2/5"}>
+            <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-full"}>
                 <div className={"flex flex-row px-2 py-3 mx-3"}>
                     <div className={"w-auto h-auto rounded-full"}>
                         <img
