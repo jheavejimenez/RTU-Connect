@@ -2,24 +2,23 @@ import React from "react";
 import { ArrowsRightLeftIcon, ChatBubbleBottomCenterIcon, HeartIcon } from "@heroicons/react/24/outline";
 import moment from "moment";
 import logoProfile from "../../icons/profile-icon.png";
+import ImageWithFallback from "../Img/ImageWithFallback";
 
 function Post({
     post, wallet, lensHub, profileId,
 }) {
+    // fix the url of post.profile.picture.original.url
+    const avatarLink = post.profile.picture?.original.url.replace("ipfs://", "https://lens.infura-ipfs.io/ipfs/");
+
     return (
         <>
             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-full"}>
                 <div className={"flex flex-row px-2 py-3 mx-3"}>
                     <div className={"w-auto h-auto rounded-full"}>
-                        <img
+                        <ImageWithFallback
                             className={"w-12 h-12 object-cover rounded-full shadow cursor-pointer"}
-                            alt={"User avatar"}
-                            onError={
-                                (e) => {
-                                    e.target.onerror = null; e.target.src = logoProfile;
-                                }
-                            }
-                            src={post.profile.picture.original.url}
+                            src={avatarLink}
+                            fallback={logoProfile}
                         />
                     </div>
                     <div className={"flex flex-col mb-2 ml-4 mt-1"}>
@@ -101,11 +100,10 @@ function Post({
                 <div
                     className={"relative flex items-center self-center w-full max-w-xl p-4 overflow-hidden text-gray-600 focus-within:text-gray-400"}
                 >
-                    <img
+                    <ImageWithFallback
                         className={"w-10 h-10 object-cover rounded-full shadow mr-2 cursor-pointer"}
-                        alt={"User avatar"}
-                        // check if profileId.picture exists if not use logoProfile
-                        src={profileId.picture ? profileId.picture : logoProfile}
+                        src={profileId.picture}
+                        fallback={logoProfile}
                     />
                     <input
                         type={"search"}
