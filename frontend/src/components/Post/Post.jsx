@@ -40,7 +40,7 @@ function Post({
                 <div className={"border-b border-gray-100"} />
                 <div className={"text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2"} />
                 <div className={"text-gray-900 text-sm mb-6 mx-3 px-2"}>
-                    {post.metadata.description}
+                    {post.metadata.content}
                 </div>
                 <div className={"flex justify-start  mb-4 border-t border-gray-100"}>
                     <div className={"flex w-full mt-1 pt-2 pl-5"}>
