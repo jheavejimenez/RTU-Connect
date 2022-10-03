@@ -7,7 +7,7 @@ import Post from "../components/Post/Post";
 function Explore() {
     const { data } = useQuery(GET_EXPLORE);
     const [publications, setPublications] = useState([]);
-    console.log(publications);
+    // console.log(publications);
     useEffect(() => {
         if (!data) return;
         setPublications(data.explorePublications.items);
