@@ -3,13 +3,19 @@ import { ArrowsRightLeftIcon, ChatBubbleBottomCenterIcon, HeartIcon } from "@her
 import moment from "moment";
 import logoProfile from "../../icons/profile-icon.png";
 import ImageWithFallback from "../Img/ImageWithFallback";
+import { fixURL } from "../../utils/fixURL";
 
 function Post({
     post, wallet, lensHub, profileId,
 }) {
-    // fix the url of post.profile.picture.original.url
-    const avatarLink = post.profile.picture?.original.url.replace("ipfs://", "https://lens.infura-ipfs.io/ipfs/");
+    const avatarLink = fixURL(post.profile.picture?.original.url);
 
+    // check if media array is empty if not get the first element
+    const media = post.metadata.media.original?.url
+        ? post.metadata.media.original?.url
+        : post.metadata.media[0]?.original?.url;
+
+    const mediaLink = fixURL(media);
     return (
         <>
             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-full"}>
@@ -44,7 +50,7 @@ function Post({
                     <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
                         <img
                             className={"h-full w-full object-cover "}
-                            src={"https://lens.infura-ipfs.io/ipfs/bafybeif4dwvdpbtoajf6epxon4v3p4epxxdfxgnr6wl7rprwbvmoip7dbq/image.png"}
+                            src={mediaLink}
                             alt={post.metadata.media?.original?.mimeType}
                         />
                     </div>
