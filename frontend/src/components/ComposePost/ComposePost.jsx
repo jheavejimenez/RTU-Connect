@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
+import { submarine } from "../../utils/pinataAPICall";
 
 function ComposePost({ wallet, profile, lensHub }) {
     const PublicationMainFocus = {
@@ -21,7 +22,7 @@ function ComposePost({ wallet, profile, lensHub }) {
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
 
     const handleCreatePost = async () => {
-        const metadata = await submarine.uploadJson(JSON.stringify({
+        const metadata = await submarine(JSON.stringify({
             version: "2.0.0",
             mainContentFocus: PublicationMainFocus.TEXT_ONLY,
             metadata_id: uuidv4(),
@@ -40,7 +41,7 @@ function ComposePost({ wallet, profile, lensHub }) {
 
         const createPostRequest = {
             profileId: profile,
-            contentURI: `ipfs://${metadata.path}`,
+            contentURI: `ipfs://${metadata.IpfsHash}`,
             collectModule: {
                 freeCollectModule: {
                     followerOnly: true,
