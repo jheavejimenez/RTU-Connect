@@ -41,7 +41,7 @@ function ComposePost({ wallet, profile, lensHub }) {
             media: [],
             appId: "rtu_connect",
         });
-        console.log(metadata);
+        console.log("this is NFT STORAGE", metadata);
         const createPostRequest = {
             profileId: profile,
             contentURI: `ipfs://${metadata.path}`,
@@ -69,6 +69,7 @@ function ComposePost({ wallet, profile, lensHub }) {
             const { typedData } = typedPostData.data.createPostTypedData;
             const { domain, types, value } = typedData;
 
+            // eslint-disable-next-line no-underscore-dangle
             const signature = await wallet.signer._signTypedData(
                 omitDeep(domain, "__typename"),
                 omitDeep(types, "__typename"),
