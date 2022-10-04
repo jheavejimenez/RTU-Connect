@@ -692,9 +692,9 @@ export const CREATE_POST_TYPED_DATA = gql`
         profileId
         contentURI
         collectModule
-        collectModuleData
+        collectModuleInitData
         referenceModule
-        referenceModuleData
+        referenceModuleInitData
       }
     }
   }
