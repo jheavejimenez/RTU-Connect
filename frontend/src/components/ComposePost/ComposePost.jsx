@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { NFTStorage } from "nft.storage";
 import { useMutation } from "@apollo/client";
 import { utils } from "ethers";
 import omitDeep from "omit-deep";
@@ -7,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
+import { create } from "ipfs-http-client"
 
 function ComposePost({ wallet, profile, lensHub }) {
     const PublicationMainFocus = {
@@ -20,12 +20,10 @@ function ComposePost({ wallet, profile, lensHub }) {
     };
     const [description, setDescription] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
-    const client = new NFTStorage({
-        token: process.env.REACT_APP_STORAGE_TOKEN,
-    });
+    const client = create('https://mainnet.infura.io/v3/')
 
     const handleCreatePost = async () => {
-        const metadata = await client.store({
+        const metadata = await client.({
             version: "2.0.0",
             mainContentFocus: PublicationMainFocus.TEXT_ONLY,
             metadata_id: uuidv4(),
