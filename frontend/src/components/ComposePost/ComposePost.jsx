@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { NFTStorage, File, Blob } from "nft.storage";
+import { useMutation } from "@apollo/client";
 import Gallery from "../../svg/Gallery";
 import ButtonNoClassName from "../Button/ButtonNoClassName";
+import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 
 function ComposePost() {
+    const [description, setDescription] = useState("");
+    const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
+    const client = new NFTStorage({
+        token: process.env.REACT_APP_STORAGE_TOKEN,
+    });
+    
     return (
-
         <div
             className={"relative z-10 p-0"}
             aria-labelledby={"modal-title"}
