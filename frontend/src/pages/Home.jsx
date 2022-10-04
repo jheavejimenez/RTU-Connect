@@ -128,7 +128,7 @@ function Home({ wallet, lensHub }) {
                                     {"You don't follow anyone. Here are some posts #WAGMI"}
                                 </div>
                             </div>
-                            <ComposePost wallet={wallet} profile={profile} lensHub={lensHub} />
+                            <ComposePost wallet={wallet} profile={profile.id} lensHub={lensHub} />
                         </>
                     )}
                     {

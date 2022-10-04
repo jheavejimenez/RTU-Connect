@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { NFTStorage, File, Blob } from "nft.storage";
+import { NFTStorage } from "nft.storage";
 import { useMutation } from "@apollo/client";
-import { uuid } from "uuidv4";
 import { utils } from "ethers";
 import omitDeep from "omit-deep";
+import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
-import ButtonNoClassName from "../Button/ButtonNoClassName";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
+import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 
 function ComposePost({ wallet, profile, lensHub }) {
     const PublicationMainFocus = {
@@ -28,14 +28,12 @@ function ComposePost({ wallet, profile, lensHub }) {
         const metadata = await client.store({
             version: "2.0.0",
             mainContentFocus: PublicationMainFocus.TEXT_ONLY,
-            metadata_id: uuid(),
+            metadata_id: uuidv4(),
             description: "This is a test on RTU Connect",
             locale: "en-US",
             content: "Content",
-            external_url: null,
-            image: null,
-            imageMimeType: null,
-            name: "Name",
+            external_url: `https://lenster.xyz/u/${profile.handle}`,
+            name: `Post by @${profile.handle}`,
             attributes: [],
             media: [],
             appId: "rtu_connect",
@@ -43,7 +41,7 @@ function ComposePost({ wallet, profile, lensHub }) {
         console.log("this is NFT STORAGE", metadata);
         const createPostRequest = {
             profileId: profile,
-            contentURI: `ipfs://${metadata.path}`,
+            contentURI: `ipfs://${metadata.url}`,
             collectModule: {
                 freeCollectModule: {
                     followerOnly: true,
@@ -95,7 +93,7 @@ function ComposePost({ wallet, profile, lensHub }) {
         };
         processPost();
     }, [typedPostData.data]);
-    
+
     return (
         <div
             className={"relative z-10 p-0"}
@@ -111,7 +109,7 @@ function ComposePost({ wallet, profile, lensHub }) {
                                 id={"message"}
                                 rows={"2"}
                                 className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
-                                                + " focus:ring-blue-500 focus:border-blue-500"}
+                                    + " focus:ring-blue-500 focus:border-blue-500"}
                                 placeholder={"What's on your mind"}
                             />
                             <div className={"sm:flex sm:items-start"}>
@@ -122,10 +120,9 @@ function ComposePost({ wallet, profile, lensHub }) {
                         </div>
                         <div className={"bg-white px-4 py-3 flex justify-between px-6"}>
                             <Gallery />
-                            <ButtonNoClassName
-                                className={"inline-flex justify-center rounded-full border border-transparent bg-blue-800 px-4 py-2 "
-                                    + "text-base font-medium text-white shadow-sm hover:bg-blue-700 "
-                                    + "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"}
+                            <ButtonFunctionCall
+                                func={handleCreatePost}
+                                type={"submit"}
                                 text={"Post"}
                             />
                         </div>
