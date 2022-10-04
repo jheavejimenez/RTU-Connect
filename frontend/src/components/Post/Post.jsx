@@ -41,6 +41,13 @@ function Post({
                 <div className={"text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2"} />
                 <div className={"text-gray-900 text-sm mb-6 mx-3 px-2"}>
                     {post.metadata.content}
+                    <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
+                        <img
+                            className={"h-full w-full object-cover "}
+                            src={"https://lens.infura-ipfs.io/ipfs/bafybeif4dwvdpbtoajf6epxon4v3p4epxxdfxgnr6wl7rprwbvmoip7dbq/image.png"}
+                            alt={post.metadata.media?.original?.mimeType}
+                        />
+                    </div>
                 </div>
                 <div className={"flex justify-start  mb-4 border-t border-gray-100"}>
                     <div className={"flex w-full mt-1 pt-2 pl-5"}>
