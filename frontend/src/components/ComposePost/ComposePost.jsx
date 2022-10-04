@@ -21,7 +21,7 @@ function ComposePost({ wallet, profile, lensHub }) {
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
 
     const handleCreatePost = async () => {
-        const metadata = await client.(JSON.stringify({
+        const metadata = await submarine.uploadJson(JSON.stringify({
             version: "2.0.0",
             mainContentFocus: PublicationMainFocus.TEXT_ONLY,
             metadata_id: uuidv4(),
@@ -30,7 +30,7 @@ function ComposePost({ wallet, profile, lensHub }) {
             content: "Content",
             external_url: null,
             image: null,
-            name: `Post by @${profile.handle}`,
+            name: "name",
             attributes: [],
             media: [],
             appId: "rtu_connect",
