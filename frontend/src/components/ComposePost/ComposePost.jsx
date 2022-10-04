@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NFTStorage, File, Blob } from "nft.storage";
 import { useMutation } from "@apollo/client";
+import { uuid } from "uuidv4";
 import Gallery from "../../svg/Gallery";
 import ButtonNoClassName from "../Button/ButtonNoClassName";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
@@ -26,7 +27,7 @@ function ComposePost() {
         const metadata = await client.store({
             version: "2.0.0",
             mainContentFocus: PublicationMainFocus.TEXT_ONLY,
-            metadata_id: uuidv4(),
+            metadata_id: uuid(),
             description: "Description",
             locale: "en-US",
             content: "Content",
