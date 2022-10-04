@@ -9,13 +9,8 @@ function Post({
     post, wallet, lensHub, profileId,
 }) {
     const avatarLink = fixURL(post.profile.picture?.original.url);
+    const mediaLink = fixURL(post.metadata.media[0]?.original.url);
 
-    // check if media array is empty if not get the first element
-    const media = post.metadata.media.original?.url
-        ? post.metadata.media.original?.url
-        : post.metadata.media[0]?.original?.url;
-
-    const mediaLink = fixURL(media);
     return (
         <>
             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-full"}>
