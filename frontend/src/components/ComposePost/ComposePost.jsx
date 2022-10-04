@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
-import { create } from "ipfs-http-client"
 
 function ComposePost({ wallet, profile, lensHub }) {
     const PublicationMainFocus = {
@@ -20,26 +19,28 @@ function ComposePost({ wallet, profile, lensHub }) {
     };
     const [description, setDescription] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
-    const client = create('https://mainnet.infura.io/v3/')
 
     const handleCreatePost = async () => {
-        const metadata = await client.({
+        const metadata = await client.(JSON.stringify({
             version: "2.0.0",
             mainContentFocus: PublicationMainFocus.TEXT_ONLY,
             metadata_id: uuidv4(),
             description: "This is a test on RTU Connect",
             locale: "en-US",
             content: "Content",
-            external_url: `https://lenster.xyz/u/${profile.handle}`,
+            external_url: null,
+            image: null,
             name: `Post by @${profile.handle}`,
             attributes: [],
             media: [],
             appId: "rtu_connect",
-        });
-        console.log("this is NFT STORAGE", metadata);
+        }));
+
+        console.log("this is IPFS STORAGE", metadata);
+
         const createPostRequest = {
             profileId: profile,
-            contentURI: `ipfs://${metadata.url}`,
+            contentURI: `ipfs://${metadata.path}`,
             collectModule: {
                 freeCollectModule: {
                     followerOnly: true,
