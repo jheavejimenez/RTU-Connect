@@ -28,16 +28,14 @@ function ComposePost({ wallet, profile, lensHub }) {
             metadata_id: uuidv4(),
             description: "This is a test on RTU Connect",
             locale: "en-US",
-            content: "Content",
+            content: "#RTU",
             external_url: null,
             image: null,
-            name: "name",
+            name: `Post by @${profile.handle}`,
             attributes: [],
             media: [],
             appId: "rtu_connect",
         }));
-
-        console.log("this is IPFS STORAGE", metadata);
 
         const createPostRequest = {
             profileId: profile,
@@ -61,6 +59,7 @@ function ComposePost({ wallet, profile, lensHub }) {
 
     useEffect(() => {
         if (!typedPostData.data) return;
+        console.log(typedPostData.data);
 
         const processPost = async () => {
             const { typedData } = typedPostData.data.createPostTypedData;

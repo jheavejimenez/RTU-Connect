@@ -79,7 +79,7 @@ function Home({ wallet, lensHub }) {
     const searchData = useQuery(SEARCH, {
         variables: {
             request: {
-                query: "LFG",
+                query: "RTU",
                 type: "PUBLICATION",
             },
         },
