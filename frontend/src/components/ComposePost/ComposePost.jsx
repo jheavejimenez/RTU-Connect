@@ -8,7 +8,6 @@ import Gallery from "../../svg/Gallery";
 import ButtonNoClassName from "../Button/ButtonNoClassName";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 
-export
 function ComposePost({ wallet, profile, lensHub }) {
     const PublicationMainFocus = {
         VIDEO: "VIDEO",
