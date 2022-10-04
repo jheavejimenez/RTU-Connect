@@ -5,13 +5,40 @@ import Gallery from "../../svg/Gallery";
 import ButtonNoClassName from "../Button/ButtonNoClassName";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 
+export
 function ComposePost() {
+    const PublicationMainFocus = {
+        VIDEO: "VIDEO",
+        IMAGE: "IMAGE",
+        ARTICLE: "ARTICLE",
+        TEXT_ONLY: "TEXT_ONLY",
+        AUDIO: "AUDIO",
+        LINK: "LINK",
+        EMBED: "EMBED",
+    };
     const [description, setDescription] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
     const client = new NFTStorage({
         token: process.env.REACT_APP_STORAGE_TOKEN,
     });
-    
+
+    const handleCreatePost = async () => {
+        const metadata = await client.store({
+            version: "2.0.0",
+            mainContentFocus: PublicationMainFocus.TEXT_ONLY,
+            metadata_id: uuidv4(),
+            description: "Description",
+            locale: "en-US",
+            content: "Content",
+            external_url: null,
+            image: null,
+            imageMimeType: null,
+            name: "Name",
+            attributes: [],
+            tags: ["using_api_examples"],
+            appId: "api_examples_github",
+        });
+    };
     return (
         <div
             className={"relative z-10 p-0"}
