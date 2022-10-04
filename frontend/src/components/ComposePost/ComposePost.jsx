@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NFTStorage, File, Blob } from "nft.storage";
 import { useMutation } from "@apollo/client";
 import { uuid } from "uuidv4";
+import { utils } from "ethers";
+import omitDeep from "omit-deep";
 import Gallery from "../../svg/Gallery";
 import ButtonNoClassName from "../Button/ButtonNoClassName";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 
 export
-function ComposePost() {
+function ComposePost({ wallet, profile, lensHub }) {
     const PublicationMainFocus = {
         VIDEO: "VIDEO",
         IMAGE: "IMAGE",
@@ -28,7 +30,7 @@ function ComposePost() {
             version: "2.0.0",
             mainContentFocus: PublicationMainFocus.TEXT_ONLY,
             metadata_id: uuid(),
-            description: "Description",
+            description: "This is a test on RTU Connect",
             locale: "en-US",
             content: "Content",
             external_url: null,
@@ -36,10 +38,64 @@ function ComposePost() {
             imageMimeType: null,
             name: "Name",
             attributes: [],
-            tags: ["using_api_examples"],
-            appId: "api_examples_github",
+            media: [],
+            appId: "rtu_connect",
+        });
+        console.log(metadata);
+        const createPostRequest = {
+            profileId: profile,
+            contentURI: `ipfs://${metadata.path}`,
+            collectModule: {
+                freeCollectModule: {
+                    followerOnly: true,
+                },
+            },
+            referenceModule: {
+                followerOnlyReferenceModule: false,
+            },
+        };
+
+        await mutatePostTypedData({
+            variables: {
+                request: createPostRequest,
+            },
         });
     };
+
+    useEffect(() => {
+        if (!typedPostData.data) return;
+
+        const processPost = async () => {
+            const { typedData } = typedPostData.data.createPostTypedData;
+            const { domain, types, value } = typedData;
+
+            const signature = await wallet.signer._signTypedData(
+                omitDeep(domain, "__typename"),
+                omitDeep(types, "__typename"),
+                omitDeep(value, "__typename"),
+            );
+
+            const { v, r, s } = utils.splitSignature(signature);
+
+            const tx = await lensHub.postWithSig({
+                profileId: typedData.value.profileId,
+                contentURI: typedData.value.contentURI,
+                collectModule: typedData.value.collectModule,
+                collectModuleInitData: typedData.value.collectModuleInitData,
+                referenceModule: typedData.value.referenceModule,
+                referenceModuleInitData: typedData.value.referenceModuleInitData,
+                sig: {
+                    v,
+                    r,
+                    s,
+                    deadline: typedData.value.deadline,
+                },
+            });
+            console.log("create post: tx hash", tx.hash);
+        };
+        processPost();
+    }, [typedPostData.data]);
+    
     return (
         <div
             className={"relative z-10 p-0"}
