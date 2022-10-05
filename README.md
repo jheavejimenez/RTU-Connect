@@ -109,7 +109,7 @@ class FollowNFTTransferred {
 	BigInt timestamp
 	String data
 }
-Profile --o Creator : creator
+
 Profile --o Account : owner
 Profile --o Account : followers
 Profile --o Profile : followings
