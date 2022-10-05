@@ -1102,7 +1102,7 @@ export const GET_EXPLORE = gql`
     query ExplorePublications {
   explorePublications(request: {
     sortCriteria: TOP_COMMENTED,
-    publicationTypes: [POST],
+    publicationTypes: [POST, COMMENT],
     limit: 20 
   }) {
     items {
