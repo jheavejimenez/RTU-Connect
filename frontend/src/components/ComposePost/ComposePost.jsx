@@ -1,83 +1,67 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { utils } from "ethers";
+import { ethers, utils } from "ethers";
 import omitDeep from "omit-deep";
 import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
-import { baseMetadata } from "../../utils/helpers";
+import { baseMetadata, getSigner } from "../../utils/helpers";
+import { ADDRESS } from "../../utils/constants";
+import lensHubABI from "../../utils/lensHubABI.json";
 
 function ComposePost({ wallet, profile, lensHub }) {
-    const [description, setDescription] = useState("");
     const inputRef = useRef(null);
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
-
-    const handleCreatePost = async () => {
-        const metadata = await submarine(JSON.stringify({
+    const uploadToIPFS = async () => {
+        const metadata = {
             content: inputRef.current.innerHTML,
             description: inputRef.current.innerHTML,
             name: `Post by @${profile.handle}`,
             metadata_id: uuidv4(),
             ...baseMetadata,
-        }));
-
-        const createPostRequest = {
-            profileId: profile,
-            contentURI: `ipfs://${metadata.IpfsHash}`,
-            collectModule: {
-                freeCollectModule: {
-                    followerOnly: true,
-                },
-            },
-            referenceModule: {
-                followerOnlyReferenceModule: false,
-            },
         };
-
-        await mutatePostTypedData({
-            variables: {
-                request: createPostRequest,
-            },
-        });
+        const uri = await submarine(JSON.stringify(metadata));
+        return uri;
     };
 
-    useEffect(() => {
-        if (!typedPostData.data) return;
-        console.log(typedPostData.data);
+    const handleCreatePost = async () => {
+        const metadataURI = await uploadToIPFS();
 
-        const processPost = async () => {
-            const { typedData } = typedPostData.data.createPostTypedData;
-            const { domain, types, value } = typedData;
+        const contract = new ethers.Contract(
+            ADDRESS.lensHub,
+            lensHubABI,
+            getSigner(),
+        );
 
-            // eslint-disable-next-line no-underscore-dangle
-            const signature = await wallet.signer._signTypedData(
-                omitDeep(domain, "__typename"),
-                omitDeep(types, "__typename"),
-                omitDeep(value, "__typename"),
-            );
+        try {
+            const createPostRequest = {
+                profileId: profile,
+                contentURI: `ipfs://${metadataURI.IpfsHash}`,
+                collectModule: {
+                    freeCollectModule: {
+                        followerOnly: true,
+                    },
+                },
+                referenceModule: {
+                    followerOnlyReferenceModule: false,
+                },
+            };
 
-            const { v, r, s } = utils.splitSignature(signature);
-
-            const tx = await lensHub.postWithSig({
-                profileId: typedData.value.profileId,
-                contentURI: typedData.value.contentURI,
-                collectModule: typedData.value.collectModule,
-                collectModuleInitData: typedData.value.collectModuleInitData,
-                referenceModule: typedData.value.referenceModule,
-                referenceModuleInitData: typedData.value.referenceModuleInitData,
-                sig: {
-                    v,
-                    r,
-                    s,
-                    deadline: typedData.value.deadline,
+            const postData = await mutatePostTypedData({
+                variables: {
+                    request: createPostRequest,
                 },
             });
-            console.log("create post: tx hash", tx.hash);
-        };
-        processPost();
-    }, [typedPostData.data]);
+
+            const tx = await contract.post(postData);
+            await tx.wait();
+            console.log("tx", tx);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <div
@@ -96,6 +80,7 @@ function ComposePost({ wallet, profile, lensHub }) {
                                 className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
                                     + " focus:ring-blue-500 focus:border-blue-500"}
                                 placeholder={"What's on your mind"}
+                                ref={inputRef}
                             />
                             <div className={"sm:flex sm:items-start"}>
                                 <div className={"mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"}>
