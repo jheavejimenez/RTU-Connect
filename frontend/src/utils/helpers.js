@@ -1,5 +1,6 @@
 import { ethers, utils } from "ethers";
 import omitDeep from "omit-deep";
+import { v4 as uuidv4 } from "uuid";
 
 export function getSigner() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -29,3 +30,28 @@ export function generateRandomColor() {
 }
 
 export const fixURL = (url) => url?.replace("ipfs://", "https://lens.infura-ipfs.io/ipfs/");
+
+const PublicationMainFocus = {
+    VIDEO: "VIDEO",
+    IMAGE: "IMAGE",
+    ARTICLE: "ARTICLE",
+    TEXT_ONLY: "TEXT_ONLY",
+    AUDIO: "AUDIO",
+    LINK: "LINK",
+    EMBED: "EMBED",
+};
+export const baseMetadata = {
+    version: "2.0.0",
+    mainContentFocus: PublicationMainFocus.TEXT_ONLY,
+    external_url: null,
+    image: null,
+    attributes: [
+        {
+            traitType: "string",
+            key: "type",
+            value: "post",
+        },
+    ],
+    media: [],
+    appId: "rtu_connect",
+};

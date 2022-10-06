@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { utils } from "ethers";
 import omitDeep from "omit-deep";
@@ -7,34 +7,20 @@ import Gallery from "../../svg/Gallery";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
+import { baseMetadata } from "../../utils/helpers";
 
 function ComposePost({ wallet, profile, lensHub }) {
-    const PublicationMainFocus = {
-        VIDEO: "VIDEO",
-        IMAGE: "IMAGE",
-        ARTICLE: "ARTICLE",
-        TEXT_ONLY: "TEXT_ONLY",
-        AUDIO: "AUDIO",
-        LINK: "LINK",
-        EMBED: "EMBED",
-    };
     const [description, setDescription] = useState("");
+    const inputRef = useRef(null);
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
 
     const handleCreatePost = async () => {
         const metadata = await submarine(JSON.stringify({
-            version: "2.0.0",
-            mainContentFocus: PublicationMainFocus.TEXT_ONLY,
-            metadata_id: uuidv4(),
-            description: "This is a test on RTU Connect",
-            locale: "en-US",
-            content: "#RTU",
-            external_url: null,
-            image: null,
+            content: inputRef.current.innerHTML,
+            description: inputRef.current.innerHTML,
             name: `Post by @${profile.handle}`,
-            attributes: [],
-            media: [],
-            appId: "rtu_connect",
+            metadata_id: uuidv4(),
+            ...baseMetadata,
         }));
 
         const createPostRequest = {
