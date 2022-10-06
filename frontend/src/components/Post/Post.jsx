@@ -3,7 +3,7 @@ import { ArrowsRightLeftIcon, ChatBubbleBottomCenterIcon, HeartIcon } from "@her
 import moment from "moment";
 import logoProfile from "../../icons/profile-icon.png";
 import ImageWithFallback from "../Img/ImageWithFallback";
-import { fixURL } from "../../utils/fixURL";
+import { fixURL } from "../../utils/helpers";
 
 function Post({
     post, wallet, lensHub, profileId,
