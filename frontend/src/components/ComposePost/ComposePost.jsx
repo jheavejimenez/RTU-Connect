@@ -7,18 +7,20 @@ import Gallery from "../../svg/Gallery";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
-import { baseMetadata, getSigner } from "../../utils/helpers";
+import {
+    baseMetadata, getSigner, signedTypeData, splitSignature, 
+} from "../../utils/helpers";
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
 
 function ComposePost({ wallet, profile, lensHub }) {
-    const inputRef = useRef(null);
+    const [content, setContent] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
     const uploadToIPFS = async () => {
         const metadata = {
-            content: inputRef.current.innerHTML,
-            description: inputRef.current.innerHTML,
-            name: `Post by @${profile.handle}`,
+            content,
+            description: "RTU Connect Post",
+            name: "RTUDEV",
             metadata_id: uuidv4(),
             ...baseMetadata,
         };
@@ -29,40 +31,61 @@ function ComposePost({ wallet, profile, lensHub }) {
     const handleCreatePost = async () => {
         const metadataURI = await uploadToIPFS();
 
-        const contract = new ethers.Contract(
-            ADDRESS.lensHub,
-            lensHubABI,
-            getSigner(),
-        );
-
-        try {
-            const createPostRequest = {
-                profileId: profile,
-                contentURI: `ipfs://${metadataURI.IpfsHash}`,
-                collectModule: {
-                    freeCollectModule: {
-                        followerOnly: true,
-                    },
+        const createPostRequest = {
+            profileId: profile,
+            contentURI: `ipfs://${metadataURI.IpfsHash}`,
+            collectModule: {
+                freeCollectModule: {
+                    followerOnly: true,
                 },
-                referenceModule: {
-                    followerOnlyReferenceModule: false,
-                },
-            };
+            },
+            referenceModule: {
+                followerOnlyReferenceModule: false,
+            },
+        };
 
-            const postData = await mutatePostTypedData({
-                variables: {
-                    request: createPostRequest,
+        await mutatePostTypedData({
+            variables: {
+                request: createPostRequest,
+            },
+        });
+    };
+    useEffect(() => {
+        if (!typedPostData.data) return;
+
+        const processPost = async () => {
+            const { typedData } = typedPostData.data.createPostTypedData;
+            const { domain, types, value } = typedData;
+
+            // eslint-disable-next-line no-underscore-dangle
+            const signature = await signedTypeData(domain, types, value);
+            // console.log("signature", signature);
+            const { v, r, s } = splitSignature(signature);
+            // console.log("v, r, s", v, r, s);
+            const contract = new ethers.Contract(
+                ADDRESS.lensHub,
+                lensHubABI,
+                getSigner(),
+            );
+            console.log("typedData", typedData.value);
+            const tx = await contract.postWithSig({
+                profileId: typedData.value.profileId,
+                contentURI: typedData.value.contentURI,
+                collectModule: typedData.value.collectModule,
+                collectModuleInitData: typedData.value.collectModuleInitData,
+                referenceModule: typedData.value.referenceModule,
+                referenceModuleInitData: typedData.value.referenceModuleInitData,
+                sig: {
+                    v,
+                    r,
+                    s,
+                    deadline: typedData.value.deadline,
                 },
             });
-
-            const tx = await contract.post(postData);
-            await tx.wait();
-            console.log("tx", tx);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
+            console.log("create post: tx hash", tx.hash);
+        };
+        processPost();
+    }, [typedPostData.data]);
     return (
         <div
             className={"relative z-10 p-0"}
@@ -80,7 +103,8 @@ function ComposePost({ wallet, profile, lensHub }) {
                                 className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
                                     + " focus:ring-blue-500 focus:border-blue-500"}
                                 placeholder={"What's on your mind"}
-                                ref={inputRef}
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
                             />
                             <div className={"sm:flex sm:items-start"}>
                                 <div className={"mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"}>
