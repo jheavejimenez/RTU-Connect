@@ -18,11 +18,20 @@ function ComposePost({ wallet, profile, lensHub }) {
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
     const uploadToIPFS = async () => {
         const metadata = {
-            content,
-            description: "RTU Connect Post",
-            name: "RTUDEV",
+            version: "2.0.0",
+            mainContentFocus: "TEXT_ONLY",
             metadata_id: uuidv4(),
-            ...baseMetadata,
+            description: "RTU Connect Post",
+            locale: "en-US",
+            content,
+            external_url: null,
+            image: null,
+            imageMimeType: null,
+            name: "Posted @RTUCONNECT",
+            attributes: [],
+            tags: ["RTU_CONNECT"],
+            appId: "rtu-connect",
+
         };
         const uri = await submarine(JSON.stringify(metadata));
         return uri;
