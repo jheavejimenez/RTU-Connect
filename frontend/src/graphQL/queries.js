@@ -1555,8 +1555,8 @@ fragment ProfileFields on Profile {
 `;
 
 export const METADATA_STATUS = gql`
-query PublicationMetadataStatus {
-  publicationMetadataStatus(request: { txId: "0x9e76d0d70533a197b7bc707faf680fdb84a50d11b2a43d1c06e5556590ed2d77" }) {
+query($request: MetadataStatusRequest!) {
+  publicationMetadataStatus(request: $request) {
     status
     reason
   }
