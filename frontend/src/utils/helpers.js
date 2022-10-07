@@ -1,6 +1,5 @@
 import { ethers, utils } from "ethers";
 import omitDeep from "omit-deep";
-import { v4 as uuidv4 } from "uuid";
 
 export function getSigner() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -20,6 +19,7 @@ export function signedTypeData(domain, types, value) {
 export function splitSignature(signature) {
     return utils.splitSignature(signature);
 }
+
 export function generateRandomColor() {
     const maxVal = 0xFFFFFF; // 16777215
     let randomNumber = Math.random() * maxVal;
