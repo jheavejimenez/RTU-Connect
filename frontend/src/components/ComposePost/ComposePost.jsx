@@ -4,7 +4,6 @@ import { ethers, utils } from "ethers";
 import omitDeep from "omit-deep";
 import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
-import { CREATE_POST_TYPED_DATA } from "../../graphQL/queries";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
 import {
@@ -12,6 +11,7 @@ import {
 } from "../../utils/helpers";
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
+import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
 
 function ComposePost({ wallet, profile, lensHub }) {
     const [content, setContent] = useState("");
@@ -59,15 +59,12 @@ function ComposePost({ wallet, profile, lensHub }) {
 
             // eslint-disable-next-line no-underscore-dangle
             const signature = await signedTypeData(domain, types, value);
-            // console.log("signature", signature);
             const { v, r, s } = splitSignature(signature);
-            // console.log("v, r, s", v, r, s);
             const contract = new ethers.Contract(
                 ADDRESS.lensHub,
                 lensHubABI,
                 getSigner(),
             );
-            console.log("typedData", typedData.value);
             const tx = await contract.postWithSig({
                 profileId: typedData.value.profileId,
                 contentURI: typedData.value.contentURI,

@@ -4,7 +4,9 @@ import { useLazyQuery, useQuery } from "@apollo/client";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import NavBar from "../components/NavBar/NavBar";
 import Post from "../components/Post/Post";
-import { GET_TIMELINE, HAS_COLLECTED, SEARCH } from "../graphQL/queries";
+import {
+    GET_TIMELINE, HAS_COLLECTED, SEARCH, TES_PUB, 
+} from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import ComposePost from "../components/ComposePost/ComposePost";
 
