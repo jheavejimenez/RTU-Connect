@@ -10,21 +10,44 @@ import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
 
+const PublicationMainFocus = {
+    VIDEO: "VIDEO",
+    IMAGE: "IMAGE",
+    ARTICLE: "ARTICLE",
+    TEXT_ONLY: "TEXT_ONLY",
+    AUDIO: "AUDIO",
+    LINK: "LINK",
+    EMBED: "EMBED",
+};
+
 function ComposePost({ wallet, profile, lensHub }) {
     const [content, setContent] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
     const uploadToIPFS = async () => {
         const metadata = {
+            // version: "2.0.0",
+            // mainContentFocus: "TEXT_ONLY",
+            // metadata_id: uuidv4(),
+            // description: "RTU Connect Post",
+            // locale: "en-US",
+            // content,
+            // external_url: null,
+            // image: null,
+            // imageMimeType: null,
+            // name: "Posted @RTUCONNECT",
+            // attributes: [],
+            // tags: ["RTU_CONNECT"],
+            // appId: "rtu-connect",
             version: "2.0.0",
-            mainContentFocus: "TEXT_ONLY",
-            metadata_id: uuidv4(),
-            description: "RTU Connect Post",
+            mainContentFocus: PublicationMainFocus.TEXT_ONLY,
+            metadata_id: "61627163271dadwajlq86732",
+            description: "Description",
             locale: "en-US",
-            content,
+            content: "RTU",
             external_url: null,
             image: null,
             imageMimeType: null,
-            name: "Posted @RTUCONNECT",
+            name: "Name",
             attributes: [],
             tags: ["RTU_CONNECT"],
             appId: "rtu-connect",
