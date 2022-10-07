@@ -4,7 +4,7 @@ import axios from "axios";
 export const submarine = async (data) => {
     const res = await axios.post("https://api.pinata.cloud/pinning/pinJSONToIPFS", data, {
         headers: {
-            "contentType": "application/json",
+            "Content-Type": "application/json",
             "Authorization": `Bearer ${process.env.REACT_APP_PINATA_JWT}`,
         },
     });
