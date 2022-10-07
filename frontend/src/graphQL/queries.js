@@ -1553,3 +1553,12 @@ fragment ProfileFields on Profile {
 
 
 `;
+
+export const METADATA_STATUS = gql`
+  query ($id: String!) {
+    publicationMetadataStatus(request: { txId: $id }) {
+      status
+      reason
+    }
+}
+`;
