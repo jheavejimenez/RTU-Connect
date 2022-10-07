@@ -6,7 +6,7 @@ import ImageWithFallback from "../Img/ImageWithFallback";
 import { fixURL } from "../../utils/helpers";
 
 function Post({
-    post, wallet, lensHub, profileId,
+    post, profileId,
 }) {
     const avatarLink = fixURL(post.profile.picture?.original.url);
     const mediaLink = fixURL(post.metadata.media[0]?.original.url);

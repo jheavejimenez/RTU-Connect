@@ -20,7 +20,7 @@ const PublicationMainFocus = {
     EMBED: "EMBED",
 };
 
-function ComposePost({ wallet, profile, lensHub }) {
+function ComposePost({ profile }) {
     const [content, setContent] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
     const uploadToIPFS = async () => {
