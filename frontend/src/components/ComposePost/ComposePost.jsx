@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { BigNumber, ethers, utils } from "ethers";
+import { ethers } from "ethers";
 import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
-import {
-    getSigner, pollUntilIndexed, signedTypeData, splitSignature, 
-} from "../../utils/helpers";
+import { getSigner, signedTypeData, splitSignature } from "../../utils/helpers";
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
@@ -88,33 +86,6 @@ function ComposePost({ wallet, profile, lensHub }) {
                 },
             });
             console.log("create post: tx hash", tx.hash);
-            console.log("create post: poll until indexed");
-            const indexedResult = await pollUntilIndexed(tx.hash);
-
-            console.log("create post: profile has been indexed");
-
-            const { logs } = indexedResult.txReceipt;
-
-            console.log("create post: logs", logs);
-
-            const topicId = utils.id(
-                "PostCreated(uint256,uint256,string,address,bytes,address,bytes,uint256)",
-            );
-            console.log("topicid we care about", topicId);
-
-            const profileCreatedLog = logs.find((l) => l.topics[0] === topicId);
-            console.log("create post: created log", profileCreatedLog);
-
-            const profileCreatedEventLog = profileCreatedLog.topics;
-            console.log("create post: created event logs", profileCreatedEventLog);
-
-            const publicationId = utils.defaultAbiCoder.decode(["uint256"], profileCreatedEventLog[2])[0];
-
-            console.log("create post: contract publication id", BigNumber.from(publicationId).toHexString());
-            console.log(
-                "create post: internal publication id",
-                `${profile}-${BigNumber.from(publicationId).toHexString()}`,
-            );
         };
         processPost();
     }, [typedPostData.data]);
