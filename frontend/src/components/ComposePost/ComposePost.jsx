@@ -30,7 +30,12 @@ function ComposePost({ profile }) {
         return uri;
     };
 
-    const handleCreatePost = async () => {
+    const handleCreatePost = async (e) => {
+        e.preventDefault();
+        if (!content) {
+            alert("Please enter some content");
+            return;
+        }
         const metadataURI = await uploadToIPFS();
 
         const createPostRequest = {
