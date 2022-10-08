@@ -1069,8 +1069,9 @@ export const GET_EXPLORE = gql`
     query ExplorePublications {
   explorePublications(request: {
     sortCriteria: TOP_COMMENTED,
-    publicationTypes: [POST, COMMENT],
-    limit: 20 
+    publicationTypes: [POST],
+    limit: 10,
+    sources: ["rtuconnect"],
   }) {
     items {
       __typename 

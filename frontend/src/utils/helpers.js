@@ -47,6 +47,6 @@ export const baseMetadata = {
     external_url: null,
     name: "Posted @RTUCONNECT",
     attributes: [],
-    tags: ["RTU_CONNECT"],
-    appId: "rtu-connect",
+    tags: ["RTUCONNECT"],
+    appId: "rtuconnect",
 };
