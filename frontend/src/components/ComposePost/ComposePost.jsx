@@ -1,10 +1,106 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useMutation } from "@apollo/client";
+import { ethers } from "ethers";
+import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
-import ButtonNoClassName from "../Button/ButtonNoClassName";
+import ButtonFunctionCall from "../Button/ButtonFunctionCall";
+import { submarine } from "../../utils/pinataAPICall";
+import { getSigner, signedTypeData, splitSignature } from "../../utils/helpers";
+import { ADDRESS } from "../../utils/constants";
+import lensHubABI from "../../utils/lensHubABI.json";
+import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
 
-function ComposePost() {
+const PublicationMainFocus = {
+    VIDEO: "VIDEO",
+    IMAGE: "IMAGE",
+    ARTICLE: "ARTICLE",
+    TEXT_ONLY: "TEXT_ONLY",
+    AUDIO: "AUDIO",
+    LINK: "LINK",
+    EMBED: "EMBED",
+};
+
+function ComposePost({ profile }) {
+    const [content, setContent] = useState("");
+    const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
+    const uploadToIPFS = async () => {
+        const metadata = {
+            version: "2.0.0",
+            mainContentFocus: "TEXT_ONLY",
+            metadata_id: uuidv4(),
+            description: "RTU Connect Post",
+            locale: "en-US",
+            content,
+            external_url: null,
+            image: null,
+            imageMimeType: null,
+            name: "Posted @RTUCONNECT",
+            attributes: [],
+            tags: ["RTU_CONNECT"],
+            appId: "rtu-connect",
+
+        };
+
+        const uri = await submarine(JSON.stringify(metadata));
+        return uri;
+    };
+
+    const handleCreatePost = async () => {
+        const metadataURI = await uploadToIPFS();
+
+        const createPostRequest = {
+            profileId: profile,
+            contentURI: `ipfs://${metadataURI.IpfsHash}`,
+            collectModule: {
+                freeCollectModule: {
+                    followerOnly: true,
+                },
+            },
+            referenceModule: {
+                followerOnlyReferenceModule: false,
+            },
+        };
+
+        await mutatePostTypedData({
+            variables: {
+                request: createPostRequest,
+            },
+        });
+    };
+    useEffect(() => {
+        if (!typedPostData.data) return;
+
+        const processPost = async () => {
+            const { typedData } = typedPostData.data.createPostTypedData;
+            const { domain, types, value } = typedData;
+
+            // eslint-disable-next-line no-underscore-dangle
+            const signature = await signedTypeData(domain, types, value);
+            const { v, r, s } = splitSignature(signature);
+            const contract = new ethers.Contract(
+                ADDRESS.lensHub,
+                lensHubABI,
+                getSigner(),
+            );
+            const tx = await contract.postWithSig({
+                profileId: typedData.value.profileId,
+                contentURI: typedData.value.contentURI,
+                collectModule: typedData.value.collectModule,
+                collectModuleInitData: typedData.value.collectModuleInitData,
+                referenceModule: typedData.value.referenceModule,
+                referenceModuleInitData: typedData.value.referenceModuleInitData,
+                sig: {
+                    v,
+                    r,
+                    s,
+                    deadline: typedData.value.deadline,
+                },
+            });
+            console.log("create post: tx hash", tx.hash);
+        };
+        processPost();
+    }, [typedPostData.data]);
     return (
-
         <div
             className={"relative z-10 p-0"}
             aria-labelledby={"modal-title"}
@@ -19,8 +115,10 @@ function ComposePost() {
                                 id={"message"}
                                 rows={"2"}
                                 className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
-                                                + " focus:ring-blue-500 focus:border-blue-500"}
+                                    + " focus:ring-blue-500 focus:border-blue-500"}
                                 placeholder={"What's on your mind"}
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
                             />
                             <div className={"sm:flex sm:items-start"}>
                                 <div className={"mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"}>
@@ -30,10 +128,9 @@ function ComposePost() {
                         </div>
                         <div className={"bg-white px-4 py-3 flex justify-between px-6"}>
                             <Gallery />
-                            <ButtonNoClassName
-                                className={"inline-flex justify-center rounded-full border border-transparent bg-blue-800 px-4 py-2 "
-                                    + "text-base font-medium text-white shadow-sm hover:bg-blue-700 "
-                                    + "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"}
+                            <ButtonFunctionCall
+                                func={handleCreatePost}
+                                type={"submit"}
                                 text={"Post"}
                             />
                         </div>
