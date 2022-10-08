@@ -11,7 +11,7 @@ import ComposePost from "../components/ComposePost/ComposePost";
 function Home({ wallet, lensHub }) {
     const [notFound, setNotFound] = useState(false);
     const [publications, setPublications] = useState([]);
-    const [comment, setComment] = useState([{}]);
+    const [comment, setComment] = useState([]);
     const { profile } = useAuth();
 
     const { data } = useQuery(GET_TIMELINE, {
@@ -32,15 +32,18 @@ function Home({ wallet, lensHub }) {
 
         // separate comments and posts
         const posts = [];
+        const commentData = [];
         data.timeline.items.forEach((item) => {
             // eslint-disable-next-line no-underscore-dangle
-            if (item.__typename === "Comment") {
-                // key is the post id for post that the comment belongs to
-                setComment({ id: item.mainPost.id, data: item });
-            } else {
-                posts.push(item);
-            }
+            // if (item.__typename === "Comment") {
+            //     // key is the post id for post that the comment belongs to
+            //     commentData.push(item);
+            // } else {
+            //     posts.push(item);
+            // }
+            posts.push(item);
             setPublications(posts);
+            // setComment(commentData);
         });
     }, [data]);
     return (
