@@ -36,7 +36,7 @@ function Home({ wallet, lensHub }) {
             // eslint-disable-next-line no-underscore-dangle
             if (item.__typename === "Comment") {
                 // key is the post id for post that the comment belongs to
-                setComment({ id: item.mainPost.id, comment: item });
+                setComment({ id: item.mainPost.id, data: item });
             } else {
                 posts.push(item);
             }
