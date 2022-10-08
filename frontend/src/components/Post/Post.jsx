@@ -40,8 +40,10 @@ function Post({
                 </div>
                 <div className={"border-b border-gray-100"} />
                 <div className={"text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2"} />
-                <div className={"text-gray-900 text-sm mb-6 mx-3 px-2"}>
-                    {post.metadata.content}
+                <div className={"text-gray-900 text-sm mb-6 mx-3 px-2 whitespace-pre-line"}>
+                    {
+                        post.metadata.content
+                    }
                     <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
                         <img
                             className={"h-full w-full object-cover "}
