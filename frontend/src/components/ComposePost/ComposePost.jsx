@@ -5,7 +5,9 @@ import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
-import { getSigner, signedTypeData, splitSignature } from "../../utils/helpers";
+import {
+    baseMetadata, getSigner, signedTypeData, splitSignature, 
+} from "../../utils/helpers";
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
@@ -25,20 +27,12 @@ function ComposePost({ profile }) {
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
     const uploadToIPFS = async () => {
         const metadata = {
-            version: "2.0.0",
-            mainContentFocus: "TEXT_ONLY",
             metadata_id: uuidv4(),
             description: "RTU Connect Post",
-            locale: "en-US",
             content,
-            external_url: null,
             image: null,
             imageMimeType: null,
-            name: "Posted @RTUCONNECT",
-            attributes: [],
-            tags: ["RTU_CONNECT"],
-            appId: "rtu-connect",
-
+            ...baseMetadata,
         };
 
         const uri = await submarine(JSON.stringify(metadata));

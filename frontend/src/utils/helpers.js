@@ -42,16 +42,11 @@ const PublicationMainFocus = {
 };
 export const baseMetadata = {
     version: "2.0.0",
-    mainContentFocus: PublicationMainFocus.TEXT_ONLY,
+    locale: "en-US",
     external_url: null,
-    image: null,
-    attributes: [
-        {
-            traitType: "string",
-            key: "type",
-            value: "post",
-        },
-    ],
-    media: [],
-    appId: "rtu_connect",
+    name: "Posted @RTUCONNECT",
+    attributes: [],
+    tags: ["RTU_CONNECT"],
+    appId: "rtu-connect",
+
 };
