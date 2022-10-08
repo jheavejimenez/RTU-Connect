@@ -12,16 +12,6 @@ import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
 
-const PublicationMainFocus = {
-    VIDEO: "VIDEO",
-    IMAGE: "IMAGE",
-    ARTICLE: "ARTICLE",
-    TEXT_ONLY: "TEXT_ONLY",
-    AUDIO: "AUDIO",
-    LINK: "LINK",
-    EMBED: "EMBED",
-};
-
 function ComposePost({ profile }) {
     const [content, setContent] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
