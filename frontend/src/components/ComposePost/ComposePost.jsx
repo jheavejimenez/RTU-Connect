@@ -33,6 +33,7 @@ function ComposePost({ profile }) {
             image: null,
             imageMimeType: null,
             ...baseMetadata,
+
         };
 
         const uri = await submarine(JSON.stringify(metadata));
