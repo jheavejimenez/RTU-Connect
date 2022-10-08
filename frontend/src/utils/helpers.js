@@ -48,5 +48,5 @@ export const baseMetadata = {
     name: "Posted @RTUCONNECT",
     attributes: [],
     tags: ["RTUCONNECT"],
-    appId: "rtuconnect",
+    appId: "rtutest", // change it to rtuconnect
 };
