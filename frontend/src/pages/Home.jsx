@@ -11,30 +11,38 @@ import ComposePost from "../components/ComposePost/ComposePost";
 function Home({ wallet, lensHub }) {
     const [notFound, setNotFound] = useState(false);
     const [publications, setPublications] = useState([]);
+    const [comment, setComment] = useState([{}]);
     const { profile } = useAuth();
 
-    const searchData = useQuery(SEARCH, {
+    const { data } = useQuery(GET_TIMELINE, {
         variables: {
             request: {
-                query: "RTUCONNECT",
-                type: "PUBLICATION",
+                profileId: profile.id,
             },
         },
     });
-    useEffect(() => {
-        if (!searchData.data) return;
-        if (publications.length > 0) return;
 
-        if (searchData.data.search.items.length < 1) {
+    useEffect(() => {
+        if (!data) return;
+
+        if (data.timeline.items.length < 1) {
+            setNotFound(true);
             return;
         }
-        if (!profile.stats.totalFollowing) {
-            setNotFound(true);
-        }
 
-        setPublications(searchData.data.search.items);
-    }, [searchData.data]);
-
+        // separate comments and posts
+        const posts = [];
+        data.timeline.items.forEach((item) => {
+            // eslint-disable-next-line no-underscore-dangle
+            if (item.__typename === "Comment") {
+                // key is the post id for post that the comment belongs to
+                setComment({ id: item.mainPost.id, comment: item });
+            } else {
+                posts.push(item);
+            }
+            setPublications(posts);
+        });
+    }, [data]);
     return (
         <>
             <NavBar />
@@ -78,6 +86,7 @@ function Home({ wallet, lensHub }) {
                                 wallet={wallet}
                                 lensHub={lensHub}
                                 profileId={profile}
+                                comment={comment}
                             />
                         ))
                     }
