@@ -100,12 +100,12 @@ function ComposePost({ profile }) {
             <div className={"relative inset-0 overflow-auto"}>
                 <div className={"flex min-h-full items-end justify-center text-center md:items-center md"}>
                     <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-full"}>
-                        <div className={"bg-white px-4 pt-5 pb-3 sm:p-6 sm:pb-3"}>
+                        <div className={"bg-white px-4 pt-5 sm:p-6 sm:pb-3"}>
                             <textarea
                                 id={"message"}
-                                rows={"2"}
-                                className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
-                                    + " focus:ring-blue-500 focus:border-blue-500"}
+                                rows={"4"}
+                                className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border"
+                                    + " focus:ring-blue-500 focus:border-blue-500 whitespace-pre-wrap"}
                                 placeholder={"What's on your mind"}
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
@@ -116,7 +116,7 @@ function ComposePost({ profile }) {
                                 </div>
                             </div>
                         </div>
-                        <div className={"bg-white px-4 py-3 flex justify-between px-6"}>
+                        <div className={"bg-white px-4 pt-3 pb-5 flex justify-between px-6"}>
                             <Gallery />
                             <ButtonFunctionCall
                                 func={handleCreatePost}
