@@ -21,7 +21,6 @@ function Home({ wallet, lensHub }) {
             },
         },
     });
-    console.log(publications);
     useEffect(() => {
         if (!searchData.data) return;
         if (publications.length > 0) return;
@@ -66,7 +65,7 @@ function Home({ wallet, lensHub }) {
                         <>
                             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-3 w-full"}>
                                 <div className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg"}>
-                                    {"You don't follow anyone. Here are some posts #WAGMI"}
+                                    {"You don't follow anyone. Here are some posts from RTU CONNECT."}
                                 </div>
                             </div>
                         </>
