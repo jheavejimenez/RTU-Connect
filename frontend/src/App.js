@@ -43,7 +43,7 @@ function App() {
                     )}
                 />
                 <Route
-                    path={"/comments/:id"}
+                    path={"/comments/:publicationId"}
                     element={(
                         <ProtectedRoute>
                             <Comment />
