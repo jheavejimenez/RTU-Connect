@@ -6,6 +6,7 @@ import Actions from "./ActionsV2";
 import { fixURL } from "../../utils/helpers";
 
 function PostV2({ post }) {
+    console.log(post);
     const avatarLink = fixURL(post.profile.picture?.original.url);
     return (
         // eslint-disable-next-line no-underscore-dangle

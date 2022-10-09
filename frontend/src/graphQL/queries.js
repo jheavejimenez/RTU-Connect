@@ -947,8 +947,8 @@ export const GET_PUBLICATIONS = gql`
 `;
 
 export const GET_PUBLICATION = gql`
-query ($request: Publication!) {
-  publication(request: $request) {
+query($request: PublicationQueryRequest!) {
+ publication(request: $request){
    __typename 
     ... on Post {
       ...PostFields
