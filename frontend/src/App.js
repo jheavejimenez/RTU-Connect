@@ -7,6 +7,7 @@ import Wallet from "./pages/Wallet";
 import CreateHandle from "./pages/CreateProfile";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Explore from "./pages/Explore";
+import Comment from "./pages/Comment";
 
 function App() {
     const [wallet, setWallet] = useState({});
@@ -38,6 +39,14 @@ function App() {
                     element={(
                         <ProtectedRoute>
                             <Explore wallet={wallet} lensHub={lensHub} />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path={"/comments/:id"}
+                    element={(
+                        <ProtectedRoute>
+                            <Comment />
                         </ProtectedRoute>
                     )}
                 />
