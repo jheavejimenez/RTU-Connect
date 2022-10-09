@@ -7,6 +7,7 @@ import Post from "../components/Post/Post";
 import { GET_TIMELINE, HAS_COLLECTED, SEARCH } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import ComposePost from "../components/ComposePost/ComposePost";
+import PostV2 from "../components/Post/Postv2";
 
 function Home({ wallet, lensHub }) {
     const [notFound, setNotFound] = useState(false);
@@ -82,15 +83,18 @@ function Home({ wallet, lensHub }) {
                         </>
                     )}
                     {
+                        // publications.map((post) => (
+                        //     <Post
+                        //         key={post.id}
+                        //         post={post}
+                        //         wallet={wallet}
+                        //         lensHub={lensHub}
+                        //         profileId={profile}
+                        //         comment={comment}
+                        //     />
+                        // ))
                         publications.map((post) => (
-                            <Post
-                                key={post.id}
-                                post={post}
-                                wallet={wallet}
-                                lensHub={lensHub}
-                                profileId={profile}
-                                comment={comment}
-                            />
+                            <PostV2 post={post} key={post.id} />
                         ))
                     }
                 </article>

@@ -4,7 +4,9 @@ import {
 } from "../../icons/IconsV2";
 import Rune from "./Rune,jsx";
 
-function Actions({ replies, retweets, likes }) {
+function Actions({
+    replies, retweets, likes, isComment, 
+}) {
     return (
         <div className={"flex justify-between mt-3 max-w-md cursor-pointer"}>
             <div className={"flex items-center group tablet:pr-4"}>
@@ -28,12 +30,14 @@ function Actions({ replies, retweets, likes }) {
                 />
                 <p className={"text-xs group-hover:text-rose-500"}>{likes}</p>
             </div>
-            <div className={"flex gap-1 items-center group tabletpl-4"}>
-                <Rune
-                    Icon={<ShareIcon fill={"group-hover:fill-sky-500"} />}
-                    color={"group-hover:bg-sky-100"}
-                />
-            </div>
+            {!isComment && (
+                <div className={"flex gap-1 items-center group tabletpl-4"}>
+                    <Rune
+                        Icon={<ShareIcon fill={"group-hover:fill-sky-500"} />}
+                        color={"group-hover:bg-sky-100"}
+                    />
+                </div>
+            )}
         </div>
     );
 }
