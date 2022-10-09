@@ -5,7 +5,7 @@ import SVGHome from "../../svg/Home";
 import SVGCommunity from "../../svg/Community";
 import Watch from "../../svg/Watch";
 import Search from "../../svg/Search";
-import Avatar from "../Dropdown/Avatar";
+import Avatar from "../Avatar/Avatar";
 
 function NavBar() {
     return (
