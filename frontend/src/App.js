@@ -29,7 +29,7 @@ function App() {
                     path={"/"}
                     element={(
                         <ProtectedRoute>  
-                            <Home wallet={wallet} lensHub={lensHub} />
+                            <Home />
                         </ProtectedRoute>
                     )}
                 />
