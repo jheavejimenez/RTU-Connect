@@ -1,5 +1,5 @@
 import React from "react";
-import { EllipsisHorizontalCircleIcon } from "@heroicons/react/24/outline";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
 function Heading({ name, username, time }) {
     return (
@@ -14,8 +14,10 @@ function Heading({ name, username, time }) {
             </div>
             <span className={"text-neutral-500"}>{"•"}</span>
             <h2 className={"text-neutral-500"}>{time}</h2>
-            <div className={"p-2 hover:bg-sky-100 ml-auto rounded-full group cursor-pointer transition-colors duration-500 ease-out"}>
-                <EllipsisHorizontalCircleIcon className={"w-4 h-4 text-neutral-400 group-hover:text-sky-500"} />
+            <div
+                className={"p-2 hover:bg-sky-100 ml-auto rounded-full group cursor-pointer transition-colors duration-500 ease-out"}
+            >
+                <EllipsisHorizontalIcon className={"w-4 h-4 text-neutral-400 group-hover:text-sky-500"} />
             </div>
         </div>
     );
