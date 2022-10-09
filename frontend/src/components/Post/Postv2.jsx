@@ -1,4 +1,7 @@
 import React from "react";
+import Avatar from "../Avatar/Avatar";
+import Heading from "./HeadingV2";
+import Actions from "./ActionsV2";
 
 function PostV2({ post }) {
     return (
