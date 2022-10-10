@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useQuery } from "@apollo/client";
 import SVGCopyCLick from "../svg/Copy/CopyClick";
 import SVGCopyNotClick from "../svg/Copy/CopyNotClick";
 import NavBar from "../components/NavBar/NavBar";
@@ -10,14 +11,28 @@ import SVGShare from "../svg/Share";
 import SVGLike from "../svg/Like";
 import { useAuth } from "../hooks/useAuth";
 import logoProfile from "../icons/profile-icon.png";
+import { GET_PROFILE } from "../graphQL/queries";
 
 function Profile({ wallet }) {
     const [isCopied, setIsCopied] = useState(false);
+    const [profileData, setProfileData] = useState([]);
     const { profile } = useAuth();
 
     const onCopy = React.useCallback(() => {
         setIsCopied(true);
     }, []);
+
+    const { data } = useQuery(GET_PROFILE, {
+        variables: {
+            profileId: profile.id,
+        },
+    });
+
+    useEffect(() => {
+        if (!data) return;
+        setProfileData(data.profile);
+        console.log(data);
+    }, [data]);
 
     return (
         <>
