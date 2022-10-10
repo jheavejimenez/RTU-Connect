@@ -72,7 +72,7 @@ export const CREATE_POST_TYPED_DATA = gql`
 }
 `;
 
-export const CREATE_COMMENT = gql`
+export const CREATE_COMMENT_TYPED_DATA = gql`
  mutation ($request: CreateCommentRequest!) {
  createCommentTypedData(request: $request) {
     id
