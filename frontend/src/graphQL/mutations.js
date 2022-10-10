@@ -73,7 +73,7 @@ export const CREATE_POST_TYPED_DATA = gql`
 `;
 
 export const CREATE_COMMENT_TYPED_DATA = gql`
- mutation ($request: CreateCommentRequest!) {
+ mutation ($request: CreatePublicCommentRequest!) {
  createCommentTypedData(request: $request) {
     id
     expiresAt
