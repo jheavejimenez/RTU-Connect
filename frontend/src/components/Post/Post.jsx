@@ -6,11 +6,10 @@ import ImageWithFallback from "../Img/ImageWithFallback";
 import { fixURL } from "../../utils/helpers";
 
 function Post({
-    post, profileId, comment,
+    post, profileId,
 }) {
     const avatarLink = fixURL(post.profile.picture?.original.url);
     const mediaLink = fixURL(post.metadata.media[0]?.original.url);
-    console.log(post);
     return (
         <>
             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-full"}>
