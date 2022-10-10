@@ -2285,7 +2285,7 @@ fragment StatsFields on PublicationStats {
 
 export const GET_PROFILE = gql`
  query ($request: SingleProfileQueryRequest!) {
-  profiles(request: $request) {
+  profile(request: $request) {
     id
     name
     bio
