@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useQuery } from "@apollo/client";
+import { ethers } from "ethers";
 import SVGCopyCLick from "../svg/Copy/CopyClick";
 import SVGCopyNotClick from "../svg/Copy/CopyNotClick";
 import NavBar from "../components/NavBar/NavBar";
@@ -13,7 +14,7 @@ import { useAuth } from "../hooks/useAuth";
 import logoProfile from "../icons/profile-icon.png";
 import { GET_PROFILE } from "../graphQL/queries";
 
-function Profile({ wallet }) {
+function Profile() {
     const [isCopied, setIsCopied] = useState(false);
     const [profileData, setProfileData] = useState([]);
     const { profile } = useAuth();
@@ -24,14 +25,15 @@ function Profile({ wallet }) {
 
     const { data } = useQuery(GET_PROFILE, {
         variables: {
-            profileId: profile.id,
+            request: {
+                profileId: profile.id,
+            },
         },
     });
 
     useEffect(() => {
         if (!data) return;
         setProfileData(data.profile);
-        console.log(data);
     }, [data]);
 
     return (
@@ -52,10 +54,10 @@ function Profile({ wallet }) {
                                 {profile.handle.replace(".test", ".rtu")}
                             </p>
                             <div className={"text-sm leading-normal text-gray-400 flex justify-center items-center"}>
-                                {wallet.address !== undefined ? (`Wallet Address: ${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`) : (
+                                {profileData?.ownedBy !== undefined ? (`Wallet Address: ${profileData?.ownedBy.slice(0, 6)}...${profileData?.ownedBy.slice(-4)}`) : (
                                     <span className={"text-sm animate-pulse text-blue-900"}>{"...loading"}</span>
                                 )}
-                                <CopyToClipboard onCopy={onCopy} text={wallet.address}>
+                                <CopyToClipboard onCopy={onCopy} text={profileData?.ownedBy}>
                                     <button className={"ml-2"}>
                                         {isCopied ? (
                                             <SVGCopyCLick />
@@ -68,21 +70,11 @@ function Profile({ wallet }) {
                         </div>
                         <div className={"flex justify-center items-center gap-2 my-3"}>
                             <div className={"font-semibold text-center mx-4"}>
-                                <p className={"text-black"}>
-                                    {wallet.balanceInEth !== undefined
-                                        ? `${wallet.balanceInEth.slice(0, 5)} Matic`
-                                        : <span className={"text-sm animate-pulse text-blue-900"}>{"...loading"}</span>}
-                                </p>
-                                <span className={"text-gray-400"}>
-                                    {"Wallet Balance"}
-                                </span>
-                            </div>
-                            <div className={"font-semibold text-center mx-4"}>
-                                <p className={"text-black"}>{profile.stats.totalFollowers}</p>
+                                <p className={"text-black"}>{profileData?.stats?.totalFollowers}</p>
                                 <span className={"text-gray-400"}>{"Followers"}</span>
                             </div>
                             <div className={"font-semibold text-center mx-4"}>
-                                <p className={"text-black"}>{profile.stats.totalFollowing}</p>
+                                <p className={"text-black"}>{profileData?.stats?.totalFollowing}</p>
                                 <span className={"text-gray-400"}>{"Folowing"}</span>
                             </div>
                         </div>
@@ -308,7 +300,11 @@ function Profile({ wallet }) {
                                                     result={"shadowBlurInner1"}
                                                     stdDeviation={"1"}
                                                 />
-                                                <feOffset dy={"-1"} in={"shadowBlurInner1"} result={"shadowOffsetInner1"} />
+                                                <feOffset
+                                                    dy={"-1"}
+                                                    in={"shadowBlurInner1"}
+                                                    result={"shadowOffsetInner1"}
+                                                />
                                                 <feComposite
                                                     in={"shadowOffsetInner1"}
                                                     in2={"SourceAlpha"}
@@ -357,7 +353,11 @@ function Profile({ wallet }) {
                                                     result={"shadowBlurInner1"}
                                                     stdDeviation={"1"}
                                                 />
-                                                <feOffset dy={"-1"} in={"shadowBlurInner1"} result={"shadowOffsetInner1"} />
+                                                <feOffset
+                                                    dy={"-1"}
+                                                    in={"shadowBlurInner1"}
+                                                    result={"shadowOffsetInner1"}
+                                                />
                                                 <feComposite
                                                     in={"shadowOffsetInner1"}
                                                     in2={"SourceAlpha"}
@@ -395,7 +395,10 @@ function Profile({ wallet }) {
                                 src={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"}
                             />
                             <span className={"absolute inset-y-0 right-0 flex items-center pr-6"}>
-                                <button type={"submit"} className={"p-1 focus:outline-none focus:shadow-none hover:text-blue-500"}>
+                                <button
+                                    type={"submit"}
+                                    className={"p-1 focus:outline-none focus:shadow-none hover:text-blue-500"}
+                                >
                                     <svg
                                         className={"w-6 h-6 transition ease-out duration-300 hover:text-blue-500 text-gray-400"}
                                         xmlns={"http://www.w3.org/2000/svg"}
