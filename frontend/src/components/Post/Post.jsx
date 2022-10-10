@@ -10,7 +10,6 @@ function Post({
 }) {
     const avatarLink = fixURL(post.profile.picture?.original.url);
     const mediaLink = fixURL(post.metadata.media[0]?.original.url);
-
     return (
         <>
             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-full"}>
@@ -40,8 +39,10 @@ function Post({
                 </div>
                 <div className={"border-b border-gray-100"} />
                 <div className={"text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2"} />
-                <div className={"text-gray-900 text-sm mb-6 mx-3 px-2"}>
-                    {post.metadata.content}
+                <div className={"text-gray-900 text-sm mb-6 mx-3 px-2 whitespace-pre-line"}>
+                    {post?.mainPost && post.mainPost.id === post.id
+                        ? post.mainPost.metadata.context
+                        : post.metadata.content}
                     <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
                         <img
                             className={"h-full w-full object-cover "}
@@ -105,6 +106,27 @@ function Post({
                 </div>
 
                 {/* need to convert this to components, comment section */}
+                {post?.mainPost && (
+                    <div className={"text-black p-4 antialiased flex"}>
+                        <ImageWithFallback
+                            className={"rounded-full h-8 w-8 mr-2 mt-1"}
+                            src={avatarLink}
+                            fallback={logoProfile}
+                        />
+                        <div>
+                            <div className={"bg-gray-100 rounded-lg px-4 pt-2 pb-2.5 font-normal"}>
+                                <div className={"font-semibold text-sm text-gray-600 leading-relaxed"}>
+                                    {post.mainPost.profile.handle.replace(".test", "")}
+                                    {console.log("item")}
+                                </div>
+                                <div className={"text-xs leading-snug md:leading-normal"}>
+                                    {post.mainPost.metadata?.content}
+                                </div>
+                            </div>
+                            <div className={"text-xs  mt-0.5 text-gray-500"}>{moment(post.mainPost.createdAt).fromNow()}</div>
+                        </div>
+                    </div>
+                )}
                 <div
                     className={"relative flex items-center self-center w-full max-w-xl p-4 overflow-hidden text-gray-600 focus-within:text-gray-400"}
                 >

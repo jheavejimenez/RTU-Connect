@@ -7,10 +7,12 @@ import Wallet from "./pages/Wallet";
 import CreateHandle from "./pages/CreateProfile";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Explore from "./pages/Explore";
+import Comment from "./pages/Comment";
 
 function App() {
     const [wallet, setWallet] = useState({});
     const [lensHub, setLensHub] = useState();
+    const [post, setPost] = useState();
 
     return (
         <>
@@ -29,7 +31,7 @@ function App() {
                     path={"/"}
                     element={(
                         <ProtectedRoute>  
-                            <Home wallet={wallet} lensHub={lensHub} />
+                            <Home setPost={setPost} />
                         </ProtectedRoute>
                     )}
                 />
@@ -38,6 +40,14 @@ function App() {
                     element={(
                         <ProtectedRoute>
                             <Explore wallet={wallet} lensHub={lensHub} />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path={"/comments/:publicationId"}
+                    element={(
+                        <ProtectedRoute>
+                            <Comment post={post} />
                         </ProtectedRoute>
                     )}
                 />

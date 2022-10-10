@@ -5,39 +5,24 @@ import { v4 as uuidv4 } from "uuid";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
-import { getSigner, signedTypeData, splitSignature } from "../../utils/helpers";
+import {
+    baseMetadata, getSigner, signedTypeData, splitSignature, 
+} from "../../utils/helpers";
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
-
-const PublicationMainFocus = {
-    VIDEO: "VIDEO",
-    IMAGE: "IMAGE",
-    ARTICLE: "ARTICLE",
-    TEXT_ONLY: "TEXT_ONLY",
-    AUDIO: "AUDIO",
-    LINK: "LINK",
-    EMBED: "EMBED",
-};
 
 function ComposePost({ profile }) {
     const [content, setContent] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
     const uploadToIPFS = async () => {
         const metadata = {
-            version: "2.0.0",
-            mainContentFocus: "TEXT_ONLY",
             metadata_id: uuidv4(),
             description: "RTU Connect Post",
-            locale: "en-US",
             content,
-            external_url: null,
             image: null,
             imageMimeType: null,
-            name: "Posted @RTUCONNECT",
-            attributes: [],
-            tags: ["RTU_CONNECT"],
-            appId: "rtu-connect",
+            ...baseMetadata,
 
         };
 
@@ -45,7 +30,12 @@ function ComposePost({ profile }) {
         return uri;
     };
 
-    const handleCreatePost = async () => {
+    const handleCreatePost = async (e) => {
+        e.preventDefault();
+        if (!content) {
+            alert("Please enter some content");
+            return;
+        }
         const metadataURI = await uploadToIPFS();
 
         const createPostRequest = {
@@ -110,12 +100,12 @@ function ComposePost({ profile }) {
             <div className={"relative inset-0 overflow-auto"}>
                 <div className={"flex min-h-full items-end justify-center text-center md:items-center md"}>
                     <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-5 w-full"}>
-                        <div className={"bg-white px-4 pt-5 pb-3 sm:p-6 sm:pb-3"}>
+                        <div className={"bg-white px-4 pt-5 sm:p-6 sm:pb-3"}>
                             <textarea
                                 id={"message"}
-                                rows={"2"}
-                                className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
-                                    + " focus:ring-blue-500 focus:border-blue-500"}
+                                rows={"4"}
+                                className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border"
+                                    + " focus:ring-blue-500 focus:border-blue-500 whitespace-pre-wrap"}
                                 placeholder={"What's on your mind"}
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
@@ -126,7 +116,7 @@ function ComposePost({ profile }) {
                                 </div>
                             </div>
                         </div>
-                        <div className={"bg-white px-4 py-3 flex justify-between px-6"}>
+                        <div className={"bg-white px-4 pt-3 pb-5 flex justify-between px-6"}>
                             <Gallery />
                             <ButtonFunctionCall
                                 func={handleCreatePost}

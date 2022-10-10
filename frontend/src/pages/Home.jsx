@@ -7,34 +7,36 @@ import Post from "../components/Post/Post";
 import { GET_TIMELINE, HAS_COLLECTED, SEARCH } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import ComposePost from "../components/ComposePost/ComposePost";
+import PostV2 from "../components/Post/Postv2";
 
-function Home({ wallet, lensHub }) {
+function Home({ setPost }) {
     const [notFound, setNotFound] = useState(false);
     const [publications, setPublications] = useState([]);
     const { profile } = useAuth();
 
-    const searchData = useQuery(SEARCH, {
+    const { data } = useQuery(GET_TIMELINE, {
         variables: {
             request: {
-                query: "RTUCONNECT",
-                type: "PUBLICATION",
+                profileId: profile.id,
             },
         },
     });
-    useEffect(() => {
-        if (!searchData.data) return;
-        if (publications.length > 0) return;
 
-        if (searchData.data.search.items.length < 1) {
+    useEffect(() => {
+        if (!data) return;
+
+        if (data.timeline.items.length < 1) {
+            setNotFound(true);
             return;
         }
-        if (!profile.stats.totalFollowing) {
-            setNotFound(true);
-        }
 
-        setPublications(searchData.data.search.items);
-    }, [searchData.data]);
-
+        const posts = [];
+        data.timeline.items.forEach((item) => {
+            posts.push(item);
+            setPublications(posts);
+            setPost(posts);
+        });
+    }, [data]);
     return (
         <>
             <NavBar />
@@ -72,13 +74,7 @@ function Home({ wallet, lensHub }) {
                     )}
                     {
                         publications.map((post) => (
-                            <Post
-                                key={post.id}
-                                post={post}
-                                wallet={wallet}
-                                lensHub={lensHub}
-                                profileId={profile}
-                            />
+                            <PostV2 post={post} key={post.id} />
                         ))
                     }
                 </article>
