@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useQuery } from "@apollo/client";
-import { ethers } from "ethers";
 import SVGCopyCLick from "../svg/Copy/CopyClick";
 import SVGCopyNotClick from "../svg/Copy/CopyNotClick";
 import NavBar from "../components/NavBar/NavBar";
