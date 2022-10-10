@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useMutation } from "@apollo/client";
+import { ethers } from "ethers";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
-import { baseMetadata } from "../../utils/helpers";
+import {
+    baseMetadata, getSigner, signedTypeData, splitSignature, 
+} from "../../utils/helpers";
 import { submarine } from "../../utils/pinataAPICall";
 import { CREATE_COMMENT_TYPED_DATA } from "../../graphQL/mutations";
+import { useAuth } from "../../hooks/useAuth";
+import { ADDRESS } from "../../utils/constants";
+import lensHubABI from "../../utils/lensHubABI.json";
 
 function ComposeComment({ publicationId }) {
     const [content, setContent] = useState("");
+    const { profile } = useAuth();
     const [mutateCommentTypeData, typeCommentData] = useMutation(CREATE_COMMENT_TYPED_DATA);
     const uploadToIPFS = async () => {
         const metadata = {
@@ -32,7 +39,63 @@ function ComposeComment({ publicationId }) {
             return;
         }
         const metadataURI = await uploadToIPFS();
+        const createCommentRequest = {
+            profileId: profile.id,
+            publicationId,
+            contentURI: `ipfs://${metadataURI.IpfsHash}`,
+            collectModule: {
+                revertCollectModule: true,
+            },
+            referenceModule: {
+                followerOnlyReferenceModule: false,
+            },
+        };
+        await mutateCommentTypeData({
+            variables: {
+                request: createCommentRequest,
+            },
+        });
     };
+    useEffect(() => {
+        if (!typeCommentData) return;
+
+        const processComment = async () => {
+            const { typedData } = typeCommentData.data.createCommentTypedData;
+            const { domain, types, value } = typedData;
+
+            const signature = await signedTypeData(domain, types, value);
+            const { v, r, s } = splitSignature(signature);
+
+            const contract = new ethers.Contract(
+                ADDRESS.lensHub,
+                lensHubABI,
+                getSigner(),
+            );
+            const tx = await contract.commentWithSig(
+                {
+                    profileId: typedData.value.profileId,
+                    contentURI: typedData.value.contentURI,
+                    profileIdPointed: typedData.value.profileIdPointed,
+                    pubIdPointed: typedData.value.pubIdPointed,
+                    collectModule: typedData.value.collectModule,
+                    collectModuleInitData: typedData.value.collectModuleInitData,
+                    referenceModule: typedData.value.referenceModule,
+                    referenceModuleInitData: typedData.value.referenceModuleInitData,
+                    referenceModuleData: typedData.value.referenceModuleData,
+                    sig: {
+                        v,
+                        r,
+                        s,
+                        deadline: typedData.value.deadline,
+                    },
+                },
+                { gasLimit: 500000 },
+            );
+            console.log("Comment tx hash", tx.hash);
+        };
+        processComment();
+    }, [typeCommentData]);
+
     return (
         <div className={"mx-auto shadow-md bg-white rounded-md mb-5 w-full"}>
             <div className={"border-t-[1px] px-4 pt-3 pb-2d"}>
