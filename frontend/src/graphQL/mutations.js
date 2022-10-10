@@ -71,3 +71,39 @@ export const CREATE_POST_TYPED_DATA = gql`
   }
 }
 `;
+
+export const CREATE_COMMENT = gql`
+ mutation ($request: CreateCommentRequest!) {
+ createCommentTypedData(request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        CommentWithSig {
+          name
+          type
+        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        profileIdPointed
+        pubIdPointed
+        contentURI
+        referenceModuleData
+        collectModule
+        collectModuleInitData
+        referenceModule
+        referenceModuleInitData
+      }
+    }
+  }
+}
+`;
