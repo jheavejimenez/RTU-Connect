@@ -57,7 +57,7 @@ function ComposeComment({ publicationId }) {
         });
     };
     useEffect(() => {
-        if (!typeCommentData) return;
+        if (!typeCommentData.data) return;
 
         const processComment = async () => {
             const { typedData } = typeCommentData.data.createCommentTypedData;
