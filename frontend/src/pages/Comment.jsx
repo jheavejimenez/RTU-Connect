@@ -35,7 +35,7 @@ function Comment({ post }) {
         // check if post is equal to publicationId
         post.forEach((item) => {
             // eslint-disable-next-line no-underscore-dangle
-            if (item.__typename === "Post" && item.id === publicationId) {
+            if (item.id === publicationId) {
                 setPublication(item);
             }
         });
