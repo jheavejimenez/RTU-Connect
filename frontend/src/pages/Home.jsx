@@ -9,7 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 import ComposePost from "../components/ComposePost/ComposePost";
 import PostV2 from "../components/Post/Postv2";
 
-function Home() {
+function Home({ setPost }) {
     const [notFound, setNotFound] = useState(false);
     const [publications, setPublications] = useState([]);
     const { profile } = useAuth();
@@ -34,6 +34,7 @@ function Home() {
         data.timeline.items.forEach((item) => {
             posts.push(item);
             setPublications(posts);
+            setPost(posts);
         });
     }, [data]);
     return (

@@ -12,6 +12,7 @@ import Comment from "./pages/Comment";
 function App() {
     const [wallet, setWallet] = useState({});
     const [lensHub, setLensHub] = useState();
+    const [post, setPost] = useState();
 
     return (
         <>
@@ -30,7 +31,7 @@ function App() {
                     path={"/"}
                     element={(
                         <ProtectedRoute>  
-                            <Home />
+                            <Home setPost={setPost} />
                         </ProtectedRoute>
                     )}
                 />
@@ -46,7 +47,7 @@ function App() {
                     path={"/comments/:publicationId"}
                     element={(
                         <ProtectedRoute>
-                            <Comment />
+                            <Comment post={post} />
                         </ProtectedRoute>
                     )}
                 />

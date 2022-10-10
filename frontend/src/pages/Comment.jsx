@@ -15,6 +15,7 @@ import ComposeComment from "../components/ComposeComment/ComposeComment";
 function Comment({ post }) {
     const { publicationId } = useParams();
     const [comments, setComments] = useState([]);
+    const [publication, setPublication] = useState([]);
 
     const { data } = useQuery(GET_COMMENT_FEED, {
         variables: {
@@ -29,7 +30,16 @@ function Comment({ post }) {
         if (!data) return;
         setComments(data.publications.items);
     }, [data]);
-
+    useEffect(() => {
+        if (!post) return;
+        // check if post is equal to publicationId
+        post.forEach((item) => {
+            // eslint-disable-next-line no-underscore-dangle
+            if (item.__typename === "Post" && item.id === publicationId) {
+                setPublication(item);
+            }
+        });
+    }, []);
     return (
 
         <>
@@ -56,10 +66,17 @@ function Comment({ post }) {
                     </div>
                 </aside>
                 <article>
-                    <PostV2
-                        post={post}
-                        key={post.id}
-                    />
+                    {publication.length === 0 ? (
+                        // loading
+                        <div className={"bg-blue-600 shadow gap-2 px-4 py-3 my-5 rounded-md"}>
+                            <div className={"animate-pulse flex space-x-4"} />
+                        </div>
+                    ) : (
+                        <PostV2
+                            post={publication}
+                            key={publication.id}
+                        />
+                    )}
                     <ComposeComment />
                     {comments.map((comment) => (
                         <div
