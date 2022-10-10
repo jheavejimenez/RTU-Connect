@@ -2,10 +2,10 @@ import React from "react";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 
-function ComposeComment({ content }) {
+function ComposeComment({ publicationId }) {
     const handleCreateComment = async (e) => {
         e.preventDefault();
-        if (!content) {
+        if (!publicationId) {
             alert("comment is empty");
         }
     };
@@ -17,7 +17,7 @@ function ComposeComment({ content }) {
                     className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
                         + " focus:ring-blue-500 focus:border-blue-500 whitespace-pre-wrap"}
                     placeholder={"Tell something cool"}
-                    value={content}
+                    value={publicationId}
                 />
             </div>
             <div className={"bg-white pt-3 pb-5 flex justify-between px-6"}>

@@ -77,7 +77,7 @@ function Comment({ post }) {
                             key={publication.id}
                         />
                     )}
-                    <ComposeComment />
+                    <ComposeComment publicationId={publication.id} />
                     {comments.map((comment) => (
                         <div
                             className={"mx-auto shadow-md bg-white rounded-md mb-5 w-full"}
