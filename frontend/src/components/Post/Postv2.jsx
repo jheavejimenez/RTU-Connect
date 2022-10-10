@@ -13,7 +13,7 @@ function PostV2({ post }) {
             <div className={"mx-auto shadow-md bg-white rounded-md mb-5 w-full"}>
                 <div className={"border-t-[1px] px-4 pt-3 pb-2 hover:bg-neutral-100 transition-colors duration-500 ease-out"}>
                     <div className={"grid grid-cols-[auto,1fr] gap-3"}>
-                        <Avatar src={avatarLink} alt={post.metadata.media?.original?.mimeType} />
+                        <Avatar src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
                         <div>
                             <Heading
                                 name={post?.profile?.handle.replace(".test", "")}
@@ -37,41 +37,41 @@ function PostV2({ post }) {
             <div className={"mx-auto shadow-md bg-white rounded-md mb-5 w-full"}>
                 <div className={"border-t-[1px] px-4 pt-3 pb-2 hover:bg-neutral-100 transition-colors duration-500 ease-out"}>
                     <div className={"grid grid-cols-[auto,1fr] gap-3"}>
-                        <Avatar src={avatarLink} alt={post.metadata.media?.original?.mimeType} />
+                        <Avatar src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
                         <div>
                             <Heading
-                                name={post.mainPost.profile.handle.replace(".test", "")}
-                                username={post.mainPost.profile.handle.replace(".test", ".rtu")}
-                                time={moment(post.mainPost.createdAt).fromNow()}
+                                name={post?.mainPost.profile.handle.replace(".test", "")}
+                                username={post?.mainPost.profile.handle.replace(".test", ".rtu")}
+                                time={moment(post?.mainPost.createdAt).fromNow()}
                             />
                             <div className={"whitespace-pre-wrap break-words leading-md linkify text-md"}>
-                                {post.mainPost.metadata.content}
+                                {post?.mainPost.metadata.content}
                             </div>
                             <Actions
-                                replies={post.mainPost.stats.totalAmountOfComments}
-                                retweets={post.mainPost.stats.totalAmountOfMirrors}
-                                likes={post.mainPost.stats.totalAmountOfCollects}
-                                publicationId={post.mainPost.id}
+                                replies={post?.mainPost.stats.totalAmountOfComments}
+                                retweets={post?.mainPost.stats.totalAmountOfMirrors}
+                                likes={post?.mainPost.stats.totalAmountOfCollects}
+                                publicationId={post?.mainPost.id}
                             />
                         </div>
                     </div>
                     <div className={"grid grid-cols-[auto,1fr] gap-3 my-5"}>
-                        <Avatar src={avatarLink} alt={post.metadata.media?.original?.mimeType} />
+                        <Avatar src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
                         <div>
                             <Heading
-                                name={post.profile.handle.replace(".test", "")}
-                                username={post.profile.handle.replace(".test", ".rtu")}
-                                time={moment(post.createdAt).fromNow()}
+                                name={post?.profile.handle.replace(".test", "")}
+                                username={post?.profile.handle.replace(".test", ".rtu")}
+                                time={moment(post?.createdAt).fromNow()}
                             />
                             <div className={"whitespace-pre-wrap break-words leading-md linkify text-md"}>
-                                {post.metadata.content}
+                                {post?.metadata.content}
                             </div>
                             <Actions
-                                replies={post.stats.totalAmountOfComments}
-                                retweets={post.stats.totalAmountOfMirrors}
-                                likes={post.stats.totalAmountOfCollects}
+                                replies={post?.stats.totalAmountOfComments}
+                                retweets={post?.stats.totalAmountOfMirrors}
+                                likes={post?.stats.totalAmountOfCollects}
                                 isComment
-                                publicationId={post.id}
+                                publicationId={post?.id}
                             />
                         </div>
                     </div>

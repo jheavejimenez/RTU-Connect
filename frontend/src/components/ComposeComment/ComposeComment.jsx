@@ -8,7 +8,7 @@ function ComposeComment({ content }) {
             <div className={"border-t-[1px] px-4 pt-3 pb-2 hover:bg-neutral-100 transition-colors duration-500 ease-out"}>
                 <textarea
                     rows={"2"}
-                    className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border"
+                    className={"block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg border resize-none"
                         + " focus:ring-blue-500 focus:border-blue-500 whitespace-pre-wrap"}
                     placeholder={"Tell something cool"}
                     value={content}
