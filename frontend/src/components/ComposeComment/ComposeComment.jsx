@@ -3,6 +3,12 @@ import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 
 function ComposeComment({ content }) {
+    const handleCreateComment = async (e) => {
+        e.preventDefault();
+        if (!content) {
+            alert("comment is empty");
+        }
+    };
     return (
         <div className={"mx-auto shadow-md bg-white rounded-md mb-5 w-full"}>
             <div className={"border-t-[1px] px-4 pt-3 pb-2d"}>
@@ -18,6 +24,8 @@ function ComposeComment({ content }) {
                 <Gallery />
                 <ButtonFunctionCall
                     text={"Comment"}
+                    type={"submit"}
+                    func={handleCreateComment}
                 />
             </div>
         </div>
