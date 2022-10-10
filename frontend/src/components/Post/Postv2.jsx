@@ -55,6 +55,7 @@ function PostV2({ post }) {
                             />
                         </div>
                     </div>
+                    {/* eto yung hati */}
                     <div className={"grid grid-cols-[auto,1fr] gap-3 my-5"}>
                         <Avatar src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
                         <div>
