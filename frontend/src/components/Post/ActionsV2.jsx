@@ -1,21 +1,26 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
     LikeIcon, ReplyIcon, RetweetIcon, ShareIcon,
 } from "../../icons/IconsV2";
 import Rune from "./Rune,jsx";
 
 function Actions({
-    replies, retweets, likes, isComment, 
+    replies, retweets, likes, isComment, publicationId,
 }) {
+    const navigate = useNavigate();
     return (
         <div className={"flex justify-between mt-3 max-w-md cursor-pointer"}>
-            <div className={"flex items-center group tablet:pr-4"}>
+            <button
+                className={"flex items-center group tablet:pr-4"}
+                onClick={() => { navigate(`/comments/${publicationId}`); }}
+            >
                 <Rune
                     Icon={<ReplyIcon fill={"group-hover:fill-sky-500"} />}
                     color={"group-hover:bg-sky-100"}
                 />
                 <p className={"text-xs group-hover:text-sky-500"}>{replies}</p>
-            </div>
+            </button>
             <div className={"flex gap-1 items-center group tabletpx-4"}>
                 <Rune
                     Icon={<RetweetIcon fill={"group-hover:fill-green-500"} />}

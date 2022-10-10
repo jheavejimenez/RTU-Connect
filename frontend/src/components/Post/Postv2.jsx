@@ -6,8 +6,7 @@ import Actions from "./ActionsV2";
 import { fixURL } from "../../utils/helpers";
 
 function PostV2({ post }) {
-    console.log(post);
-    const avatarLink = fixURL(post.profile.picture?.original.url);
+    const avatarLink = fixURL(post.profile?.picture?.original.url);
     return (
         // eslint-disable-next-line no-underscore-dangle
         post.__typename === "Post" ? (
@@ -17,17 +16,18 @@ function PostV2({ post }) {
                         <Avatar src={avatarLink} alt={post.metadata.media?.original?.mimeType} />
                         <div>
                             <Heading
-                                name={post.profile.handle.replace(".test", "")}
-                                username={post.profile.handle.replace(".test", ".rtu")}
-                                time={moment(post.createdAt).fromNow()}
+                                name={post?.profile?.handle.replace(".test", "")}
+                                username={post?.profile?.handle.replace(".test", ".rtu")}
+                                time={moment(post?.createdAt).fromNow()}
                             />
                             <div className={"whitespace-pre-wrap break-words leading-md linkify text-md"}>
-                                {post.metadata.content}
+                                {post?.metadata?.content}
                             </div>
                             <Actions
-                                replies={post.stats.totalAmountOfComments}
-                                retweets={post.stats.totalAmountOfMirrors}
-                                likes={post.stats.totalAmountOfCollects}
+                                replies={post?.stats?.totalAmountOfComments}
+                                retweets={post?.stats.totalAmountOfMirrors}
+                                likes={post?.stats.totalAmountOfCollects}
+                                publicationId={post?.id}
                             />
                         </div>
                     </div>
@@ -51,6 +51,7 @@ function PostV2({ post }) {
                                 replies={post.mainPost.stats.totalAmountOfComments}
                                 retweets={post.mainPost.stats.totalAmountOfMirrors}
                                 likes={post.mainPost.stats.totalAmountOfCollects}
+                                publicationId={post.mainPost.id}
                             />
                         </div>
                     </div>
@@ -70,6 +71,7 @@ function PostV2({ post }) {
                                 retweets={post.stats.totalAmountOfMirrors}
                                 likes={post.stats.totalAmountOfCollects}
                                 isComment
+                                publicationId={post.id}
                             />
                         </div>
                     </div>
