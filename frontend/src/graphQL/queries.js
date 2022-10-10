@@ -1414,6 +1414,7 @@ export const GET_EXPLORE = gql`
     sortCriteria: TOP_COMMENTED,
     publicationTypes: [POST],
     limit: 10,
+    sources: [rtu_connect, rtutest]
   }) {
     items {
       __typename 
@@ -2279,5 +2280,90 @@ fragment StatsFields on PublicationStats {
   totalAmountOfCollects
   totalAmountOfComments
   __typename
+}
+`;
+
+export const GET_PROFILE = gql`
+ query ($request: SingleProfileQueryRequest!) {
+  profile(request: $request) {
+    id
+    name
+    bio
+    attributes {
+      displayType
+      traitType
+      key
+      value
+    }
+    followNftAddress
+    metadata
+    isDefault
+    picture {
+      ... on NftImage {
+        contractAddress
+        tokenId
+        uri
+        verified
+      }
+      ... on MediaSet {
+        original {
+          url
+          mimeType
+        }
+      }
+      __typename
+    }
+    handle
+    coverPicture {
+      ... on NftImage {
+        contractAddress
+        tokenId
+        uri
+        verified
+      }
+      ... on MediaSet {
+        original {
+          url
+          mimeType
+        }
+      }
+      __typename
+    }
+    ownedBy
+    dispatcher {
+      address
+      canUseRelay
+    }
+    stats {
+      totalFollowers
+      totalFollowing
+      totalPosts
+      totalComments
+      totalMirrors
+      totalPublications
+      totalCollects
+    }
+    followModule {
+      ... on FeeFollowModuleSettings {
+        type
+        amount {
+          asset {
+            symbol
+            name
+            decimals
+            address
+          }
+          value
+        }
+        recipient
+      }
+      ... on ProfileFollowModuleSettings {
+        type
+      }
+      ... on RevertFollowModuleSettings {
+        type
+      }
+    }
+  }
 }
 `;

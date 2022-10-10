@@ -35,7 +35,7 @@ function Comment({ post }) {
         // check if post is equal to publicationId
         post.forEach((item) => {
             // eslint-disable-next-line no-underscore-dangle
-            if (item.__typename === "Post" && item.id === publicationId) {
+            if (item.id === publicationId) {
                 setPublication(item);
             }
         });
@@ -68,8 +68,8 @@ function Comment({ post }) {
                 <article>
                     {publication.length === 0 ? (
                         // loading
-                        <div className={"bg-blue-600 shadow gap-2 px-4 py-3 my-5 rounded-md"}>
-                            <div className={"animate-pulse flex space-x-4"} />
+                        <div className={"animate-pulse flex space-x-4"}>
+                            {"...loading post"}
                         </div>
                     ) : (
                         <PostV2
