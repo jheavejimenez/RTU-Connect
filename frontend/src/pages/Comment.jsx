@@ -21,7 +21,7 @@ function Comment({ post }) {
         variables: {
             request: {
                 "commentsOf": publicationId,
-                "limit": 10,
+                "limit": 20,
             },
         },
     });
