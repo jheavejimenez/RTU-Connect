@@ -42,7 +42,6 @@ const PublicationMainFocus = {
 };
 export const baseMetadata = {
     version: "2.0.0",
-
     locale: "en-US",
     external_url: null,
     name: "Posted @RTUCONNECT",
