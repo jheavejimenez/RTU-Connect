@@ -6,7 +6,7 @@ import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
 import {
-    baseMetadata, getSigner, signedTypeData, splitSignature, 
+    baseMetadata, getSigner, signedTypeData, splitSignature,
 } from "../../utils/helpers";
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
@@ -20,6 +20,7 @@ function ComposePost({ profile }) {
             metadata_id: uuidv4(),
             description: "RTU Connect Post",
             content,
+            mainContentFocus: TEXT_ONLY,
             image: null,
             imageMimeType: null,
             ...baseMetadata,
