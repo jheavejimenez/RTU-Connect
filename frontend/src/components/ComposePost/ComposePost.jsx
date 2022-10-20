@@ -20,9 +20,14 @@ function ComposePost({ profile }) {
             metadata_id: uuidv4(),
             description: "RTU Connect Post",
             content,
-            mainContentFocus: TEXT_ONLY,
-            image: null,
-            imageMimeType: null,
+            image: attachments.length > 0 ? attachments[0]?.item : null,
+            imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
+            mainContentFocus:
+                attachments.length > 0
+                    ? attachments[0]?.type === "video/mp4"
+                        ? PublicationMainFocus.Video
+                        : PublicationMainFocus.Image
+                    : PublicationMainFocus.TextOnly,
             ...baseMetadata,
 
         };
