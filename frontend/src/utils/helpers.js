@@ -31,7 +31,7 @@ export function generateRandomColor() {
 
 export const fixURL = (url) => url?.replace("ipfs://", "https://lens.infura-ipfs.io/ipfs/");
 
-const PublicationMainFocus = {
+export const PublicationMainFocus = {
     VIDEO: "VIDEO",
     IMAGE: "IMAGE",
     ARTICLE: "ARTICLE",

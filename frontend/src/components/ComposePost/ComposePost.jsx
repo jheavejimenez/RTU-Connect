@@ -6,7 +6,7 @@ import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
 import {
-    baseMetadata, getSigner, signedTypeData, splitSignature,
+    baseMetadata, getSigner, PublicationMainFocus, signedTypeData, splitSignature,
 } from "../../utils/helpers";
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
