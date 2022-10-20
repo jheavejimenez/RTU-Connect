@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ethers } from "ethers";
 import { v4 as uuidv4 } from "uuid";
+import logoRTU from "../../icons/rtu-icon.png";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
@@ -15,6 +16,9 @@ import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
 function ComposePost({ profile }) {
     const [content, setContent] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
+    const [attachments, setAttachments] = useState([]);
+    const [imagePostUrl, setImagePostUrl] = useState("");
+
     const uploadToIPFS = async () => {
         const metadata = {
             metadata_id: uuidv4(),
@@ -23,11 +27,10 @@ function ComposePost({ profile }) {
             image: attachments.length > 0 ? attachments[0]?.item : null,
             imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
             mainContentFocus:
+            // eslint-disable-next-line no-nested-ternary
                 attachments.length > 0
-                    ? attachments[0]?.type === "video/mp4"
-                        ? PublicationMainFocus.Video
-                        : PublicationMainFocus.Image
-                    : PublicationMainFocus.TextOnly,
+                    ? PublicationMainFocus.IMAGE
+                    : PublicationMainFocus.TEXT_ONLY,
             ...baseMetadata,
 
         };
@@ -63,6 +66,12 @@ function ComposePost({ profile }) {
             },
         });
     };
+
+    const handleChange = (e) => {
+        setImagePostUrl(URL.createObjectURL(e.target.files[0]));
+        setAttachments(e.target.files); 
+    };
+
     useEffect(() => {
         if (!typedPostData.data) return;
 
@@ -116,6 +125,11 @@ function ComposePost({ profile }) {
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
                             />
+                            { attachments.length > 0 && (
+                                <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
+                                    <img src={imagePostUrl} alt={"img"} />
+                                </div>
+                            )}
                             <div className={"sm:flex sm:items-start"}>
                                 <div className={"mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"}>
                                     <div className={"mt-2"} />
@@ -123,7 +137,16 @@ function ComposePost({ profile }) {
                             </div>
                         </div>
                         <div className={"bg-white px-4 pt-3 pb-5 flex justify-between px-6"}>
-                            <Gallery />
+                            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                            <label>
+                                <Gallery />
+                                <input
+                                    type={"file"}
+                                    className={"hidden"}
+                                    accept={"image/png, image/jpeg"}
+                                    onChange={handleChange}
+                                />
+                            </label>
                             <ButtonFunctionCall
                                 func={handleCreatePost}
                                 type={"submit"}
