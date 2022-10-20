@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ethers } from "ethers";
 import { v4 as uuidv4 } from "uuid";
-import logoRTU from "../../icons/rtu-icon.png";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
 import {
-    baseMetadata, getSigner, PublicationMainFocus, signedTypeData, splitSignature,
+    baseMetadata, getSigner, PublicationMainFocus, signedTypeData, splitSignature, 
 } from "../../utils/helpers";
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
@@ -69,7 +68,7 @@ function ComposePost({ profile }) {
 
     const handleChange = (e) => {
         setImagePostUrl(URL.createObjectURL(e.target.files[0]));
-        setAttachments(e.target.files); 
+        setAttachments(e.target.files);
     };
 
     useEffect(() => {
@@ -125,7 +124,7 @@ function ComposePost({ profile }) {
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
                             />
-                            { attachments.length > 0 && (
+                            {attachments.length > 0 && (
                                 <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
                                     <img src={imagePostUrl} alt={"img"} />
                                 </div>
