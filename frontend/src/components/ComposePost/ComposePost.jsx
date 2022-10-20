@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ethers } from "ethers";
 import { v4 as uuidv4 } from "uuid";
+import { NFTStorage } from "nft.storage";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
@@ -18,6 +19,7 @@ function ComposePost({ profile }) {
     const [attachments, setAttachments] = useState([]);
     const [imagePostUrl, setImagePostUrl] = useState("");
 
+    console.log(attachments);
     const uploadToIPFS = async () => {
         const metadata = {
             metadata_id: uuidv4(),
@@ -36,6 +38,17 @@ function ComposePost({ profile }) {
 
         const uri = await submarine(JSON.stringify(metadata));
         return uri;
+    };
+
+    const uploadMediaToIPFS = async (e) => {
+        const client = new NFTStorage({
+            token: process.env.REACT_APP_REACT_APP_STORAGE_TOKEN,
+        });
+        const cid = e;
+        return {
+            item: `ipfs://${cid}`,
+            type: cid.type,
+        };
     };
 
     const handleCreatePost = async (e) => {
@@ -66,8 +79,10 @@ function ComposePost({ profile }) {
         });
     };
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         setImagePostUrl(URL.createObjectURL(e.target.files[0]));
+        const data = await uploadMediaToIPFS(e.target.files);
+        console.log(data);
         setAttachments(e.target.files);
     };
 
