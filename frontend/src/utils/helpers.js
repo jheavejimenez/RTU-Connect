@@ -31,6 +31,11 @@ export function generateRandomColor() {
 
 export const fixURL = (url) => url?.replace("ipfs://", "https://lens.infura-ipfs.io/ipfs/");
 
+export const nftStorageURLFixer = (url) => {
+    const replacedURL = url?.replace("ipfs://", "https://");
+    return replacedURL.concat(".ipfs.nftstorage.link");
+};
+
 export const PublicationMainFocus = {
     VIDEO: "VIDEO",
     IMAGE: "IMAGE",
