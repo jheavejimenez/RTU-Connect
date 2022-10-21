@@ -31,8 +31,8 @@ function PostV2({ post }) {
                             <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
                                 <img
                                     className={"h-full w-full object-cover"}
-                                    src={mediaLink}
-                                    alt={post.metadata.media?.original?.mimeType}
+                                    src={mediaLink || altMediaLink}
+                                    alt={"this is a img"}
                                 />
                             </div>
                             <Actions
