@@ -75,7 +75,7 @@ function Home({ setPost }) {
                     {loading && (
                         <>
                             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-3 w-full"}>
-                                <div className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg"}>
+                                <div className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg animate-pulse"}>
                                     {"Loading..."}
                                 </div>
                             </div>
