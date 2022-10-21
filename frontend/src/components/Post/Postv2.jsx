@@ -32,7 +32,7 @@ function PostV2({ post }) {
                                 <img
                                     className={"h-full w-full object-cover"}
                                     src={mediaLink || altMediaLink}
-                                    alt={"this is a img"}
+                                    alt={post.metadata.media?.original?.mimeType}
                                 />
                             </div>
                             <Actions
