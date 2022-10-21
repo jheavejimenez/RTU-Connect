@@ -19,7 +19,7 @@ function ComposePost({ profile }) {
     const [attachments, setAttachments] = useState([]);
     const [imagePostUrl, setImagePostUrl] = useState("");
 
-    console.log(attachments);
+    console.log(attachments[0]?.type);
     const uploadToIPFS = async () => {
         const metadata = {
             metadata_id: uuidv4(),
@@ -44,12 +44,12 @@ function ComposePost({ profile }) {
         const client = new NFTStorage({
             token: process.env.REACT_APP_STORAGE_TOKEN,
         });
-        const someData = new Blob(data);
-        const cid = await client.storeBlob(someData);
-        return {
+        const postImageData = new Blob(data);
+        const cid = await client.storeBlob(postImageData);
+        return [{
             item: `ipfs://${cid}`,
-            type: cid.type,
-        };
+            type: data[0].type,
+        }];
     };
 
     const handleCreatePost = async (e) => {
@@ -83,7 +83,6 @@ function ComposePost({ profile }) {
     const handleChange = async (e) => {
         setImagePostUrl(URL.createObjectURL(e.target.files[0]));
         const data = await uploadMediaToIPFS(e.target.files);
-        console.log(data);
         setAttachments(data);
     };
 
