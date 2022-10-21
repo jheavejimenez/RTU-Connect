@@ -1,6 +1,10 @@
 import { ethers, utils } from "ethers";
 import omitDeep from "omit-deep";
+import { useMutation } from "@apollo/client";
+// eslint-disable-next-line import/named
+import { refresh } from "../graphQL/mutations";
 
+const [mutateAuth, authData] = useMutation(refresh);
 export function getSigner() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     return provider.getSigner();
@@ -42,6 +46,35 @@ export function parseJwt(token) {
     const jsonPayload = decodeURIComponent(atob(base64).split("").map((c) => `%${(`00${c.charCodeAt(0).toString(16)}`).slice(-2)}`).join(""));
 
     return JSON.parse(jsonPayload);
+}
+
+export async function refreshAuthToken() {
+    const token = JSON.parse(localStorage.getItem("lensToken"));
+    if (!token) return;
+    try {
+        await mutateAuth({
+            variables: {
+                request: {
+                    refreshToken: token.refreshToken,
+                },
+            },
+        });
+        if (!authData.data) return;
+
+        const { accessToken, refreshToken } = authData.data.refresh;
+        const { exp } = parseJwt(refreshToken);
+
+        localStorage.setItem("lensToken", JSON.stringify({
+            accessToken, refreshToken, exp,
+        }));
+
+        // eslint-disable-next-line consistent-return
+        return {
+            accessToken,
+        };
+    } catch (err) {
+        console.log("error:", err);
+    }
 }
 
 export const PublicationMainFocus = {
