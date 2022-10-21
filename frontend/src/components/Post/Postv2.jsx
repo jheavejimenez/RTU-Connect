@@ -28,7 +28,7 @@ function PostV2({ post }) {
                             <div className={"whitespace-pre-wrap break-words leading-md linkify text-md"}>
                                 {post?.metadata?.content}
                             </div>
-                            <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
+                            <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[33rem]"}>
                                 <img
                                     className={"h-full w-full object-cover"}
                                     src={mediaLink || altMediaLink}
