@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ethers } from "ethers";
 import { v4 as uuidv4 } from "uuid";
+import { NFTStorage } from "nft.storage";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
 import {
-    baseMetadata, getSigner, signedTypeData, splitSignature, 
+    baseMetadata, getSigner, PublicationMainFocus, signedTypeData, splitSignature, 
 } from "../../utils/helpers";
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
@@ -15,19 +16,47 @@ import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
 function ComposePost({ profile }) {
     const [content, setContent] = useState("");
     const [mutatePostTypedData, typedPostData] = useMutation(CREATE_POST_TYPED_DATA);
+    const [attachments, setAttachments] = useState([]);
+    const [imagePostUrl, setImagePostUrl] = useState("");
+
     const uploadToIPFS = async () => {
         const metadata = {
             metadata_id: uuidv4(),
             description: "RTU Connect Post",
             content,
-            image: null,
-            imageMimeType: null,
+            image: attachments.length > 0 ? attachments[0]?.item : null,
+            imageMimeType: attachments.length > 0 ? attachments[0]?.type : null,
+            mainContentFocus:
+            // eslint-disable-next-line no-nested-ternary
+                attachments.length > 0
+                    ? PublicationMainFocus.IMAGE
+                    : PublicationMainFocus.TEXT_ONLY,
+            media: attachments,
             ...baseMetadata,
 
         };
-
+        console.log(metadata);
         const uri = await submarine(JSON.stringify(metadata));
         return uri;
+    };
+
+    const uploadMediaToIPFS = async (data) => {
+        const client = new NFTStorage({
+            token: process.env.REACT_APP_STORAGE_TOKEN,
+        });
+        const postImageData = new Blob(data);
+        const cid = await client.storeBlob(postImageData);
+        // const imageFile = new File([data], "postImage", { type: data[0].type });
+        // const metadata = await client.store({
+        //     name: "My sweet NFT",
+        //     description: "You can't do it.",
+        //     image: imageFile,
+        // });
+        // console.log(metadata);
+        return [{
+            item: `ipfs://${cid}`,
+            type: data[0].type,
+        }];
     };
 
     const handleCreatePost = async (e) => {
@@ -57,6 +86,13 @@ function ComposePost({ profile }) {
             },
         });
     };
+
+    const handleChange = async (e) => {
+        setImagePostUrl(URL.createObjectURL(e.target.files[0]));
+        const data = await uploadMediaToIPFS(e.target.files);
+        setAttachments(data);
+    };
+
     useEffect(() => {
         if (!typedPostData.data) return;
 
@@ -110,6 +146,11 @@ function ComposePost({ profile }) {
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
                             />
+                            {attachments.length > 0 && (
+                                <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
+                                    <img src={imagePostUrl} alt={"img"} />
+                                </div>
+                            )}
                             <div className={"sm:flex sm:items-start"}>
                                 <div className={"mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"}>
                                     <div className={"mt-2"} />
@@ -117,7 +158,16 @@ function ComposePost({ profile }) {
                             </div>
                         </div>
                         <div className={"bg-white px-4 pt-3 pb-5 flex justify-between px-6"}>
-                            <Gallery />
+                            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                            <label>
+                                <Gallery />
+                                <input
+                                    type={"file"}
+                                    className={"hidden"}
+                                    accept={"image/png, image/jpeg"}
+                                    onChange={handleChange}
+                                />
+                            </label>
                             <ButtonFunctionCall
                                 func={handleCreatePost}
                                 type={"submit"}

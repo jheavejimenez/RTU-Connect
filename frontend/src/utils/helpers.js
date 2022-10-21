@@ -31,7 +31,7 @@ export function generateRandomColor() {
 
 export const fixURL = (url) => url?.replace("ipfs://", "https://lens.infura-ipfs.io/ipfs/");
 
-const PublicationMainFocus = {
+export const PublicationMainFocus = {
     VIDEO: "VIDEO",
     IMAGE: "IMAGE",
     ARTICLE: "ARTICLE",
@@ -42,11 +42,16 @@ const PublicationMainFocus = {
 };
 export const baseMetadata = {
     version: "2.0.0",
-    mainContentFocus: PublicationMainFocus.TEXT_ONLY,
     locale: "en-US",
     external_url: null,
     name: "Posted @RTUCONNECT",
-    attributes: [],
+    attributes: [
+        {
+            traitType: "string",
+            key: "type",
+            value: "post",
+        },
+    ],
     tags: ["RTUCONNECT"],
     appId: "rtutest", // change it to rtuconnect
 };
