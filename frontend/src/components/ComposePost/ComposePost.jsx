@@ -46,13 +46,6 @@ function ComposePost({ profile }) {
         });
         const postImageData = new Blob(data);
         const cid = await client.storeBlob(postImageData);
-        // const imageFile = new File([data], "postImage", { type: data[0].type });
-        // const metadata = await client.store({
-        //     name: "My sweet NFT",
-        //     description: "You can't do it.",
-        //     image: imageFile,
-        // });
-        // console.log(metadata);
         return [{
             item: `ipfs://${cid}`,
             type: data[0].type,
