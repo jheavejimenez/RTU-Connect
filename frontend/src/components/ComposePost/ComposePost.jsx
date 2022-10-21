@@ -36,7 +36,6 @@ function ComposePost({ profile }) {
             ...baseMetadata,
 
         };
-        console.log(metadata);
         const uri = await submarine(JSON.stringify(metadata));
         return uri;
     };
@@ -98,7 +97,6 @@ function ComposePost({ profile }) {
         const data = await uploadMediaToIPFS(e.target.files);
         setAttachments(data);
     };
-
     useEffect(() => {
         if (!typedPostData.data) return;
 
