@@ -12,6 +12,7 @@ import {
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
+import { GET_TIMELINE } from "../../graphQL/queries";
 
 function ComposePost({ profile }) {
     const [content, setContent] = useState("");
@@ -77,7 +78,19 @@ function ComposePost({ profile }) {
             variables: {
                 request: createPostRequest,
             },
+            refetchQueries: [{
+                query: GET_TIMELINE,
+                variables: {
+                    request: {
+                        profileId: profile,
+                    },
+                },
+            }],
+            
         });
+        setContent("");
+        setImagePostUrl("");
+        setAttachments([]);
     };
 
     const handleChange = async (e) => {
