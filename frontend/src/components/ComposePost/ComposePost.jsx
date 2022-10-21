@@ -40,11 +40,12 @@ function ComposePost({ profile }) {
         return uri;
     };
 
-    const uploadMediaToIPFS = async (e) => {
+    const uploadMediaToIPFS = async (data) => {
         const client = new NFTStorage({
-            token: process.env.REACT_APP_REACT_APP_STORAGE_TOKEN,
+            token: process.env.REACT_APP_STORAGE_TOKEN,
         });
-        const cid = e;
+        const someData = new Blob(data);
+        const cid = await client.storeBlob(someData);
         return {
             item: `ipfs://${cid}`,
             type: cid.type,
@@ -83,7 +84,7 @@ function ComposePost({ profile }) {
         setImagePostUrl(URL.createObjectURL(e.target.files[0]));
         const data = await uploadMediaToIPFS(e.target.files);
         console.log(data);
-        setAttachments(e.target.files);
+        setAttachments(data);
     };
 
     useEffect(() => {
