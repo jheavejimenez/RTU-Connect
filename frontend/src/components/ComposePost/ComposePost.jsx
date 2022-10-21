@@ -19,7 +19,6 @@ function ComposePost({ profile }) {
     const [attachments, setAttachments] = useState([]);
     const [imagePostUrl, setImagePostUrl] = useState("");
 
-    console.log(attachments[0]?.type);
     const uploadToIPFS = async () => {
         const metadata = {
             metadata_id: uuidv4(),
@@ -32,10 +31,11 @@ function ComposePost({ profile }) {
                 attachments.length > 0
                     ? PublicationMainFocus.IMAGE
                     : PublicationMainFocus.TEXT_ONLY,
+            media: attachments,
             ...baseMetadata,
 
         };
-
+        console.log(metadata);
         const uri = await submarine(JSON.stringify(metadata));
         return uri;
     };
@@ -46,6 +46,13 @@ function ComposePost({ profile }) {
         });
         const postImageData = new Blob(data);
         const cid = await client.storeBlob(postImageData);
+        // const imageFile = new File([data], "postImage", { type: data[0].type });
+        // const metadata = await client.store({
+        //     name: "My sweet NFT",
+        //     description: "You can't do it.",
+        //     image: imageFile,
+        // });
+        // console.log(metadata);
         return [{
             item: `ipfs://${cid}`,
             type: data[0].type,

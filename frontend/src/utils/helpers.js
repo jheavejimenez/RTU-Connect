@@ -45,7 +45,13 @@ export const baseMetadata = {
     locale: "en-US",
     external_url: null,
     name: "Posted @RTUCONNECT",
-    attributes: [],
+    attributes: [
+        {
+            traitType: "string",
+            key: "type",
+            value: "post",
+        },
+    ],
     tags: ["RTUCONNECT"],
     appId: "rtutest", // change it to rtuconnect
 };
