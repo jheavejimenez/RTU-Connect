@@ -14,7 +14,7 @@ function Home({ setPost }) {
     const [publications, setPublications] = useState([]);
     const { profile } = useAuth();
 
-    const { data } = useQuery(GET_TIMELINE, {
+    const { data, loading } = useQuery(GET_TIMELINE, {
         variables: {
             request: {
                 profileId: profile.id,
@@ -68,6 +68,15 @@ function Home({ setPost }) {
                             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-3 w-full"}>
                                 <div className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg"}>
                                     {"You don't follow anyone. Here are some posts from RTU CONNECT."}
+                                </div>
+                            </div>
+                        </>
+                    )}
+                    {loading && (
+                        <>
+                            <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-3 w-full"}>
+                                <div className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg"}>
+                                    {"Loading..."}
                                 </div>
                             </div>
                         </>
