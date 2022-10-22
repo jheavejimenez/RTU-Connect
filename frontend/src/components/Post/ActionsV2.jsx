@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
     LikeIcon, ReplyIcon, RetweetIcon, ShareIcon,
 } from "../../icons/IconsV2";
-import Rune from "./Rune,jsx";
+import Rune from "./Rune";
 
 function Actions({
     replies, retweets, likes, isComment, publicationId,

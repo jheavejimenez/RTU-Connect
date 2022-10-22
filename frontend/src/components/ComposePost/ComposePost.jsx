@@ -12,6 +12,7 @@ import {
 import { ADDRESS } from "../../utils/constants";
 import lensHubABI from "../../utils/lensHubABI.json";
 import { CREATE_POST_TYPED_DATA } from "../../graphQL/mutations";
+import { GET_TIMELINE } from "../../graphQL/queries";
 
 function ComposePost({ profile }) {
     const [content, setContent] = useState("");
@@ -35,7 +36,6 @@ function ComposePost({ profile }) {
             ...baseMetadata,
 
         };
-        console.log(metadata);
         const uri = await submarine(JSON.stringify(metadata));
         return uri;
     };
@@ -46,13 +46,6 @@ function ComposePost({ profile }) {
         });
         const postImageData = new Blob(data);
         const cid = await client.storeBlob(postImageData);
-        // const imageFile = new File([data], "postImage", { type: data[0].type });
-        // const metadata = await client.store({
-        //     name: "My sweet NFT",
-        //     description: "You can't do it.",
-        //     image: imageFile,
-        // });
-        // console.log(metadata);
         return [{
             item: `ipfs://${cid}`,
             type: data[0].type,
@@ -84,7 +77,19 @@ function ComposePost({ profile }) {
             variables: {
                 request: createPostRequest,
             },
+            refetchQueries: [{
+                query: GET_TIMELINE,
+                variables: {
+                    request: {
+                        profileId: profile,
+                    },
+                },
+            }],
+            
         });
+        setContent("");
+        setImagePostUrl("");
+        setAttachments([]);
     };
 
     const handleChange = async (e) => {
@@ -92,7 +97,6 @@ function ComposePost({ profile }) {
         const data = await uploadMediaToIPFS(e.target.files);
         setAttachments(data);
     };
-
     useEffect(() => {
         if (!typedPostData.data) return;
 

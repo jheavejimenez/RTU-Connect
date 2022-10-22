@@ -3,11 +3,13 @@ import moment from "moment/moment";
 import Avatar from "../Avatar/Avatar";
 import Heading from "./HeadingV2";
 import Actions from "./ActionsV2";
-import { fixURL } from "../../utils/helpers";
+import { fixURL, nftStorageURLFixer } from "../../utils/helpers";
 
 function PostV2({ post }) {
     const avatarLink = fixURL(post.profile?.picture?.original.url);
     const mediaLink = fixURL(post.metadata.media[0]?.original.url);
+    const altMediaLink = nftStorageURLFixer(post.metadata.media[0]?.original.url);
+
     return (
         // eslint-disable-next-line no-underscore-dangle
         post.__typename === "Post" ? (
@@ -26,10 +28,10 @@ function PostV2({ post }) {
                             <div className={"whitespace-pre-wrap break-words leading-md linkify text-md"}>
                                 {post?.metadata?.content}
                             </div>
-                            <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[30rem]"}>
+                            <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[33rem]"}>
                                 <img
                                     className={"h-full w-full object-cover"}
-                                    src={mediaLink}
+                                    src={mediaLink || altMediaLink}
                                     alt={post.metadata.media?.original?.mimeType}
                                 />
                             </div>

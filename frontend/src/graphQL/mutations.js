@@ -39,6 +39,17 @@ export const AUTHENTICATION = gql`
   }
 `;
 
+export const refresh = `
+  mutation($request: Jwt!) {
+    refresh(request: {
+      refreshToken: $refreshToken
+    }) {
+      accessToken
+      refreshToken
+    }
+  }
+`;
+
 export const CREATE_POST_TYPED_DATA = gql`
   mutation($request: CreatePublicPostRequest!) { 
     createPostTypedData(request: $request) {
