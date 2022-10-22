@@ -6,7 +6,6 @@ import {
     InMemoryCache,
     ApolloProvider,
 } from "@apollo/client";
-import { RetryLink } from "@apollo/client/link/retry";
 
 const API_URL = "https://api-mumbai.lens.dev/";
 
