@@ -15,17 +15,6 @@ const httpLink = new HttpLink({
     fetch,
 });
 
-// RetryLink is a link that retries requests based on the status code returned.
-const retryLink = new RetryLink({
-    delay: {
-        initial: 100,
-    },
-    attempts: {
-        max: 2,
-        retryIf: (error) => !!error,
-    },
-});
-
 const authLink = new ApolloLink((operation, forward) => {
     // const token = window.authToken;
     const token = window.sessionStorage.getItem("lensToken");
