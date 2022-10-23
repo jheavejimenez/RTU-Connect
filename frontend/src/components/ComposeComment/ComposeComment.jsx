@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import {
-    baseMetadata, getSigner, signedTypeData, splitSignature, 
+    baseMetadata, getSigner, PublicationMainFocus, signedTypeData, splitSignature,
 } from "../../utils/helpers";
 import { submarine } from "../../utils/pinataAPICall";
 import { CREATE_COMMENT_TYPED_DATA } from "../../graphQL/mutations";
@@ -22,6 +22,7 @@ function ComposeComment({ publicationId }) {
             metadata_id: uuidv4(),
             description: "RTU Connect Post",
             content,
+            mainContentFocus: PublicationMainFocus.TEXT_ONLY,
             image: null,
             imageMimeType: null,
             ...baseMetadata,
