@@ -67,7 +67,7 @@ function Home({ setPost }) {
                         <>
                             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-3 w-full"}>
                                 <div className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg"}>
-                                    {"You don't follow anyone. Here are some posts from RTU CONNECT."}
+                                    {"You don't follow anyone. Start posting now!"}
                                 </div>
                             </div>
                         </>
