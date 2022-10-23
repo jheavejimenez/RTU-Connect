@@ -1414,7 +1414,7 @@ export const GET_EXPLORE = gql`
     sortCriteria: TOP_COMMENTED,
     publicationTypes: [POST],
     limit: 10,
-    sources: [rtu_connect, rtutest]
+    sources: [rtutest]
   }) {
     items {
       __typename 
