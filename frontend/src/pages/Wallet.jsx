@@ -24,13 +24,13 @@ let providerOptions = {
 if (!window?.ethereum?.isSequence) {
     providerOptions = {
         ...providerOptions,
-        sequence: {
-            package: sequence,
-            options: {
-                appName: "RTU Connect",
-                defaultNetwork: "mumbai",
-            },
-        },
+        // sequence: {
+        //     package: sequence,
+        //     options: {
+        //         appName: "RTU Connect",
+        //         defaultNetwork: "mumbai",
+        //     },
+        // },
     };
 }
 
