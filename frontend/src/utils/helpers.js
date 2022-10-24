@@ -29,9 +29,9 @@ export function generateRandomColor() {
     return `#${randColor.toUpperCase()}`;
 }
 
-export const fixURL = (url) => url?.replace("ipfs://", "https://lens.infura-ipfs.io/ipfs/");
+export const nftStorageURLFixer = (url) => url?.replace("ipfs://", "https://lens.infura-ipfs.io/ipfs/");
 
-export const nftStorageURLFixer = (url) => {
+export const fixURL = (url) => {
     const replacedURL = url?.replace("ipfs://", "https://");
     return replacedURL?.concat(".ipfs.nftstorage.link");
 };

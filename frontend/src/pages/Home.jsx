@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../index.css";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import NavBar from "../components/NavBar/NavBar";
-import Post from "../components/Post/Post";
-import { GET_TIMELINE, HAS_COLLECTED, SEARCH } from "../graphQL/queries";
+import { GET_TIMELINE } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import ComposePost from "../components/ComposePost/ComposePost";
 import PostV2 from "../components/Post/Postv2";
@@ -67,7 +66,7 @@ function Home({ setPost }) {
                         <>
                             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-3 w-full"}>
                                 <div className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg"}>
-                                    {"You don't follow anyone. Here are some posts from RTU CONNECT."}
+                                    {"You don't follow anyone. Start posting now!"}
                                 </div>
                             </div>
                         </>
@@ -75,7 +74,9 @@ function Home({ setPost }) {
                     {loading && (
                         <>
                             <div className={"mx-auto shadow-md bg-white font-bold rounded-md mb-3 w-full"}>
-                                <div className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg animate-pulse"}>
+                                <div
+                                    className={"flex p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg animate-pulse"}
+                                >
                                     {"Loading..."}
                                 </div>
                             </div>

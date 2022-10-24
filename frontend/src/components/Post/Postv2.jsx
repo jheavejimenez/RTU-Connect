@@ -8,7 +8,6 @@ import { fixURL, nftStorageURLFixer } from "../../utils/helpers";
 function PostV2({ post }) {
     const avatarLink = fixURL(post.profile?.picture?.original.url);
     const mediaLink = fixURL(post.metadata.media[0]?.original.url);
-    const altMediaLink = nftStorageURLFixer(post.metadata.media[0]?.original.url);
 
     return (
         // eslint-disable-next-line no-underscore-dangle
@@ -31,7 +30,7 @@ function PostV2({ post }) {
                             <div className={"mt-3 overflow-hidden rounded-xl col-span-3 max-h-[33rem]"}>
                                 <img
                                     className={"h-full w-full object-cover"}
-                                    src={mediaLink || altMediaLink}
+                                    src={mediaLink}
                                     alt={post.metadata.media?.original?.mimeType}
                                 />
                             </div>
