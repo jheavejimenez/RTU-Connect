@@ -155,13 +155,13 @@ function Wallet({
                                 ? (
                                     <ButtonFunctionCall
                                         func={connectWallet}
-                                        text={"Connect Wallet"}
+                                        text={"Login"}
                                     />
                                 )
                                 : (
                                     <ButtonFunctionCall
                                         func={handleGetChallenge}
-                                        text={"Sign In"}
+                                        text={"Sign In to RTU-Connect"}
                                     />
 
                                 )}
