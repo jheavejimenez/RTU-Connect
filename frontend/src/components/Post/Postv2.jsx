@@ -3,7 +3,7 @@ import moment from "moment/moment";
 import Avatar from "../Avatar/Avatar";
 import Heading from "./HeadingV2";
 import Actions from "./ActionsV2";
-import { fixURL, nftStorageURLFixer } from "../../utils/helpers";
+import { fixURL } from "../../utils/helpers";
 
 function PostV2({ post }) {
     const avatarLink = fixURL(post.profile?.picture?.original.url);
