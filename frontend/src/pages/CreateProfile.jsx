@@ -59,12 +59,12 @@ function CreateHandle() {
                                 htmlFor={"name"}
                                 className={"text-sm font-semibold text-gray-600"}
                             >
-                                {"Enter yor profile handle"}
+                                {"Enter your profile username"}
                             </label>
                             <input
                                 id={"name"}
                                 type={"text"}
-                                placeholder={"@handle"}
+                                placeholder={"@username"}
                                 ref={handleRef}
                                 onChange={inputHandleValue}
                                 autoComplete={"off"}
