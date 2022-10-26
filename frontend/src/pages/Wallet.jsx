@@ -3,6 +3,7 @@ import { sequence } from "0xsequence";
 import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
+import Web3Modal from "../components/Web3Modal/Web3Modal";
 import lensHubABI from "../utils/lensHubABI.json";
 import { ADDRESS } from "../utils/constants";
 import { GET_PROFILES } from "../graphQL/queries";
