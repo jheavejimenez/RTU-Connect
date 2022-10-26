@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { sequence } from "0xsequence";
+import Web3Modal from "@0xsequence/web3modal";
 import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
@@ -8,6 +8,7 @@ import { ADDRESS } from "../utils/constants";
 import { GET_PROFILES } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import { AUTHENTICATION, GET_CHALLENGE } from "../graphQL/mutations";
+import ModalInstructions from "../components/Modals/ModalInstructions";
 
 // Configure  wallet
 let providerOptions = {
@@ -138,6 +139,7 @@ function Wallet({
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
+            <ModalInstructions />
             <div className={"flex w-full justify-center px-6"}>
                 <div className={"shadow-md bg-white items-center w-full flex"} style={{ height: "500px" }}>
                     <div className={"w-1/2  p-5 rounded-lg lg:rounded-r-none"}>
