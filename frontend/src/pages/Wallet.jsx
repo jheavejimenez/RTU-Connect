@@ -3,7 +3,6 @@ import { sequence } from "0xsequence";
 import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
-import ModalInstructions from "../components/Modals/ModalInstructions";
 import lensHubABI from "../utils/lensHubABI.json";
 import { ADDRESS } from "../utils/constants";
 import { GET_PROFILES } from "../graphQL/queries";
@@ -34,7 +33,7 @@ if (!window?.ethereum?.isSequence) {
     };
 }
 
-const web3Modal = new ModalInstructions({
+const web3Modal = new Web3Modal({
     providerOptions,
     cacheProvider: true,
 });
@@ -139,7 +138,6 @@ function Wallet({
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
-            <ModalInstructions />
             <div className={"flex w-full justify-center px-6"}>
                 <div className={"shadow-md bg-white items-center w-full flex"} style={{ height: "500px" }}>
                     <div className={"w-1/2  p-5 rounded-lg lg:rounded-r-none"}>

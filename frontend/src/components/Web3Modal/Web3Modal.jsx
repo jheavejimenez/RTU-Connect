@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function ModalInstructions() {
+function Web3Modal() {
     const [showModal, setShowModal] = useState(true);
 
     return (
@@ -108,4 +108,4 @@ function ModalInstructions() {
     );
 }
 
-export default ModalInstructions;
+export default Web3Modal;
