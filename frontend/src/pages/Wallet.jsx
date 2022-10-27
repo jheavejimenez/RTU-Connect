@@ -8,7 +8,6 @@ import { ADDRESS } from "../utils/constants";
 import { GET_PROFILES } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import { AUTHENTICATION, GET_CHALLENGE } from "../graphQL/mutations";
-import ModalInstructions from "../components/Modals/ModalInstructions";
 
 // Configure  wallet
 let providerOptions = {
@@ -129,7 +128,7 @@ function Wallet({
         login(authData.data.authenticate.accessToken);
         window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
     }, [authData.data]);
-    
+
     // const connectWeb3Modal = async () => {
     //     if (web3Modal.cachedProvider) {
     //         web3Modal.clearCachedProvider();
@@ -139,7 +138,7 @@ function Wallet({
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
-            <ModalInstructions />
+            {/* <ModalInstructions /> // todo only open ounce */}
             <div className={"flex w-full justify-center px-6"}>
                 <div className={"shadow-md bg-white items-center w-full flex"} style={{ height: "500px" }}>
                     <div className={"w-1/2  p-5 rounded-lg lg:rounded-r-none"}>
