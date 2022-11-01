@@ -42,7 +42,7 @@ function Home({ setPost }) {
             <NavBar />
 
             <main className={"grid grid-cols-1 lg:grid-cols-2 gap-6 my-5 mx-12 w-max container px-2 mx-auto"}>
-                <aside className={"w-1/2"}>
+                <aside>
                     <div className={"bg-yellow-100 border border-yellow-400 gap-1 px-4 py-3 rounded-md"}>
                         <div className={"flex my-3"}>
                             <ExclamationTriangleIcon
