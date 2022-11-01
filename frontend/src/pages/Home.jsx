@@ -8,6 +8,8 @@ import { useAuth } from "../hooks/useAuth";
 import ComposePost from "../components/ComposePost/ComposePost";
 import PostV2 from "../components/Post/Postv2";
 import logoProfile from "../icons/profile-icon.png";
+import AvatarV2 from "../components/Avatar/AvatarV2";
+import { staffHandles, staffNames } from "../utils/constants";
 
 function Home({ setPost }) {
     const [notFound, setNotFound] = useState(false);
@@ -60,13 +62,14 @@ function Home({ setPost }) {
                             <span className={"font-bold text-gray-900"}>{"Who to follow"}</span>
                         </div>
                         <div>
-                            <div className={"flex items-center gap-2"}>
-                                <img className={"h-10 w-10 rounded-full"} src={logoProfile} alt={""} />
-                                <div className={"flex flex-col"}>
-                                    <span className={"font-bold text-gray-900"}>{"Jheave Jimenez"}</span>
-                                    <span className={"text-gray-600"}>{"@jheave"}</span>
+                            {staffNames.map((staff) => (
+                                <div className={"flex items-center gap-2 mb-3"}>
+                                    <AvatarV2 src={logoProfile} />
+                                    <div className={"flex flex-col"}>
+                                        <span className={"font-bold text-gray-900"}>{staff}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </aside>
