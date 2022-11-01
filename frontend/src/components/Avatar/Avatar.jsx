@@ -12,7 +12,7 @@ import logoProfile from "../../icons/profile-icon.png";
 
 function Avatar() {
     const navigate = useNavigate();
-    const { logout, profile } = useAuth();
+    const { logout } = useAuth();
 
     return (
 
@@ -23,7 +23,7 @@ function Avatar() {
                     className={"inline-block h-10 w-10 rounded-full ring-2 ring-blue-800"}
                     alt={"avatar"}
                     // check if profileId.picture exists if not use logoProfile
-                    src={profile?.picture ? profile?.picture : logoProfile}
+                    src={logoProfile}
                 />
             </div>
             <Transition

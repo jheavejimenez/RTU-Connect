@@ -7,6 +7,9 @@ import { GET_TIMELINE } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import ComposePost from "../components/ComposePost/ComposePost";
 import PostV2 from "../components/Post/Postv2";
+import logoProfile from "../icons/profile-icon.png";
+import AvatarV2 from "../components/Avatar/AvatarV2";
+import { staffHandles, staffNames } from "../utils/constants";
 
 function Home({ setPost }) {
     const [notFound, setNotFound] = useState(false);
@@ -40,7 +43,7 @@ function Home({ setPost }) {
         <>
             <NavBar />
 
-            <main className={"grid grid-cols-1 lg:grid-cols-2 gap-6 my-5 mx-12 w-2xl container px-2 mx-auto"}>
+            <main className={"grid grid-cols-1 lg:grid-cols-2 gap-6 my-5 mx-12 w-max container px-2 mx-auto"}>
                 <aside>
                     <div className={"bg-yellow-100 border border-yellow-400 gap-1 px-4 py-3 rounded-md"}>
                         <div className={"flex my-3"}>
@@ -57,6 +60,16 @@ function Home({ setPost }) {
                     <div className={"bg-white shadow gap-2 px-4 py-3 my-5 rounded-md"}>
                         <div className={"flex my-3"}>
                             <span className={"font-bold text-gray-900"}>{"Who to follow"}</span>
+                        </div>
+                        <div>
+                            {staffNames.map((staff) => (
+                                <div className={"flex items-center gap-2 mb-3"}>
+                                    <AvatarV2 src={logoProfile} />
+                                    <div className={"flex flex-col"}>
+                                        <span className={"font-bold text-gray-900"}>{staff}</span>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </aside>

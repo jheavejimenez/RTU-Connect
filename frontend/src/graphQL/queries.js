@@ -1411,7 +1411,7 @@ export const HAS_COLLECTED = gql`
 export const GET_EXPLORE = gql`
     query ExplorePublications {
   explorePublications(request: {
-    sortCriteria: TOP_COMMENTED,
+    sortCriteria: LATEST,
     publicationTypes: [POST],
     limit: 20,
     sources: [rtutest]

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { sequence } from "0xsequence";
 import Web3Modal from "@0xsequence/web3modal";
 import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
@@ -129,7 +128,7 @@ function Wallet({
         login(authData.data.authenticate.accessToken);
         window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
     }, [authData.data]);
-    
+
     // const connectWeb3Modal = async () => {
     //     if (web3Modal.cachedProvider) {
     //         web3Modal.clearCachedProvider();
@@ -139,6 +138,7 @@ function Wallet({
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
+            {/* <ModalInstructions /> // todo only open ounce */}
             <div className={"flex w-full justify-center px-6"}>
                 <div className={"shadow-md bg-white items-center w-full flex"} style={{ height: "500px" }}>
                     <div className={"w-1/2  p-5 rounded-lg lg:rounded-r-none"}>
