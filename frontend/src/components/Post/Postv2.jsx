@@ -4,6 +4,7 @@ import Heading from "./HeadingV2";
 import Actions from "./ActionsV2";
 import { fixURL } from "../../utils/helpers";
 import AvatarV2 from "../Avatar/AvatarV2";
+import logoProfile from "../../icons/profile-icon.png";
 
 function PostV2({ post }) {
     const avatarLink = fixURL(post.profile?.picture?.original.url);
@@ -17,7 +18,11 @@ function PostV2({ post }) {
                     className={"border-t-[1px] px-4 pt-3 pb-2 hover:bg-neutral-100 transition-colors duration-500 ease-out"}
                 >
                     <div className={"grid grid-cols-[auto,1fr] gap-3"}>
-                        <AvatarV2 src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
+                        <AvatarV2
+                            src={avatarLink}
+                            alt={post?.metadata.media?.original?.mimeType}
+                            fallback={logoProfile}
+                        />
                         <div>
                             <Heading
                                 name={post?.profile?.handle.replace(".test", "")}
@@ -50,7 +55,11 @@ function PostV2({ post }) {
                     className={"border-t-[1px] px-4 pt-3 pb-2 hover:bg-neutral-100 transition-colors duration-500 ease-out"}
                 >
                     <div className={"grid grid-cols-[auto,1fr] gap-3"}>
-                        <AvatarV2 src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
+                        <AvatarV2
+                            src={avatarLink}
+                            alt={post?.metadata.media?.original?.mimeType}
+                            fallback={logoProfile}
+                        />
                         <div>
                             <Heading
                                 name={post?.mainPost.profile.handle.replace(".test", "")}
@@ -70,7 +79,11 @@ function PostV2({ post }) {
                     </div>
                     {/* eto yung hati */}
                     <div className={"grid grid-cols-[auto,1fr] gap-3 my-5"}>
-                        <AvatarV2 src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
+                        <AvatarV2
+                            src={avatarLink}
+                            fallback={logoProfile}
+                            alt={post?.metadata.media?.original?.mimeType}
+                        />
                         <div>
                             <Heading
                                 name={post?.profile.handle.replace(".test", "")}
