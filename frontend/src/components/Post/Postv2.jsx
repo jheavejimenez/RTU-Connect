@@ -4,6 +4,8 @@ import Avatar from "../Avatar/Avatar";
 import Heading from "./HeadingV2";
 import Actions from "./ActionsV2";
 import { fixURL } from "../../utils/helpers";
+import ImageWithFallback from "../Img/ImageWithFallback";
+import logoProfile from "../../icons/profile-icon.png";
 
 function PostV2({ post }) {
     const avatarLink = fixURL(post.profile?.picture?.original.url);
@@ -17,7 +19,13 @@ function PostV2({ post }) {
                     className={"border-t-[1px] px-4 pt-3 pb-2 hover:bg-neutral-100 transition-colors duration-500 ease-out"}
                 >
                     <div className={"grid grid-cols-[auto,1fr] gap-3"}>
-                        <Avatar src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
+                        <div className={"w-auto h-auto rounded-full"}>
+                            <ImageWithFallback
+                                className={"w-12 h-12 object-cover rounded-full shadow cursor-pointer"}
+                                src={avatarLink}
+                                fallback={logoProfile}
+                            />
+                        </div>
                         <div>
                             <Heading
                                 name={post?.profile?.handle.replace(".test", "")}
@@ -50,7 +58,13 @@ function PostV2({ post }) {
                     className={"border-t-[1px] px-4 pt-3 pb-2 hover:bg-neutral-100 transition-colors duration-500 ease-out"}
                 >
                     <div className={"grid grid-cols-[auto,1fr] gap-3"}>
-                        <Avatar src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
+                        <div className={"w-auto h-auto rounded-full"}>
+                            <ImageWithFallback
+                                className={"w-12 h-12 object-cover rounded-full shadow cursor-pointer"}
+                                src={avatarLink}
+                                fallback={logoProfile}
+                            />
+                        </div>
                         <div>
                             <Heading
                                 name={post?.mainPost.profile.handle.replace(".test", "")}
@@ -70,7 +84,13 @@ function PostV2({ post }) {
                     </div>
                     {/* eto yung hati */}
                     <div className={"grid grid-cols-[auto,1fr] gap-3 my-5"}>
-                        <Avatar src={avatarLink} alt={post?.metadata.media?.original?.mimeType} />
+                        <div className={"w-auto h-auto rounded-full"}>
+                            <ImageWithFallback
+                                className={"w-12 h-12 object-cover rounded-full shadow cursor-pointer"}
+                                src={avatarLink}
+                                fallback={logoProfile}
+                            />
+                        </div>
                         <div>
                             <Heading
                                 name={post?.profile.handle.replace(".test", "")}
