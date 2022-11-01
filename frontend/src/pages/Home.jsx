@@ -7,6 +7,7 @@ import { GET_TIMELINE } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import ComposePost from "../components/ComposePost/ComposePost";
 import PostV2 from "../components/Post/Postv2";
+import logoProfile from "../icons/profile-icon.png";
 
 function Home({ setPost }) {
     const [notFound, setNotFound] = useState(false);
@@ -57,6 +58,15 @@ function Home({ setPost }) {
                     <div className={"bg-white shadow gap-2 px-4 py-3 my-5 rounded-md"}>
                         <div className={"flex my-3"}>
                             <span className={"font-bold text-gray-900"}>{"Who to follow"}</span>
+                        </div>
+                        <div>
+                            <div className={"flex items-center gap-2"}>
+                                <img className={"h-10 w-10 rounded-full"} src={logoProfile} alt={""} />
+                                <div className={"flex flex-col"}>
+                                    <span className={"font-bold text-gray-900"}>{"Jheave Jimenez"}</span>
+                                    <span className={"text-gray-600"}>{"@jheave"}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </aside>
