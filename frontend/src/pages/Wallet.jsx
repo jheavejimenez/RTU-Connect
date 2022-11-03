@@ -171,7 +171,7 @@ function Wallet({
                             >
                                 {"Don"}
                                 &apos;
-                                {"t have an Handle? Create an handle now!"}
+                                {"t have a metamask? Create an metamask now!"}
                             </a>
                         </div>
                     </div>
