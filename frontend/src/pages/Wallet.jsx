@@ -67,7 +67,6 @@ function Wallet({
         const contract = new ethers.Contract(ADDRESS.lensHub, lensHubABI, signer);
 
         setLensHub(contract);
-        console.log("contract", contract);
         provider.getBalance(address).then((balance) => {
             // convert a currency unit from wei to ether
             const balanceInEth = ethers.utils.formatEther(balance);
@@ -97,7 +96,6 @@ function Wallet({
 
     useEffect(() => {
         if (!profiles.data) return;
-        console.log("profiles", profiles.data.profiles.items);
 
         const data = profiles.data.profiles.items[0];
         profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
@@ -138,7 +136,6 @@ function Wallet({
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
-            {/* <ModalInstructions /> // todo only open ounce */}
             <div className={"flex w-full justify-center px-6"}>
                 <div className={"shadow-md bg-white items-center w-full flex"} style={{ height: "500px" }}>
                     <div className={"w-1/2  p-5 rounded-lg lg:rounded-r-none"}>

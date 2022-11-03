@@ -117,7 +117,6 @@ function Post({
                             <div className={"bg-gray-100 rounded-lg px-4 pt-2 pb-2.5 font-normal"}>
                                 <div className={"font-semibold text-sm text-gray-600 leading-relaxed"}>
                                     {post.mainPost.profile.handle.replace(".test", "")}
-                                    {console.log("item")}
                                 </div>
                                 <div className={"text-xs leading-snug md:leading-normal"}>
                                     {post.mainPost.metadata?.content}
