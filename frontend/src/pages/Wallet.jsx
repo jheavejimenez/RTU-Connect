@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import lensHubABI from "../utils/lensHubABI.json";
-import { ADDRESS } from "../utils/constants";
+import { ADDRESS, gitBook } from "../utils/constants";
 import { GET_PROFILES } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import { AUTHENTICATION, GET_CHALLENGE } from "../graphQL/mutations";
@@ -167,7 +167,7 @@ function Wallet({
                         <div className={"text-center m-4"}>
                             <a
                                 className={"inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"}
-                                href={"/tutorial/metamask"}
+                                href={`"${gitBook}/getting-set-up/setting-up-metamask"`}
                             >
                                 {"Don"}
                                 &apos;
