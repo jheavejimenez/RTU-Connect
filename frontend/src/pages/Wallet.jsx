@@ -167,7 +167,9 @@ function Wallet({
                         <div className={"text-center m-4"}>
                             <a
                                 className={"inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"}
-                                href={`"${gitBook}/getting-set-up/setting-up-metamask"`}
+                                href={`${gitBook}/getting-set-up/setting-up-metamask`}
+                                target={"_blank"}
+                                rel={"noreferrer"}
                             >
                                 {"Don"}
                                 &apos;

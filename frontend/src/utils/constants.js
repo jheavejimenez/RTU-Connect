@@ -17,4 +17,4 @@ export const staffHandles = [
     "@darell",
 ];
 
-export const gitBook = "https://jhv.gitbook.io/rtu-connect/getting-set-up/setting-up-metamask";
+export const gitBook = "https://jhv.gitbook.io/rtu-connect";
