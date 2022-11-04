@@ -13,7 +13,6 @@ function CreateHandle() {
         e.preventDefault();
         const handle = handleRef.current.value.replace("@", "");
         if (!handle) {
-            console.log("no handle");
             return;
         }
         const profileRequest = {
@@ -28,7 +27,6 @@ function CreateHandle() {
 
     useEffect(() => {
         if (!createProfileData.data) return;
-        console.log(createProfileData.data.createProfile.reason);
 
         if (createProfileData.data.createProfile.reason !== "HANDLE_TAKEN") {
             navigate("/login");

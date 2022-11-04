@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import lensHubABI from "../utils/lensHubABI.json";
-import { ADDRESS } from "../utils/constants";
+import { ADDRESS, gitBook } from "../utils/constants";
 import { GET_PROFILES } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import { AUTHENTICATION, GET_CHALLENGE } from "../graphQL/mutations";
@@ -67,7 +67,6 @@ function Wallet({
         const contract = new ethers.Contract(ADDRESS.lensHub, lensHubABI, signer);
 
         setLensHub(contract);
-        console.log("contract", contract);
         provider.getBalance(address).then((balance) => {
             // convert a currency unit from wei to ether
             const balanceInEth = ethers.utils.formatEther(balance);
@@ -97,7 +96,6 @@ function Wallet({
 
     useEffect(() => {
         if (!profiles.data) return;
-        console.log("profiles", profiles.data.profiles.items);
 
         const data = profiles.data.profiles.items[0];
         profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
@@ -138,7 +136,6 @@ function Wallet({
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
-            {/* <ModalInstructions /> // todo only open ounce */}
             <div className={"flex w-full justify-center px-6"}>
                 <div className={"shadow-md bg-white items-center w-full flex"} style={{ height: "500px" }}>
                     <div className={"w-1/2  p-5 rounded-lg lg:rounded-r-none"}>
@@ -170,11 +167,13 @@ function Wallet({
                         <div className={"text-center m-4"}>
                             <a
                                 className={"inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"}
-                                href={"/create-handle"}
+                                href={`${gitBook}/getting-set-up/setting-up-metamask`}
+                                target={"_blank"}
+                                rel={"noreferrer"}
                             >
                                 {"Don"}
                                 &apos;
-                                {"t have an Handle? Create an handle now!"}
+                                {"t have a metamask? Create an metamask now!"}
                             </a>
                         </div>
                     </div>

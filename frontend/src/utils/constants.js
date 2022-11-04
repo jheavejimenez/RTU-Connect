@@ -16,3 +16,5 @@ export const staffHandles = [
     "@lawrence",
     "@darell",
 ];
+
+export const gitBook = "https://jhv.gitbook.io/rtu-connect";
