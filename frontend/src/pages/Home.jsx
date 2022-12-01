@@ -9,7 +9,7 @@ import ComposePost from "../components/ComposePost/ComposePost";
 import PostV2 from "../components/Post/Postv2";
 import logoProfile from "../icons/profile-icon.png";
 import AvatarV2 from "../components/Avatar/AvatarV2";
-import { staffHandles, staffNames } from "../utils/constants";
+import { staffNames } from "../utils/constants";
 
 function Home({ setPost }) {
     const [notFound, setNotFound] = useState(false);
