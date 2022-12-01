@@ -126,7 +126,6 @@ function ComposePost({ profile }) {
                     deadline: typedData.value.deadline,
                 },
             });
-            console.log("create post: tx hash", tx.hash);
         };
         processPost();
     }, [typedPostData.data]);
