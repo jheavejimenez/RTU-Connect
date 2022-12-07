@@ -188,15 +188,13 @@ function Wallet({
             login(auth.data?.authenticate.accessToken);
             window.sessionStorage.setItem("refreshToken", auth.data?.authenticate.refreshToken);
 
-            const { data: profileData } = await getProfile({
+            const { data: lens } = await getProfile({
                 variables: { request: { ownedBy: wallet.address } },
             });
 
-            if (profileData.profiles?.items) {
-                const profiles = profileData?.profiles.items;
-                const currentProfile = profiles[0];
-                setProfiles(profiles);
-                setCurrentProfile(currentProfile);
+            if (lens.profiles?.items) {
+                const profiles = lens?.profiles.items[0];
+                profileData(profiles !== undefined ? profiles : {});
             }
         } catch (error) {
             console.log(error);
