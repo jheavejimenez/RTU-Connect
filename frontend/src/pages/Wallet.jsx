@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import toast from "react-hot-toast";
 import Web3Modal from "@0xsequence/web3modal";
 import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
