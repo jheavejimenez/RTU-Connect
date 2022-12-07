@@ -5,7 +5,7 @@ import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import { CREATE_PROFILE } from "../graphQL/mutations";
 
 function CreateHandle() {
-    const [createProfile, createProfileData] = useMutation(CREATE_PROFILE);
+    const [createProfile, createProfileData, { loading }] = useMutation(CREATE_PROFILE);
     const handleRef = createRef();
     const navigate = useNavigate();
 
