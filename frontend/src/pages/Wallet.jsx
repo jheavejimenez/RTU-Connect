@@ -55,6 +55,39 @@ function Wallet({
         }
         const wallet = await web3Modal.connect();
 
+        // switch to mumbai testnet if not already on it
+        if (wallet?.chainId !== 80001) {
+            try {
+                await wallet.request({
+                    method: "wallet_switchEthereumChain",
+                    params: [{ chainId: "0x13881" }],
+                });
+            } catch (error) {
+                if (error.code === 4902) {
+                    try {
+                        await wallet.request({
+                            method: "wallet_addEthereumChain",
+                            params: [
+                                {
+                                    chainId: "0x13881",
+                                    chainName: "Mumbai Testnet",
+                                    nativeCurrency: {
+                                        name: "MATIC",
+                                        symbol: "MATIC",
+                                        decimals: 18,
+                                    },
+                                    rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+                                    blockExplorerUrls: ["https://mumbai.polygonscan.com"],
+                                },
+                            ],
+                        });
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            }
+        }
+
         const provider = new ethers.providers.Web3Provider(wallet);
 
         if (wallet.sequence) {
