@@ -122,13 +122,6 @@ function Wallet({
         });
     };
 
-    useEffect(() => {
-        if (!profiles.data) return;
-
-        const data = profiles.data.profiles.items[0];
-        profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
-    }, [profiles.data]);
-
     async function handleLogin() {
         try {
             const challenge = await getChallenge({
@@ -197,6 +190,13 @@ function Wallet({
             </button>
         );
     }
+
+    useEffect(() => {
+        if (!profiles.data) return;
+
+        const data = profiles.data.profiles.items[0];
+        profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
+    }, [profiles.data]);
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
