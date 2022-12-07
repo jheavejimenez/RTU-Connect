@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useMutation } from "@apollo/client";
 import { ethers } from "ethers";
+import toast from "react-hot-toast";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import {
@@ -36,7 +37,7 @@ function ComposeComment({ publicationId }) {
     const handleCreateComment = async (e) => {
         e.preventDefault();
         if (!publicationId) {
-            alert("comment is empty");
+            toast.error("comment is empty");
             return;
         }
         const metadataURI = await uploadToIPFS();

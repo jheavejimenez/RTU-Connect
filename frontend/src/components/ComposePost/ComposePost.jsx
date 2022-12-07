@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { ethers } from "ethers";
 import { v4 as uuidv4 } from "uuid";
 import { NFTStorage } from "nft.storage";
+import toast from "react-hot-toast";
 import Gallery from "../../svg/Gallery";
 import ButtonFunctionCall from "../Button/ButtonFunctionCall";
 import { submarine } from "../../utils/pinataAPICall";
@@ -55,7 +56,7 @@ function ComposePost({ profile }) {
     const handleCreatePost = async (e) => {
         e.preventDefault();
         if (!content) {
-            alert("Please enter some content");
+            toast.error("Please enter some content");
             return;
         }
         const metadataURI = await uploadToIPFS();
