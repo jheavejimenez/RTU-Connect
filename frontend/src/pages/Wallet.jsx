@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import toast from "react-hot-toast";
 import Web3Modal from "@0xsequence/web3modal";
 import { ethers } from "ethers";
 import { useLazyQuery, useMutation } from "@apollo/client";
@@ -41,9 +42,14 @@ const web3Modal = new Web3Modal({
 function Wallet({
     wallet, setWallet, setLensHub,
 }) {
+    const [getChallenge, {
+        loading: challengeLoading,
+    }] = useLazyQuery(GET_CHALLENGE);
+    const [authenticate, {
+        error: authenticateError,
+        loading: authenticateLoading,
+    }] = useMutation(AUTHENTICATION);
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
-    const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
-    const [mutateAuth, authData] = useMutation(AUTHENTICATION);
 
     const { profileData, login } = useAuth();
 
@@ -54,6 +60,39 @@ function Wallet({
             web3Modal.clearCachedProvider();
         }
         const wallet = await web3Modal.connect();
+
+        // switch to mumbai testnet if not already on it
+        if (wallet?.chainId !== 80001) {
+            try {
+                await wallet.request({
+                    method: "wallet_switchEthereumChain",
+                    params: [{ chainId: "0x13881" }],
+                });
+            } catch (error) {
+                if (error.code === 4902) {
+                    try {
+                        await wallet.request({
+                            method: "wallet_addEthereumChain",
+                            params: [
+                                {
+                                    chainId: "0x13881",
+                                    chainName: "Mumbai Testnet",
+                                    nativeCurrency: {
+                                        name: "MATIC",
+                                        symbol: "MATIC",
+                                        decimals: 18,
+                                    },
+                                    rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+                                    blockExplorerUrls: ["https://mumbai.polygonscan.com"],
+                                },
+                            ],
+                        });
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            }
+        }
 
         const provider = new ethers.providers.Web3Provider(wallet);
 
@@ -74,7 +113,6 @@ function Wallet({
                 ...wallet, signer, address, balanceInEth,
             });
         });
-
         await getProfiles({
             variables: {
                 request: {
@@ -84,15 +122,74 @@ function Wallet({
         });
     };
 
-    const handleGetChallenge = async () => {
-        await getChallenge({
-            variables: {
-                request: {
-                    address: wallet.address,
-                },
-            },
-        });
-    };
+    async function handleLogin() {
+        try {
+            const challenge = await getChallenge({
+                variables: { request: { address: wallet.address } },
+            });
+            if (!challenge?.data?.challenge?.text) {
+                toast.error("Error getting challenge");
+            }
+            
+            const signature = await wallet.signer.signMessage(challenge.data.challenge.text);
+            
+            const auth = await authenticate({
+                variables: { request: { address: wallet.address, signature } },
+            });
+
+            // set data to local storage
+            localStorage.setItem("accessToken", auth.data?.authenticate.accessToken);
+            localStorage.setItem("refreshToken", auth.data?.authenticate.refreshToken);
+            login(auth.data?.authenticate.accessToken);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function lensLogin() {
+        if (challengeLoading || authenticateLoading) {
+            // button loading using tailwind
+            return (
+                <button
+                    type={"button"}
+                    className={"flex items-center justify-center w-60 px-4 py-2"
+                        + " font-bold text-white bg-blue-500 rounded-full"}
+                >
+                    <svg
+                        className={"w-5 h-5 mr-3 -ml-1 text-white animate-spin"}
+                        xmlns={"http://www.w3.org/2000/svg"}
+                        fill={"none"}
+                        viewBox={"0 0 24 24"}
+                    >
+                        <circle
+                            className={"opacity-25"}
+                            cx={"12"}
+                            cy={"12"}
+                            r={"10"}
+                            stroke={"currentColor"}
+                            strokeWidth={"4"}
+                        />
+                        <path
+                            className={"opacity-75"}
+                            fill={"currentColor"}
+                            d={"M4 12a8 8 0 018-8v8H4z"}
+                        />
+                    </svg>
+                    <span>{"Signing in..."}</span>
+                </button>
+            );
+        }
+        return (
+            <button
+                type={"button"}
+                className={"w-60 px-4 py-2 font-bold text-white bg-blue-500 rounded-full "
+                    + "hover:bg-blue-700 focus:outline-none focus:shadow-outline"}
+                onClick={handleLogin}
+            >
+                {"sign in to RTU Connect"}
+            </button>
+        );
+    }
 
     useEffect(() => {
         if (!profiles.data) return;
@@ -100,39 +197,6 @@ function Wallet({
         const data = profiles.data.profiles.items[0];
         profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
     }, [profiles.data]);
-
-    useEffect(() => {
-        if (!challengeData.data) return;
-
-        const handleSign = async () => {
-            // eslint-disable-next-line max-len
-            const signature = await wallet.signer.signMessage(challengeData.data.challenge.text);
-            await mutateAuth({
-                variables: {
-                    request: {
-                        address: wallet.address,
-                        signature,
-                    },
-                },
-            });
-        };
-
-        handleSign();
-    }, [challengeData.data]);
-
-    useEffect(() => {
-        if (!authData.data) return;
-
-        login(authData.data.authenticate.accessToken);
-        window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
-    }, [authData.data]);
-
-    // const connectWeb3Modal = async () => {
-    //     if (web3Modal.cachedProvider) {
-    //         web3Modal.clearCachedProvider();
-    //     }
-    //     connectWallet();
-    // };
 
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
@@ -152,15 +216,11 @@ function Wallet({
                                 ? (
                                     <ButtonFunctionCall
                                         func={connectWallet}
-                                        text={"Login"}
+                                        text={"connect wallet"}
                                     />
                                 )
                                 : (
-                                    <ButtonFunctionCall
-                                        func={handleGetChallenge}
-                                        text={"Sign In to RTU-Connect"}
-                                    />
-
+                                    lensLogin()
                                 )}
                         </div>
                         <hr className={"my-6"} />
@@ -183,6 +243,7 @@ function Wallet({
                     />
                 </div>
             </div>
+            {(authenticateError) && toast.error("Error logging in. Please refresh the browser and try again")}
         </div>
     );
 }

@@ -14,6 +14,7 @@ export function AuthProvider({ children }) {
     // call this function when you want to authenticate the user
     const login = async (data) => {
         setUser(data);
+        console.log("user", profile);
         // before navigating to home, we check if the user has a profile
         // if not, we redirect to the create profile page
         if (!profile.handle) {
@@ -34,6 +35,11 @@ export function AuthProvider({ children }) {
     const logout = () => {
         setUser(null);
         setProfile({});
+
+        // remove the token from local storage
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
         navigate("/login", { replace: true });
     };
 
