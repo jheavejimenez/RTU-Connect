@@ -41,11 +41,18 @@ const web3Modal = new Web3Modal({
 function Wallet({
     wallet, setWallet, setLensHub,
 }) {
-    const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
-    const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
-    const [mutateAuth, authData] = useMutation(AUTHENTICATION);
-    const { data } = challengeData;
-    console.log(data);
+    const [getChallenge, {
+        error: challengeError,
+        loading: challengeLoading,
+    }] = useLazyQuery(GET_CHALLENGE);
+    const [authenticate, {
+        error: authenticateError,
+        loading: authenticateLoading,
+    }] = useMutation(AUTHENTICATION);
+    const [getProfile, {
+        error: profileError,
+        loading: profileLoading,
+    }] = useLazyQuery(GET_PROFILES);
     const { profileData, login } = useAuth();
 
     // optimize this after capstone defense 1
@@ -108,61 +115,50 @@ function Wallet({
                 ...wallet, signer, address, balanceInEth,
             });
         });
-
-        await getProfiles({
-            variables: {
-                request: {
-                    ownedBy: address,
-                },
-            },
-        });
     };
-
-    const handleGetChallenge = async () => {
-        if (data) {
-            alert("please refresh the page");
-        }
-        await getChallenge({
-            variables: {
-                request: {
-                    address: wallet.address,
-                },
-            },
-        });
-    };
-
-    useEffect(() => {
-        if (!profiles.data) return;
-
-        const data = profiles.data.profiles.items[0];
-        profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
-    }, [profiles.data]);
-
-    useEffect(() => {
-        if (!challengeData.data) return;
-
-        const handleSign = async () => {
-            // eslint-disable-next-line max-len
-            const signature = await wallet.signer.signMessage(challengeData.data.challenge.text);
-            await mutateAuth({
-                variables: {
-                    request: {
-                        address: wallet.address,
-                        signature,
-                    },
-                },
-            });
-        };
-
-        handleSign();
-    }, [challengeData.data]);
-
-    useEffect(() => {
-        if (!authData.data) return;
-
-        login(authData.data.authenticate.accessToken);
-        window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
-    }, [authData.data]);
+    //
+    // const handleGetChallenge = async () => {
+    //     await getChallenge({
+    //         variables: {
+    //             request: {
+    //                 address: wallet.address,
+    //             },
+    //         },
+    //     });
+    // };
+    //
+    // useEffect(() => {
+    //     if (!profiles.data) return;
+    //
+    //     const data = profiles.data.profiles.items[0];
+    //     profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
+    // }, [profiles.data]);
+    //
+    // useEffect(() => {
+    //     if (!challengeData.data) return;
+    //
+    //     const handleSign = async () => {
+    //         // eslint-disable-next-line max-len
+    //         const signature = await wallet.signer.signMessage(challengeData.data.challenge.text);
+    //         await mutateAuth({
+    //             variables: {
+    //                 request: {
+    //                     address: wallet.address,
+    //                     signature,
+    //                 },
+    //             },
+    //         });
+    //     };
+    //
+    //     handleSign();
+    // }, [challengeData.data]);
+    //
+    // useEffect(() => {
+    //     if (!authData.data) return;
+    //
+    //     login(authData.data.authenticate.accessToken);
+    //     window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
+    // }, [authData.data]);
 
     // const connectWeb3Modal = async () => {
     //     if (web3Modal.cachedProvider) {
@@ -171,6 +167,38 @@ function Wallet({
     //     connectWallet();
     // };
 
+    async function handleLogin() {
+        try {
+            const challenge = await getChallenge({
+                variables: { request: { address: wallet.address } },
+            });
+
+            if (!challenge?.data?.challenge?.text) {
+                toast.error("Error getting challenge");
+            }
+
+            const signature = await wallet.signer.signMessage(challenge.data.challenge.text);
+
+            const auth = await authenticate({
+                variables: { request: { address: wallet.address, signature } },
+            });
+
+            login(auth.data?.authenticate.accessToken);
+
+            const { data: profileData } = await getProfile({
+                variables: { request: { ownedBy: wallet.address } },
+            });
+
+            if (profileData.profiles?.items) {
+                const profiles = profileData?.profiles.items;
+                const currentProfile = profiles[0];
+                setProfiles(profiles);
+                setCurrentProfile(currentProfile);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <div className={"container flex items-center justify-center mx-auto h-screen"}>
             <div className={"flex w-full justify-center px-6"}>
@@ -194,7 +222,7 @@ function Wallet({
                                 )
                                 : (
                                     <ButtonFunctionCall
-                                        func={handleGetChallenge}
+                                        func={handleLogin}
                                         text={"Sign In to RTU-Connect"}
                                     />
 
