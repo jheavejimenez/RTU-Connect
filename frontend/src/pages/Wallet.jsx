@@ -138,39 +138,7 @@ function Wallet({
         const data = profiles.data.profiles.items[0];
         profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
     }, [profiles.data]);
-    //
-    // useEffect(() => {
-    //     if (!challengeData.data) return;
-    //
-    //     const handleSign = async () => {
-    //         // eslint-disable-next-line max-len
-    //         const signature = await wallet.signer.signMessage(challengeData.data.challenge.text);
-    //         await mutateAuth({
-    //             variables: {
-    //                 request: {
-    //                     address: wallet.address,
-    //                     signature,
-    //                 },
-    //             },
-    //         });
-    //     };
-    //
-    //     handleSign();
-    // }, [challengeData.data]);
-    //
-    // useEffect(() => {
-    //     if (!authData.data) return;
-    //
-    //     login(authData.data.authenticate.accessToken);
-    //     window.sessionStorage.setItem("lensToken", authData.data.authenticate.accessToken);
-    // }, [authData.data]);
 
-    // const connectWeb3Modal = async () => {
-    //     if (web3Modal.cachedProvider) {
-    //         web3Modal.clearCachedProvider();
-    //     }
-    //     connectWallet();
-    // };
     async function handleLogin() {
         try {
             const challenge = await getChallenge({
