@@ -121,17 +121,7 @@ function Wallet({
             },
         });
     };
-    //
-    // const handleGetChallenge = async () => {
-    //     await getChallenge({
-    //         variables: {
-    //             request: {
-    //                 address: wallet.address,
-    //             },
-    //         },
-    //     });
-    // };
-    //
+
     useEffect(() => {
         if (!profiles.data) return;
 
