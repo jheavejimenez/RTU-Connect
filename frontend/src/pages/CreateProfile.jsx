@@ -1,6 +1,7 @@
 import React, { createRef, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import ButtonFunctionCall from "../components/Button/ButtonFunctionCall";
 import { CREATE_PROFILE } from "../graphQL/mutations";
 
@@ -32,7 +33,7 @@ function CreateHandle() {
             // navigate to login page with window reload
             navigate("/login");
         } else {
-            alert("Handle already taken");
+            toast.error("Handle already taken");
         }
     }, [createProfileData.data]);
 
