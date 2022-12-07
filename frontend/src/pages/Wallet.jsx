@@ -53,6 +53,7 @@ function Wallet({
         error: profileError,
         loading: profileLoading,
     }] = useLazyQuery(GET_PROFILES);
+
     const { profileData, login } = useAuth();
 
     // optimize this after capstone defense 1
