@@ -8,6 +8,7 @@ function CreateHandle() {
     const [createProfile, createProfileData, { loading }] = useMutation(CREATE_PROFILE);
     const handleRef = createRef();
     const navigate = useNavigate();
+
     const handleCreate = async (e) => {
         e.preventDefault();
         const handle = handleRef.current.value.replace("@", "");
@@ -28,7 +29,9 @@ function CreateHandle() {
         if (!createProfileData.data) return;
 
         if (createProfileData.data.createProfile.reason !== "HANDLE_TAKEN") {
+            // navigate to login page with window reload
             navigate("/login");
+            window.location.reload();
         }
     }, [createProfileData.data]);
 
