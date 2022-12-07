@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import Web3Modal from "@0xsequence/web3modal";
 import { ethers } from "ethers";
@@ -43,17 +43,13 @@ function Wallet({
     wallet, setWallet, setLensHub,
 }) {
     const [getChallenge, {
-        error: challengeError,
         loading: challengeLoading,
     }] = useLazyQuery(GET_CHALLENGE);
     const [authenticate, {
         error: authenticateError,
         loading: authenticateLoading,
     }] = useMutation(AUTHENTICATION);
-    const [getProfile, {
-        error: profileError,
-        loading: profileLoading,
-    }] = useLazyQuery(GET_PROFILES);
+    const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
 
     const { profileData, login } = useAuth();
 
@@ -117,6 +113,13 @@ function Wallet({
                 ...wallet, signer, address, balanceInEth,
             });
         });
+        await getProfiles({
+            variables: {
+                request: {
+                    ownedBy: address,
+                },
+            },
+        });
     };
     //
     // const handleGetChallenge = async () => {
@@ -129,12 +132,12 @@ function Wallet({
     //     });
     // };
     //
-    // useEffect(() => {
-    //     if (!profiles.data) return;
-    //
-    //     const data = profiles.data.profiles.items[0];
-    //     profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
-    // }, [profiles.data]);
+    useEffect(() => {
+        if (!profiles.data) return;
+
+        const data = profiles.data.profiles.items[0];
+        profileData(data !== undefined ? data : {}); // this code can cause a bug in the future
+    }, [profiles.data]);
     //
     // useEffect(() => {
     //     if (!challengeData.data) return;
@@ -168,42 +171,32 @@ function Wallet({
     //     }
     //     connectWallet();
     // };
-
     async function handleLogin() {
         try {
             const challenge = await getChallenge({
                 variables: { request: { address: wallet.address } },
             });
-
             if (!challenge?.data?.challenge?.text) {
                 toast.error("Error getting challenge");
             }
-
+            
             const signature = await wallet.signer.signMessage(challenge.data.challenge.text);
-
+            
             const auth = await authenticate({
                 variables: { request: { address: wallet.address, signature } },
             });
 
             // set data to local storage
-            login(auth.data?.authenticate.accessToken);
+            localStorage.setItem("accessToken", auth.data?.authenticate.accessToken);
             localStorage.setItem("refreshToken", auth.data?.authenticate.refreshToken);
-
-            const { data: lens } = await getProfile({
-                variables: { request: { ownedBy: wallet.address } },
-            });
-
-            if (lens.profiles?.items) {
-                const profiles = lens?.profiles.items[0];
-                profileData(profiles !== undefined ? profiles : {});
-            }
+            login(auth.data?.authenticate.accessToken);
         } catch (error) {
             console.log(error);
         }
     }
 
     function lensLogin() {
-        if (challengeLoading || authenticateLoading || profileLoading) {
+        if (challengeLoading || authenticateLoading) {
             // button loading using tailwind
             return (
                 <button
@@ -292,8 +285,7 @@ function Wallet({
                     />
                 </div>
             </div>
-            {(challengeError || authenticateError || profileError)
-                && toast.error("Error logging in. Please refresh the browser and try again")}
+            {(authenticateError) && toast.error("Error logging in. Please refresh the browser and try again")}
         </div>
     );
 }

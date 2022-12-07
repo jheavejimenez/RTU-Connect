@@ -5,7 +5,7 @@ import useLocalStorage from "./useLocalStorage";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useLocalStorage("accessToken", "");
+    const [user, setUser] = useLocalStorage("lensToken", "");
     const [profile, setProfile] = useLocalStorage("profile", {});
     const [wallets, setWallet] = useLocalStorage("wallet", {});
 
@@ -14,6 +14,7 @@ export function AuthProvider({ children }) {
     // call this function when you want to authenticate the user
     const login = async (data) => {
         setUser(data);
+        console.log("user", profile);
         // before navigating to home, we check if the user has a profile
         // if not, we redirect to the create profile page
         if (!profile.handle) {
