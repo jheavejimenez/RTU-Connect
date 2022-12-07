@@ -44,7 +44,8 @@ function Wallet({
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
     const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
     const [mutateAuth, authData] = useMutation(AUTHENTICATION);
-
+    const { data } = challengeData;
+    console.log(data);
     const { profileData, login } = useAuth();
 
     // optimize this after capstone defense 1
@@ -118,6 +119,9 @@ function Wallet({
     };
 
     const handleGetChallenge = async () => {
+        if (data) {
+            alert("please refresh the page");
+        }
         await getChallenge({
             variables: {
                 request: {
