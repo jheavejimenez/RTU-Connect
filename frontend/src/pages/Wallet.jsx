@@ -42,7 +42,7 @@ function Wallet({
     wallet, setWallet, setLensHub,
 }) {
     const [getProfiles, profiles] = useLazyQuery(GET_PROFILES);
-    const [getChallenge, challengeData] = useLazyQuery(GET_CHALLENGE);
+    const [getChallenge, challengeData, { loading }] = useLazyQuery(GET_CHALLENGE);
     const [mutateAuth, authData] = useMutation(AUTHENTICATION);
 
     const { profileData, login } = useAuth();
