@@ -20,6 +20,15 @@ export function splitSignature(signature) {
     return utils.splitSignature(signature);
 }
 
+// check if jwt token is expired
+export const isTokenExpired = (token) => {
+    const payloadBase64 = token.split(".")[1];
+    const decodedJson = Buffer.from(payloadBase64, "base64").toString();
+    const decoded = JSON.parse(decodedJson);
+    const { exp } = decoded;
+    return Date.now() >= exp * 1000;
+};
+
 export function generateRandomColor() {
     const maxVal = 0xFFFFFF; // 16777215
     let randomNumber = Math.random() * maxVal;

@@ -187,7 +187,7 @@ function Wallet({
 
             // set data to local storage
             login(auth.data?.authenticate.accessToken);
-            window.sessionStorage.setItem("refreshToken", auth.data?.authenticate.refreshToken);
+            localStorage.setItem("refreshToken", auth.data?.authenticate.refreshToken);
 
             const { data: lens } = await getProfile({
                 variables: { request: { ownedBy: wallet.address } },
