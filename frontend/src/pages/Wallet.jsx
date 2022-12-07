@@ -183,7 +183,9 @@ function Wallet({
                 variables: { request: { address: wallet.address, signature } },
             });
 
+            // set data to local storage
             login(auth.data?.authenticate.accessToken);
+            window.sessionStorage.setItem("refreshToken", auth.data?.authenticate.refreshToken);
 
             const { data: profileData } = await getProfile({
                 variables: { request: { ownedBy: wallet.address } },
