@@ -185,7 +185,7 @@ function Wallet({
                                 ? (
                                     <ButtonFunctionCall
                                         func={connectWallet}
-                                        text={"Login"}
+                                        text={"connect wallet"}
                                     />
                                 )
                                 : (
