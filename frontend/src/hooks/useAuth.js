@@ -35,6 +35,11 @@ export function AuthProvider({ children }) {
     const logout = () => {
         setUser(null);
         setProfile({});
+
+        // remove the token from local storage
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
         navigate("/login", { replace: true });
     };
 
