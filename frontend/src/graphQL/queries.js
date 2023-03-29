@@ -1413,6 +1413,7 @@ export const GET_EXPLORE = gql`
   explorePublications(request: {
     sortCriteria: LATEST,
     publicationTypes: [POST],
+    noRandomize: true,
     limit: 20,
     sources: [rtutest]
   }) {
