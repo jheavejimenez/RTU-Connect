@@ -3,7 +3,7 @@ import "../index.css";
 import { useQuery } from "@apollo/client";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import NavBar from "../components/NavBar/NavBar";
-import { GET_TIMELINE } from "../graphQL/queries";
+import { GET_EXPLORE } from "../graphQL/queries";
 import { useAuth } from "../hooks/useAuth";
 import ComposePost from "../components/ComposePost/ComposePost";
 import PostV2 from "../components/Post/Postv2";
@@ -16,24 +16,18 @@ function Home({ setPost }) {
     const [publications, setPublications] = useState([]);
     const { profile } = useAuth();
 
-    const { data, loading } = useQuery(GET_TIMELINE, {
-        variables: {
-            request: {
-                profileId: profile.id,
-            },
-        },
-    });
+    const { data, loading } = useQuery(GET_EXPLORE);
 
     useEffect(() => {
         if (!data) return;
 
-        if (data.timeline.items.length < 1) {
+        if (data.explorePublications.items < 1) {
             setNotFound(true);
             return;
         }
 
         const posts = [];
-        data.timeline.items.forEach((item) => {
+        data.explorePublications.items.forEach((item) => {
             posts.push(item);
             setPublications(posts);
             setPost(posts);
